@@ -1,0 +1,17 @@
+plugins {
+    id 'org.ysb33r.nodejs.npm' version '0.1'
+}
+
+task installDependencies( type : org.ysb33r.gradle.nodejs.tasks.NpmTask ) {
+    command  'install'
+}
+
+task buildVisualization( type : org.ysb33r.gradle.nodejs.tasks.NpmTask, dependsOn: installDependencies ) {
+    command  'run'
+    cmdArgs  'build'
+}
+
+task startServer( type : org.ysb33r.gradle.nodejs.tasks.NpmTask ) {
+    command  'run'
+    cmdArgs  'serve'
+}
