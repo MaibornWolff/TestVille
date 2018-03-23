@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns="http://www.example.org/configSerialization">
+
+  <settings>
+    <adapter>Alm</adapter>
+    <requirementIdColumn default="-1">11</requirementIdColumn>
+    <requirementNameColumn default="NO_REQ">12</requirementNameColumn>
+    <requirementPriorityColumn default="NO_PRIO">17</requirementPriorityColumn>
+    <testCaseIdColumn>0</testCaseIdColumn>
+    <testCaseNameColumn>1</testCaseNameColumn>
+    <testCasePriorityColumn default="NO_PRIO">10</testCasePriorityColumn>
+    </settings>
+</config>

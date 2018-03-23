@@ -1,0 +1,886 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <item>
+        <title>[BMWGMDET-1405] Fehlertoleranz</title> <!---->
+        <link>
+            https://issues.maibornwolff.de/browse/BMWGMDET-1405
+        </link>
+        <project id="16301" key="BMWGMDET">MDE Toolkette 2.0</project> <!---->
+        <description>
+            <p>Usability-Testing mithilfe des Usability Card Decks</p>
+        </description>
+        <environment/>
+        <key id="46440">BMWGMDET-1405</key> <!---->
+        <summary>Fehlertoleranz</summary>
+        <type id="10200"
+              iconUrl="https://issues.maibornwolff.de/download/resources/com.xpandit.plugins.xray/images/test.svg">Test
+        </type> <!---->
+        <priority id="4" iconUrl="https://issues.maibornwolff.de/images/icons/priorities/minor.svg">Minor
+        </priority> <!---->
+        <status id="11506" iconUrl="https://issues.maibornwolff.de/" description="">To Do</status> <!---->
+        <statusCategory id="2" key="new" colorName="blue-gray"/>
+        <resolution id="-1">Unresolved</resolution>
+        <assignee username="MonikaN">Monika Nill</assignee>
+        <reporter username="MonikaN">Monika Nill</reporter>
+        <labels></labels>
+        <created>Wed, 31 Jan 2018 10:09:46 +0100</created> <!---->
+        <updated>Wed, 31 Jan 2018 10:09:46 +0100</updated> <!---->
+        <due/>
+        <votes>0</votes>
+        <watches>1</watches>
+        <attachments></attachments>
+        <subtasks></subtasks>
+        <customfields>
+            <customfield id="customfield_11305" key="com.xpandit.plugins.xray:manual-test-steps-custom-field">
+                <customfieldname>Manual Test Steps</customfieldname>
+                <customfieldvalues>
+                    <steps>
+                        <step>
+                            <index>1</index>
+                            <step>
+                                <p>
+                                    Hindert das System deinen Nutzer daran, unsinnige Eingaben zu tätigen?
+                                </p>
+                            </step>
+                            <data/>
+                            <result/>
+                        </step>
+                        <step>
+                            <index>2</index>
+                            <step>
+                                <p>
+                                    Fängt das System häufige und leicht korrigierbare Fehler ab?
+                                </p>
+                            </step>
+                            <data/>
+                            <result/>
+                        </step>
+                        <step>
+                            <index>3</index>
+                            <step>
+                                <p>
+                                    Bietet das System bei Fehlern Handlungs- anweisungen zum weiteren Vorgehen?
+                                </p>
+                            </step>
+                            <data/>
+                            <result/>
+                        </step>
+                        <step>
+                            <index>4</index>
+                            <step>
+                                <p>
+                                    Sind Fehlermeldungen für deinen Nutzer verständlich formuliert?
+                                </p>
+                            </step>
+                            <data/>
+                            <result/>
+                        </step>
+                    </steps>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11306" key="com.xpandit.plugins.xray:manual-test-steps-export-custom-field">
+                <customfieldname>Manual Test Steps (Export)</customfieldname>
+                <customfieldvalues></customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11309" key="com.xpandit.plugins.xray:test-precondition-custom-field">
+                <customfieldname>Pre-Conditions association with a Test</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>[]</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_10700" key="com.pyxis.greenhopper.jira:gh-lexo-rank">
+                <customfieldname>Rank</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>1|x000w8:</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_10004" key="com.pyxis.greenhopper.jira:gh-global-rank">
+                <customfieldname>Rank (Veraltet)</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>9223372036854775807</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11307"
+                         key="com.xpandit.plugins.xray:manual-test-steps-count-count-custom-field"> <!---->
+                <customfieldname>Steps Count</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>4.0</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11310"
+                         key="com.xpandit.plugins.xray:test-plans-associated-with-test-custom-field">
+                <customfieldname>Test Plans associated with a Test</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>[]</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11308" key="com.xpandit.plugins.xray:test-sets-custom-field">
+                <customfieldname>Test Sets association with a Test</customfieldname> <!---->
+                <customfieldvalues>
+                    <customfieldvalue>[BMWGMDET-1398]</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11301" key="com.xpandit.plugins.xray:test-type-custom-field">
+                <customfieldname>Test Type</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>Manual</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11311" key="com.xpandit.plugins.xray:test-run-status-custom-field"> <!---->
+                <customfieldname>TestRunStatus</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>TODO</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11600" key="com.topshelfsolution.simpletasklists:all-tasks-cftype">
+                <customfieldname>allTasks</customfieldname>
+                <customfieldvalues></customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11602" key="com.topshelfsolution.simpletasklists:closed-tasks-cftype">
+                <customfieldname>closedTasks</customfieldname>
+                <customfieldvalues></customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11601" key="com.topshelfsolution.simpletasklists:open-tasks-cftype">
+                <customfieldname>openTasks</customfieldname>
+                <customfieldvalues></customfieldvalues>
+            </customfield>
+        </customfields>
+    </item>
+
+    <item>
+        <title>[BMWGMDET-1404] Test - Aufgabenangemessenheit</title>
+        <link>
+            https://issues.maibornwolff.de/browse/BMWGMDET-1404
+        </link>
+        <project id="16301" key="BMWGMDET">MDE Toolkette 2.0</project>
+        <description>
+            <p>Usability-Testing mithilfe des Usability Card Decks</p>
+        </description>
+        <environment/>
+        <key id="46439">BMWGMDET-1404</key>
+        <summary>Test - Aufgabenangemessenheit</summary>
+        <type id="10200" iconUrl="https://issues.maibornwolff.de/download/resources/com.xpandit.plugins.xray/images/test.svg">Test</type>
+        <priority id="4" iconUrl="https://issues.maibornwolff.de/images/icons/priorities/minor.svg">Minor</priority>
+        <status id="11506" iconUrl="https://issues.maibornwolff.de/" description="">To Do</status>
+        <statusCategory id="2" key="new" colorName="blue-gray"/>
+        <resolution id="-1">Unresolved</resolution>
+        <assignee username="MonikaN">Monika Nill</assignee>
+        <reporter username="MonikaN">Monika Nill</reporter>
+        <labels></labels>
+        <created>Wed, 31 Jan 2018 10:07:31 +0100</created>
+        <updated>Wed, 31 Jan 2018 10:07:31 +0100</updated>
+        <due/>
+        <votes>0</votes>
+        <watches>1</watches>
+        <attachments></attachments>
+        <subtasks></subtasks>
+        <customfields>
+            <customfield id="customfield_11305" key="com.xpandit.plugins.xray:manual-test-steps-custom-field">
+                <customfieldname>Manual Test Steps</customfieldname>
+                <customfieldvalues>
+                    <steps>
+                        <step>
+                            <index>1</index>
+                            <step>
+                                <p>
+                                    Beschränkt sich ein Dialog auf die notwendigen UI Elemente und Informationen?
+                                </p>
+                            </step>
+                            <data/>
+                            <result/>
+                        </step>
+                        <step>
+                            <index>2</index>
+                            <step>
+                                <p>
+                                    Sind Dialogtexte so kurz und bündig wie möglich und nötig?
+                                </p>
+                            </step>
+                            <data/>
+                            <result/>
+                        </step>
+                        <step>
+                            <index>3</index>
+                            <step>
+                                <p>
+                                    Haben alle UI Elemente die plattformabhängige Mindestgröße?
+                                </p>
+                            </step>
+                            <data/>
+                            <result/>
+                        </step>
+                        <step>
+                            <index>4</index>
+                            <step>
+                                <p>
+                                    Unterstützt das System den Nutzer durch sinnvolle Vorbelegungen und Vorauswahlen?
+                                </p>
+                            </step>
+                            <data/>
+                            <result/>
+                        </step>
+                        <step>
+                            <index>5</index>
+                            <step>
+                                <p>
+                                    Merkt sich das System Zwischenergebnisse und Informationen?
+                                </p>
+                            </step>
+                            <data/>
+                            <result/>
+                        </step>
+                    </steps>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11306" key="com.xpandit.plugins.xray:manual-test-steps-export-custom-field">
+                <customfieldname>Manual Test Steps (Export)</customfieldname>
+                <customfieldvalues></customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11309" key="com.xpandit.plugins.xray:test-precondition-custom-field">
+                <customfieldname>Pre-Conditions association with a Test</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>[]</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_10700" key="com.pyxis.greenhopper.jira:gh-lexo-rank">
+                <customfieldname>Rank</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>1|x000w0:</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_10004" key="com.pyxis.greenhopper.jira:gh-global-rank">
+                <customfieldname>Rank (Veraltet)</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>9223372036854775807</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11307" key="com.xpandit.plugins.xray:manual-test-steps-count-count-custom-field">
+                <customfieldname>Steps Count</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>5.0</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11310" key="com.xpandit.plugins.xray:test-plans-associated-with-test-custom-field">
+                <customfieldname>Test Plans associated with a Test</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>[]</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11308" key="com.xpandit.plugins.xray:test-sets-custom-field">
+                <customfieldname>Test Sets association with a Test</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>[BMWGMDET-1384]</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11301" key="com.xpandit.plugins.xray:test-type-custom-field">
+                <customfieldname>Test Type</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>Manual</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11311" key="com.xpandit.plugins.xray:test-run-status-custom-field">
+                <customfieldname>TestRunStatus</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>TODO</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11600" key="com.topshelfsolution.simpletasklists:all-tasks-cftype">
+                <customfieldname>allTasks</customfieldname>
+                <customfieldvalues></customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11602" key="com.topshelfsolution.simpletasklists:closed-tasks-cftype">
+                <customfieldname>closedTasks</customfieldname>
+                <customfieldvalues></customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11601" key="com.topshelfsolution.simpletasklists:open-tasks-cftype">
+                <customfieldname>openTasks</customfieldname>
+                <customfieldvalues></customfieldvalues>
+            </customfield>
+        </customfields>
+    </item>
+
+    <item>
+        <title>[BMWGMDET-1398] TestSet - Usability</title>
+        <link>
+            https://issues.maibornwolff.de/browse/BMWGMDET-1398
+        </link>
+        <project id="16301" key="BMWGMDET">MDE Toolkette 2.0</project>
+        <description/>
+        <environment/>
+        <key id="46432">BMWGMDET-1398</key>
+        <summary>TestSet - Usability</summary>
+        <type id="10201" iconUrl="https://issues.maibornwolff.de/download/resources/com.xpandit.plugins.xray/images/test-set.svg">Test Set</type>
+        <priority id="3" iconUrl="https://issues.maibornwolff.de/images/icons/priorities/major.svg">Major</priority>
+        <status id="11506" iconUrl="https://issues.maibornwolff.de/" description="">To Do</status>
+        <statusCategory id="2" key="new" colorName="blue-gray"/>
+        <resolution id="-1">Unresolved</resolution>
+        <assignee username="MonikaN">Monika Nill</assignee>
+        <reporter username="MonikaN">Monika Nill</reporter>
+        <labels></labels>
+        <created>Wed, 31 Jan 2018 09:52:43 +0100</created>
+        <updated>Wed, 31 Jan 2018 10:12:22 +0100</updated>
+        <component>Komponente_Frontend/Webportal</component>
+        <due/>
+        <votes>0</votes>
+        <watches>1</watches>
+        <attachments>
+            <attachment id="29904" name="UsabilityCardDeck.pdf" size="1918531" author="MonikaN" created="Wed, 31 Jan 2018 10:12:22 +0100"/>
+        </attachments>
+        <subtasks></subtasks>
+        <customfields>
+            <customfield id="customfield_10400" key="com.pyxis.greenhopper.jira:gh-epic-link">
+                <customfieldname>Epic Link</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>BMWGMDET-1424</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_10700" key="com.pyxis.greenhopper.jira:gh-lexo-rank">
+                <customfieldname>Rank</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>1|x000ug:</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_10004" key="com.pyxis.greenhopper.jira:gh-global-rank">
+                <customfieldname>Rank (Veraltet)</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>9223372036854775807</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_10005" key="com.pyxis.greenhopper.jira:gh-sprint">
+                <customfieldname>Sprint</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue id="415">Testing</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11313" key="com.xpandit.plugins.xray:issue-link-count-custom-field">
+                <customfieldname>Test Count</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>7.0</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11314" key="com.xpandit.plugins.xray:test-set-status-custom-field">
+                <customfieldname>Test Set Status</customfieldname>
+                <customfieldvalues>
+                    <ul class="execution-status-bar" style="display: inline-block;width: 100px;height: 15px;margin: 0;padding: 0;-moz-border-radius: .4em;-webkit-border-radius: .4em;border-radius: .4em;">
+                        <li style="height: 15px;float: left;list-style: none;margin: 0;padding: 0; color: white;text-align: center;cursor: default;background-color:#95C160;width:0.0%;" title="PASS: 0 (0.0%)" data-status-id="0"/>
+                        <li style="height: 15px;float: left;list-style: none;margin: 0;padding: 0; color: white;text-align: center;cursor: default;background-color:#D45D52;width:0.0%;" title="FAIL: 0 (0.0%)" data-status-id="3"/>
+                        <li style="height: 15px;float: left;list-style: none;margin: 0;padding: 0; color: white;text-align: center;cursor: default;background-color:#111111;width:0.0%;" title="ABORTED: 0 (0.0%)" data-status-id="4"/>
+                        <li style="height: 15px;float: left;list-style: none;margin: 0;padding: 0; color: white;text-align: center;cursor: default;background-color:#F1E069;width:0.0%;" title="EXECUTING: 0 (0.0%)" data-status-id="2"/>
+                        <p style="display:none">TODO: 7 (100.0%)</p>
+                        <li style="height: 15px;float: left;list-style: none;margin: 0;padding: 0; color: white;text-align: center;cursor: default;background-color:#A2A6AE;width:100.0%;" title="TODO: 7 (100.0%)" data-status-id="1"/>
+                    </ul>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11312" key="com.xpandit.plugins.xray:test-sets-tests-custom-field">
+                <customfieldname>Tests association with a Test Set</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>
+                        [BMWGMDET-1405]
+                    </customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11600" key="com.topshelfsolution.simpletasklists:all-tasks-cftype">
+                <customfieldname>allTasks</customfieldname>
+                <customfieldvalues></customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11602" key="com.topshelfsolution.simpletasklists:closed-tasks-cftype">
+                <customfieldname>closedTasks</customfieldname>
+                <customfieldvalues></customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11601" key="com.topshelfsolution.simpletasklists:open-tasks-cftype">
+                <customfieldname>openTasks</customfieldname>
+                <customfieldvalues></customfieldvalues>
+            </customfield>
+        </customfields>
+    </item>
+
+    <item>
+        <title>[BMWGMDET-1384] TestSet - Auslieferungsplanung</title>
+        <link>
+            https://issues.maibornwolff.de/browse/BMWGMDET-1384
+        </link>
+        <project id="16301" key="BMWGMDET">MDE Toolkette 2.0</project>
+        <description/>
+        <environment/>
+        <key id="46366">BMWGMDET-1384</key>
+        <summary>TestSet - Auslieferungsplanung</summary>
+        <type id="10201" iconUrl="https://issues.maibornwolff.de/download/resources/com.xpandit.plugins.xray/images/test-set.svg">Test Set</type>
+        <priority id="3" iconUrl="https://issues.maibornwolff.de/images/icons/priorities/major.svg">Major</priority>
+        <status id="11506" iconUrl="https://issues.maibornwolff.de/" description="">To Do</status>
+        <statusCategory id="2" key="new" colorName="blue-gray"/>
+        <resolution id="-1">Unresolved</resolution>
+        <assignee username="MonikaN">Monika Nill</assignee>
+        <reporter username="MonikaN">Monika Nill</reporter>
+        <labels></labels>
+        <created>Tue, 30 Jan 2018 13:24:21 +0100</created>
+        <updated>Tue, 30 Jan 2018 13:24:34 +0100</updated>
+        <component>Komponente_Auslieferungsplanung</component>
+        <due/>
+        <votes>0</votes>
+        <watches>1</watches>
+        <attachments></attachments>
+        <subtasks></subtasks>
+        <customfields>
+            <customfield id="customfield_10400" key="com.pyxis.greenhopper.jira:gh-epic-link">
+                <customfieldname>Epic Link</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>BMWGMDET-832</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_10700" key="com.pyxis.greenhopper.jira:gh-lexo-rank">
+                <customfieldname>Rank</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>1|x000hc:</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_10004" key="com.pyxis.greenhopper.jira:gh-global-rank">
+                <customfieldname>Rank (Veraltet)</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>9223372036854775807</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_10005" key="com.pyxis.greenhopper.jira:gh-sprint">
+                <customfieldname>Sprint</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue id="415">Testing</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11313" key="com.xpandit.plugins.xray:issue-link-count-custom-field">
+                <customfieldname>Test Count</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>6.0</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11314" key="com.xpandit.plugins.xray:test-set-status-custom-field">
+                <customfieldname>Test Set Status</customfieldname>
+                <customfieldvalues>
+                    <ul class="execution-status-bar" style="display: inline-block;width: 100px;height: 15px;margin: 0;padding: 0;-moz-border-radius: .4em;-webkit-border-radius: .4em;border-radius: .4em;">
+                        <li style="height: 15px;float: left;list-style: none;margin: 0;padding: 0; color: white;text-align: center;cursor: default;background-color:#95C160;width:0.0%;" title="PASS: 0 (0.0%)" data-status-id="0"/>
+                        <li style="height: 15px;float: left;list-style: none;margin: 0;padding: 0; color: white;text-align: center;cursor: default;background-color:#D45D52;width:0.0%;" title="FAIL: 0 (0.0%)" data-status-id="3"/>
+                        <li style="height: 15px;float: left;list-style: none;margin: 0;padding: 0; color: white;text-align: center;cursor: default;background-color:#111111;width:0.0%;" title="ABORTED: 0 (0.0%)" data-status-id="4"/>
+                        <li style="height: 15px;float: left;list-style: none;margin: 0;padding: 0; color: white;text-align: center;cursor: default;background-color:#F1E069;width:0.0%;" title="EXECUTING: 0 (0.0%)" data-status-id="2"/>
+                        <p style="display:none">TODO: 6 (100.0%)</p>
+                        <li style="height: 15px;float: left;list-style: none;margin: 0;padding: 0; color: white;text-align: center;cursor: default;background-color:#A2A6AE;width:100.0%;" title="TODO: 6 (100.0%)" data-status-id="1"/>
+                    </ul>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11312" key="com.xpandit.plugins.xray:test-sets-tests-custom-field">
+                <customfieldname>Tests association with a Test Set</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>
+                        [BMWGMDET-1404]
+                    </customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11600" key="com.topshelfsolution.simpletasklists:all-tasks-cftype">
+                <customfieldname>allTasks</customfieldname>
+                <customfieldvalues></customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11602" key="com.topshelfsolution.simpletasklists:closed-tasks-cftype">
+                <customfieldname>closedTasks</customfieldname>
+                <customfieldvalues></customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11601" key="com.topshelfsolution.simpletasklists:open-tasks-cftype">
+                <customfieldname>openTasks</customfieldname>
+                <customfieldvalues></customfieldvalues>
+            </customfield>
+        </customfields>
+    </item>
+
+
+    <item>
+        <title>[BMWGMDET-1424] Regelmäßige Nutzertests</title>
+        <link>
+            https://issues.maibornwolff.de/browse/BMWGMDET-1424
+        </link>
+        <project id="16301" key="BMWGMDET">MDE Toolkette 2.0</project>
+        <description>
+            <p>Regelmäßiges Durchführen von Nutzertests in Form von </p> <ul> <li>Guerilla Tests</li> <li>Tests mit Kunden </li> </ul> <p>über einzelne neue Features, Bereiche oder das Gesamtsystem.</p>
+        </description>
+        <environment/>
+        <key id="46504">BMWGMDET-1424</key>
+        <summary>Regelmäßige Nutzertests</summary>
+        <type id="6" iconUrl="https://issues.maibornwolff.de/secure/viewavatar?size=xsmall&amp;avatarId=12307&amp;avatarType=issuetype">Epic</type>
+        <priority id="3" iconUrl="https://issues.maibornwolff.de/images/icons/priorities/major.svg">Major</priority>
+        <status id="11506" iconUrl="https://issues.maibornwolff.de/" description="">To Do</status>
+        <statusCategory id="2" key="new" colorName="blue-gray"/>
+        <resolution id="-1">Unresolved</resolution>
+        <assignee username="-1">Unassigned</assignee>
+        <reporter username="CorneliusK">Cornelius Kellerstraß</reporter>
+        <labels></labels>
+        <created>Thu, 1 Feb 2018 15:55:05 +0100</created>
+        <updated>Thu, 1 Feb 2018 15:58:14 +0100</updated>
+        <component>Team_UE</component>
+        <due/>
+        <votes>0</votes>
+        <watches>1</watches>
+        <issuelinks>
+            <issuelinktype id="10003">
+                <name>Relates</name>
+                <inwardlinks description="relates to">
+                    <issuelink>
+                        <issuekey id="45408">BMWGMDET-1176</issuekey>
+                    </issuelink>
+                </inwardlinks>
+            </issuelinktype>
+        </issuelinks>
+        <attachments></attachments>
+        <subtasks></subtasks>
+        <customfields>
+            <customfield id="customfield_10403" key="com.pyxis.greenhopper.jira:gh-epic-color">
+                <customfieldname>Epic Colour</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>ghx-label-1</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_10401" key="com.pyxis.greenhopper.jira:gh-epic-label">
+                <customfieldname>Epic Name</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>Regelm&#xE4;&#xDF;ige Nutzertests</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_10402" key="com.pyxis.greenhopper.jira:gh-epic-status">
+                <customfieldname>Epic Status</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue key="10100">
+                        <![CDATA[ To Do ]]>
+                    </customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_10700" key="com.pyxis.greenhopper.jira:gh-lexo-rank">
+                <customfieldname>Rank</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>1|x0019c:</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_10004" key="com.pyxis.greenhopper.jira:gh-global-rank">
+                <customfieldname>Rank (Veraltet)</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>9223372036854775807</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11600" key="com.topshelfsolution.simpletasklists:all-tasks-cftype">
+                <customfieldname>allTasks</customfieldname>
+                <customfieldvalues></customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11602" key="com.topshelfsolution.simpletasklists:closed-tasks-cftype">
+                <customfieldname>closedTasks</customfieldname>
+                <customfieldvalues></customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11601" key="com.topshelfsolution.simpletasklists:open-tasks-cftype">
+                <customfieldname>openTasks</customfieldname>
+                <customfieldvalues></customfieldvalues>
+            </customfield>
+        </customfields>
+    </item>
+
+    <item>
+        <title>[BMWGMDET-832] Epic für Support-Anfragen</title>
+        <link>https://issues.maibornwolff.de/browse/BMWGMDET-832</link>
+        <project id="16301" key="BMWGMDET">MDE Toolkette 2.0</project>
+        <description/>
+        <environment/>
+        <key id="44391">BMWGMDET-832</key>
+        <summary>Epic für Support-Anfragen</summary>
+        <type id="6" iconUrl="https://issues.maibornwolff.de/secure/viewavatar?size=xsmall&amp;avatarId=12307&amp;avatarType=issuetype">Epic</type>
+        <priority id="3" iconUrl="https://issues.maibornwolff.de/images/icons/priorities/major.svg">Major</priority>
+        <status id="11506" iconUrl="https://issues.maibornwolff.de/" description="">To Do</status>
+        <statusCategory id="2" key="new" colorName="blue-gray"/>
+        <resolution id="-1">Unresolved</resolution>
+        <assignee username="-1">Unassigned</assignee>
+        <reporter username="MarkusL">Markus Lammers</reporter>
+        <labels></labels>
+        <created>Fri, 17 Nov 2017 14:02:24 +0100</created>
+        <updated>Tue, 30 Jan 2018 13:37:50 +0100</updated>
+        <due/>
+        <votes>0</votes>
+        <watches>1</watches>
+        <attachments></attachments>
+        <subtasks></subtasks>
+        <customfields>
+            <customfield id="customfield_10403" key="com.pyxis.greenhopper.jira:gh-epic-color">
+                <customfieldname>Epic Colour</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>ghx-label-4</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_10401" key="com.pyxis.greenhopper.jira:gh-epic-label">
+                <customfieldname>Epic Name</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>Plugin-Support</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_10402" key="com.pyxis.greenhopper.jira:gh-epic-status">
+                <customfieldname>Epic Status</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue key="10100">
+                        <![CDATA[ To Do ]]>
+                    </customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_10700" key="com.pyxis.greenhopper.jira:gh-lexo-rank">
+                <customfieldname>Rank</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>1|i0089c:</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_10004" key="com.pyxis.greenhopper.jira:gh-global-rank">
+                <customfieldname>Rank (Veraltet)</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>9223372036854775807</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11600" key="com.topshelfsolution.simpletasklists:all-tasks-cftype">
+                <customfieldname>allTasks</customfieldname>
+                <customfieldvalues></customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11602" key="com.topshelfsolution.simpletasklists:closed-tasks-cftype">
+                <customfieldname>closedTasks</customfieldname>
+                <customfieldvalues></customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11601" key="com.topshelfsolution.simpletasklists:open-tasks-cftype">
+                <customfieldname>openTasks</customfieldname>
+                <customfieldvalues></customfieldvalues>
+            </customfield>
+        </customfields>
+    </item>
+
+    <item>
+        <title>[BMWGMDET-1165] TestExecution - Sprint 10-12</title>
+        <link>
+            https://issues.maibornwolff.de/browse/BMWGMDET-1165
+        </link>
+        <project id="16301" key="BMWGMDET">MDE Toolkette 2.0</project>
+        <description/>
+        <environment/>
+        <key id="45387">BMWGMDET-1165</key>
+        <summary>TestExecution - Sprint 10-12</summary>
+        <type id="10202" iconUrl="https://issues.maibornwolff.de/download/resources/com.xpandit.plugins.xray/images/test-execution.svg">Test Execution</type>
+        <priority id="3" iconUrl="https://issues.maibornwolff.de/images/icons/priorities/major.svg">Major</priority>
+        <status id="3" iconUrl="https://issues.maibornwolff.de/images/icons/statuses/inprogress.png" description="This issue is being actively worked on at the moment by the assignee.">In Progress</status>
+        <statusCategory id="4" key="indeterminate" colorName="yellow"/>
+        <resolution id="-1">Unresolved</resolution>
+        <assignee username="MonikaN">Monika Nill</assignee>
+        <reporter username="MonikaN">Monika Nill</reporter>
+        <labels></labels>
+        <created>Wed, 20 Dec 2017 13:51:41 +0100</created>
+        <updated>Tue, 30 Jan 2018 16:15:38 +0100</updated>
+        <due/>
+        <votes>0</votes>
+        <watches>1</watches>
+        <attachments></attachments>
+        <subtasks></subtasks>
+        <customfields>
+            <customfield id="customfield_10700" key="com.pyxis.greenhopper.jira:gh-lexo-rank">
+                <customfieldname>Rank</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>1|i00d05:</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_10004" key="com.pyxis.greenhopper.jira:gh-global-rank">
+                <customfieldname>Rank (Veraltet)</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>9223372036854775807</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_10005" key="com.pyxis.greenhopper.jira:gh-sprint">
+                <customfieldname>Sprint</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue id="415">Testing</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11329" key="com.xpandit.plugins.xray:test-execution-status-custom-field">
+                <customfieldname>Test Coverage</customfieldname>
+                <customfieldvalues>
+                    <ul class="execution-status-bar" style="display: inline-block;width: 100px;height: 15px;margin: 0;padding: 0;-moz-border-radius: .4em;-webkit-border-radius: .4em;border-radius: .4em;">
+                        <p style="display:none">PASS: 18 (46.16%)</p>
+                        <li style="height: 15px;float: left;list-style: none;margin: 0;padding: 0; color: white;text-align: center;cursor: default;background-color:#95C160;width:46.16%;" title="PASS: 18 (46.16%)" data-status-id="0"/>
+                        <p style="display:none">FAIL: 1 (2.56%)</p>
+                        <li style="height: 15px;float: left;list-style: none;margin: 0;padding: 0; color: white;text-align: center;cursor: default;background-color:#D45D52;width:2.56%;" title="FAIL: 1 (2.56%)" data-status-id="3"/>
+                        <li style="height: 15px;float: left;list-style: none;margin: 0;padding: 0; color: white;text-align: center;cursor: default;background-color:#111111;width:0.0%;" title="ABORTED: 0 (0.0%)" data-status-id="4"/>
+                        <p style="display:none">EXECUTING: 5 (12.82%)</p>
+                        <li style="height: 15px;float: left;list-style: none;margin: 0;padding: 0; color: white;text-align: center;cursor: default;background-color:#F1E069;width:12.82%;" title="EXECUTING: 5 (12.82%)" data-status-id="2"/>
+                        <p style="display:none">TODO: 15 (38.46%)</p>
+                        <li style="height: 15px;float: left;list-style: none;margin: 0;padding: 0; color: white;text-align: center;cursor: default;background-color:#A2A6AE;width:38.46%;" title="TODO: 15 (38.46%)" data-status-id="1"/>
+                    </ul>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11325" key="com.xpandit.plugins.xray:test-environments-custom-field">
+                <customfieldname>Test Environments</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>[]</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11316" key="com.xpandit.plugins.xray:test-execution-defects-custom-field">
+                <customfieldname>Test Execution Defects</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>BMWGMDET-1203</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11320" key="com.xpandit.plugins.xray:test-execution-status-custom-field">
+                <customfieldname>Test Execution Status</customfieldname>
+                <customfieldvalues>
+                    <ul class="execution-status-bar" style="display: inline-block;width: 100px;height: 15px;margin: 0;padding: 0;-moz-border-radius: .4em;-webkit-border-radius: .4em;border-radius: .4em;">
+                        <p style="display:none">PASS: 18 (46.16%)</p>
+                        <li style="height: 15px;float: left;list-style: none;margin: 0;padding: 0; color: white;text-align: center;cursor: default;background-color:#95C160;width:46.16%;" title="PASS: 18 (46.16%)" data-status-id="0"/>
+                        <p style="display:none">FAIL: 1 (2.56%)</p>
+                        <li style="height: 15px;float: left;list-style: none;margin: 0;padding: 0; color: white;text-align: center;cursor: default;background-color:#D45D52;width:2.56%;" title="FAIL: 1 (2.56%)" data-status-id="3"/>
+                        <li style="height: 15px;float: left;list-style: none;margin: 0;padding: 0; color: white;text-align: center;cursor: default;background-color:#111111;width:0.0%;" title="ABORTED: 0 (0.0%)" data-status-id="4"/>
+                        <p style="display:none">EXECUTING: 5 (12.82%)</p>
+                        <li style="height: 15px;float: left;list-style: none;margin: 0;padding: 0; color: white;text-align: center;cursor: default;background-color:#F1E069;width:12.82%;" title="EXECUTING: 5 (12.82%)" data-status-id="2"/>
+                        <p style="display:none">TODO: 15 (38.46%)</p>
+                        <li style="height: 15px;float: left;list-style: none;margin: 0;padding: 0; color: white;text-align: center;cursor: default;background-color:#A2A6AE;width:38.46%;" title="TODO: 15 (38.46%)" data-status-id="1"/>
+                    </ul>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11327" key="com.xpandit.plugins.xray:test-plan-custom-field">
+                <customfieldname>Test Plan</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>[BMWGMDET-1159, BMWGMDET-956]</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11315" key="com.xpandit.plugins.xray:testexec-tests-custom-field">
+                <customfieldname>Tests association with a Test Execution</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>
+                        [BMWGMDET-1405, BMWGMDET-1404]
+                    </customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11600" key="com.topshelfsolution.simpletasklists:all-tasks-cftype">
+                <customfieldname>allTasks</customfieldname>
+                <customfieldvalues></customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11602" key="com.topshelfsolution.simpletasklists:closed-tasks-cftype">
+                <customfieldname>closedTasks</customfieldname>
+                <customfieldvalues></customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11601" key="com.topshelfsolution.simpletasklists:open-tasks-cftype">
+                <customfieldname>openTasks</customfieldname>
+                <customfieldvalues></customfieldvalues>
+            </customfield>
+        </customfields>
+    </item>
+
+    <item>
+        <title>
+            [BMWGMDET-818] TestExecution - UX - Dashboard - 09/10
+        </title>
+        <link>https://issues.maibornwolff.de/browse/BMWGMDET-818</link>
+        <project id="16301" key="BMWGMDET">MDE Toolkette 2.0</project>
+        <description/>
+        <environment/>
+        <key id="44359">BMWGMDET-818</key>
+        <summary>TestExecution - UX - Dashboard - 09/10</summary>
+        <type id="10202" iconUrl="https://issues.maibornwolff.de/download/resources/com.xpandit.plugins.xray/images/test-execution.svg">Test Execution</type>
+        <priority id="3" iconUrl="https://issues.maibornwolff.de/images/icons/priorities/major.svg">Major</priority>
+        <status id="10004" iconUrl="https://issues.maibornwolff.de/images/icons/statuses/closed.png" description="">Done</status>
+        <statusCategory id="3" key="done" colorName="green"/>
+        <resolution id="6">Done</resolution>
+        <assignee username="MonikaN">Monika Nill</assignee>
+        <reporter username="MonikaN">Monika Nill</reporter>
+        <labels></labels>
+        <created>Thu, 16 Nov 2017 18:19:16 +0100</created>
+        <updated>Fri, 26 Jan 2018 09:32:38 +0100</updated>
+        <resolved>Wed, 27 Dec 2017 10:32:25 +0100</resolved>
+        <component>Team_FE</component>
+        <due/>
+        <votes>0</votes>
+        <watches>1</watches>
+        <attachments></attachments>
+        <subtasks></subtasks>
+        <customfields>
+            <customfield id="customfield_10400" key="com.pyxis.greenhopper.jira:gh-epic-link">
+                <customfieldname>Epic Link</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>BMWGMDET-309</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_10700" key="com.pyxis.greenhopper.jira:gh-lexo-rank">
+                <customfieldname>Rank</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>1|i00g6n:</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_10004" key="com.pyxis.greenhopper.jira:gh-global-rank">
+                <customfieldname>Rank (Veraltet)</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>9223372036854775807</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_10005" key="com.pyxis.greenhopper.jira:gh-sprint">
+                <customfieldname>Sprint</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue id="415">Testing</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11329" key="com.xpandit.plugins.xray:test-execution-status-custom-field">
+                <customfieldname>Test Coverage</customfieldname>
+                <customfieldvalues>
+                    <ul class="execution-status-bar" style="display: inline-block;width: 100px;height: 15px;margin: 0;padding: 0;-moz-border-radius: .4em;-webkit-border-radius: .4em;border-radius: .4em;">
+                        <p style="display:none">PASS: 5 (83.33%)</p>
+                        <li style="height: 15px;float: left;list-style: none;margin: 0;padding: 0; color: white;text-align: center;cursor: default;background-color:#95C160;width:83.33%;" title="PASS: 5 (83.33%)" data-status-id="0"/>
+                        <p style="display:none">FAIL: 1 (16.67%)</p>
+                        <li style="height: 15px;float: left;list-style: none;margin: 0;padding: 0; color: white;text-align: center;cursor: default;background-color:#D45D52;width:16.67%;" title="FAIL: 1 (16.67%)" data-status-id="3"/>
+                        <li style="height: 15px;float: left;list-style: none;margin: 0;padding: 0; color: white;text-align: center;cursor: default;background-color:#111111;width:0.0%;" title="ABORTED: 0 (0.0%)" data-status-id="4"/>
+                        <li style="height: 15px;float: left;list-style: none;margin: 0;padding: 0; color: white;text-align: center;cursor: default;background-color:#F1E069;width:0.0%;" title="EXECUTING: 0 (0.0%)" data-status-id="2"/>
+                        <li style="height: 15px;float: left;list-style: none;margin: 0;padding: 0; color: white;text-align: center;cursor: default;background-color:#A2A6AE;width:0.0%;" title="TODO: 0 (0.0%)" data-status-id="1"/>
+                    </ul>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11325" key="com.xpandit.plugins.xray:test-environments-custom-field">
+                <customfieldname>Test Environments</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>[]</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11316" key="com.xpandit.plugins.xray:test-execution-defects-custom-field">
+                <customfieldname>Test Execution Defects</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>BMWGMDET-1160, BMWGMDET-1166</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11320" key="com.xpandit.plugins.xray:test-execution-status-custom-field">
+                <customfieldname>Test Execution Status</customfieldname>
+                <customfieldvalues>
+                    <ul class="execution-status-bar" style="display: inline-block;width: 100px;height: 15px;margin: 0;padding: 0;-moz-border-radius: .4em;-webkit-border-radius: .4em;border-radius: .4em;">
+                        <p style="display:none">PASS: 5 (83.33%)</p>
+                        <li style="height: 15px;float: left;list-style: none;margin: 0;padding: 0; color: white;text-align: center;cursor: default;background-color:#95C160;width:83.33%;" title="PASS: 5 (83.33%)" data-status-id="0"/>
+                        <p style="display:none">FAIL: 1 (16.67%)</p>
+                        <li style="height: 15px;float: left;list-style: none;margin: 0;padding: 0; color: white;text-align: center;cursor: default;background-color:#D45D52;width:16.67%;" title="FAIL: 1 (16.67%)" data-status-id="3"/>
+                        <li style="height: 15px;float: left;list-style: none;margin: 0;padding: 0; color: white;text-align: center;cursor: default;background-color:#111111;width:0.0%;" title="ABORTED: 0 (0.0%)" data-status-id="4"/>
+                        <li style="height: 15px;float: left;list-style: none;margin: 0;padding: 0; color: white;text-align: center;cursor: default;background-color:#F1E069;width:0.0%;" title="EXECUTING: 0 (0.0%)" data-status-id="2"/>
+                        <li style="height: 15px;float: left;list-style: none;margin: 0;padding: 0; color: white;text-align: center;cursor: default;background-color:#A2A6AE;width:0.0%;" title="TODO: 0 (0.0%)" data-status-id="1"/>
+                    </ul>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11327" key="com.xpandit.plugins.xray:test-plan-custom-field">
+                <customfieldname>Test Plan</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>[BMWGMDET-725, BMWGMDET-956]</customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11315" key="com.xpandit.plugins.xray:testexec-tests-custom-field">
+                <customfieldname>Tests association with a Test Execution</customfieldname>
+                <customfieldvalues>
+                    <customfieldvalue>
+                        [BMWGMDET-1404, BMWGMDET-1405, BMWGMDET-1404]
+                    </customfieldvalue>
+                </customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11600" key="com.topshelfsolution.simpletasklists:all-tasks-cftype">
+                <customfieldname>allTasks</customfieldname>
+                <customfieldvalues></customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11602" key="com.topshelfsolution.simpletasklists:closed-tasks-cftype">
+                <customfieldname>closedTasks</customfieldname>
+                <customfieldvalues></customfieldvalues>
+            </customfield>
+            <customfield id="customfield_11601" key="com.topshelfsolution.simpletasklists:open-tasks-cftype">
+                <customfieldname>openTasks</customfieldname>
+                <customfieldvalues></customfieldvalues>
+            </customfield>
+        </customfields>
+    </item>
+
+</root>

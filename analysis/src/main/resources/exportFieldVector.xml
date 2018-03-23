@@ -1,0 +1,21 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+
+<!--
+all setting and at least one are needed to generate a visualisation file for xray-export-data
+-->
+<standardConfiguration>
+
+    <requiredFields> <!-- the following fields must be available in the export -->
+        <field nameEN = "key"      nameDE = "schlüssel"/>
+        <field nameEN = "title"    nameDE = "zusammenfassung"/>
+        <field nameEN = "priority" nameDE = "priorität"/>
+    </requiredFields>
+
+    <possibleFields> <!-- the following fields can be available in the export -->
+        <field nameEN = "status" nameDE = "status"/>
+        <field nameEN = "created" nameDE = ""/>
+        <field nameEN = "updated" nameDE = ""/>
+        <field nameEN = "" nameDE = ""/>
+    </possibleFields>
+
+</standardConfiguration>
