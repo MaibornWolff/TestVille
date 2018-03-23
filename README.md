@@ -15,7 +15,7 @@ You can get the latest version of the analyzer and visualization here or try the
 #### Quickstart Guide
 * Download the latest version of the project.
 * Generate own files for visualisation with the module analysis.
-* Use the module visualisation or [codecharta](https://maibornwolff.github.io/TestVille/visualization/app/) to visualize generated.
+* Use the module visualisation or [codecharta](https://maibornwolff.github.io/TestVille/codecharta/app/) to visualize generated.
 	
 #### Feature request / Bug / Feedback
 Have a bug, a feature request or any question? Please open a new issue. Feedback is always welcome.
