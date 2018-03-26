@@ -64,5 +64,4 @@ public class AnalysisRunSetting {
             this.visualizationFileTarget = this.visualizationFileTarget.concat(".json");
         }
     }
-
 }

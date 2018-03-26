@@ -149,5 +149,4 @@ public class TranslationMapBuilder {
             return null;
         }
     }
-
 }
