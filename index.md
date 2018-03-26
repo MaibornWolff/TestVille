@@ -99,7 +99,7 @@ Use the "Invert Color" option, to declare a high value to be better then a low v
 
 [Readme](https://github.com/MaibornWolff/TestVille/tree/master/visualization)
 
-[Browser Demo](visualization/dist/app/index.html?file=codecharta.cc.json)
+[Browser Demo](visualization/app/index.html?file=codecharta.cc.json)
 
 [Coverage](visualization/dist/coverage/lcov-report)
 
