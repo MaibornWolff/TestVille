@@ -1,4 +1,4 @@
-package de.maibornwolff.ste.tesla.optionSwitchAndHandle;
+package de.maibornwolff.ste.tesla.application;
 
 import de.maibornwolff.ste.tesla.managementTools.common.ManagementTool;
 
