@@ -4,6 +4,7 @@
 
 #### What is TestVille?
 TestVille is a funny tool for visualizing tests with a city-layout.
+
 ![takeALook](./images/testVilleDemo.png)
 
 The visualization displays test metrics given in json files(visualization files), specified by cc.json using json-schema v4.
