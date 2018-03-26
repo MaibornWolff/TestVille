@@ -28,9 +28,9 @@ class ThreeCameraService {
      * Inits the camera with a specific container width and height
      * @param {number} containerWidth initial width
      * @param {number} containerHeight initial height
-     * @param {number} x camera position component x
-     * @param {number} y camera position component y
-     * @param {number} z camera position component z
+     * @param {number} x camera position domainModell x
+     * @param {number} y camera position domainModell y
+     * @param {number} z camera position domainModell z
      */
     init(containerWidth, containerHeight, x, y, z) {
         var VIEW_ANGLE = 45;
