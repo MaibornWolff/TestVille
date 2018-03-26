@@ -1,4 +1,6 @@
-import de.maibornwolff.ste.tesla.vizualisationFileWriter.VisualizationFileGenerator;
+package de.maibornwolff.ste.testVille;
+
+import de.maibornwolff.ste.testVille.vizualisationFileWriting.VisualizationFileGenerator;
 
 import java.util.List;
 
