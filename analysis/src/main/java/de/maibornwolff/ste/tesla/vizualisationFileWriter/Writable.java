@@ -243,8 +243,7 @@ public interface Writable {
         List<Writable> groupElements = writableGroup.getSecond();
         result.append(groupElements.stream()
                 .map(x -> x.produceWritableStringRepresentation(idGenerator, translationMap, priorityRanking))
-                .reduce(new StringBuilder(), (x, y) -> x.length() == 0 ? y : x.append(", ").append(y))
-        );
+                .reduce(new StringBuilder(), (x, y) -> x.length() == 0 ? y : x.append(", ").append(y)));
 
         result.append("]}");
         return result;

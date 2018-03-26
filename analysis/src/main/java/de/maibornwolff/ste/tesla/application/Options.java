@@ -1,4 +1,4 @@
-package de.maibornwolff.ste.tesla.optionSwitchAndHandle;
+package de.maibornwolff.ste.tesla.application;
 
 /**
  * Enumeration of all option of the analysis module.
