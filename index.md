@@ -21,14 +21,8 @@ analysis:      Tools for generating visualisation data
 - unpack both packages
 - enter the TestVille directory with your favorite console
 
-- > ./ccsh -h
-
-## run local sonar analysis with a docker container (Mac)
-- `brew install sonar-scanner`
-- `docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube`
-- add a correct sonar-project.properties file to the target project
-- run `sonar-scanner` in the projects folder
-- you can now access your sonarqube instance and analysis on localhost:9000
+- > Dos  systems: gradlew.bat build then gradlew.bat buildVisualization
+- > Unix systems: ./gradlew   build then ./gradlew   buildVisualization
 
 ## Generate a visualization file from test data
 
@@ -63,7 +57,7 @@ A new window should open now.
 - In the right lower corner, click on the folder icon. 
 - Choose the generated .json file from the previous step
 
-Now you can see the analysis of the chosen project visualized in coloured blocks. 
+Now you can see the analysis of the test data visualized in coloured streets and blocks. 
 
 Navigation:
 - left click and drag -> rotate 
@@ -101,20 +95,13 @@ Use the "Invert Color" option, to declare a high value to be better then a low v
 
 # Further information
 
-## Guides
-
-[Integrating CodeCharte into a Jenkins 2 and Sonarqube pipeline](ci.md)
-
-
 ## Visualization
 
 [Readme](https://github.com/MaibornWolff/TestVille/tree/master/visualization)
 
-[Browser Demo](visualization/app/index.html?file=codecharta.cc.json)
+[Browser Demo](visualization/dist/app/index.html?file=codecharta.cc.json)
 
-[Coverage](visualization/coverage/lcov-report)
-
-[Sonarqube Analysis](https://sonarcloud.io/dashboard?id=de.maibornwolff.codecharta%3Avisualization)
+[Coverage](visualization/dist/coverage/lcov-report)
 
 [Reference](visualization/docs/)
 
