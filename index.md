@@ -91,7 +91,7 @@ Use the "Invert Color" option, to declare a high value to be better then a low v
 
 # Demo
 
-[Browser Demo](visualization/dist/app/)
+[Browser Demo](visualization/app/)
 
 # Further information
 
