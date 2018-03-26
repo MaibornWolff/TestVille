@@ -50,7 +50,7 @@ task makeVizFile(type: JavaExec ){
     }
 
     args(execArgs)
-    main      = 'Main'
+    main      = 'de.maibornwolff.ste.testVille.Main'
     classpath = sourceSets.main.runtimeClasspath
 }
 
