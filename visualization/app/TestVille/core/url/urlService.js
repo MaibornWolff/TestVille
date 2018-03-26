@@ -85,7 +85,6 @@ class UrlService {
                 this.http.get(file).then(
                     function (response) {
                         if (response.status === 200) {
-                            console.log("ich bin da");
 
                             resolve(response.data);
                         } else {
