@@ -1,6 +1,7 @@
 *.tmp
 *bower_components
-*dist
+*gradle*
+*analysis/
 *node_modules
 *.iml
 *build
