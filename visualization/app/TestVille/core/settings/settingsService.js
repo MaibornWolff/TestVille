@@ -100,7 +100,7 @@ class SettingsService {
             this.settings.camera.x = camera.position.x;
             this.settings.camera.y = camera.position.y;
             this.settings.camera.z = camera.position.z;
-            // There is no component in CC which needs live updates when camera changes. Broadcasting an
+            // There is no domainModell in CC which needs live updates when camera changes. Broadcasting an
             // onSettingsChanged Event would cause big performance issues
             // this.onSettingsChanged();
         }
