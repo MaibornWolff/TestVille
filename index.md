@@ -4,7 +4,7 @@
 
 [Downloads](https://github.com/MaibornWolff/TestVille/releases)
 
-# What is CodeCharta ?
+# What is TestVille ?
 
 TestVille allows the visualization of tests using a city-layout. It consists of two parts:
 
