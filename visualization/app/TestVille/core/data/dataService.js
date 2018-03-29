@@ -50,15 +50,19 @@ class DataService {
 
             this.validator.validate(fileData).then(
 
+
                 (validResult)=>{
+
 
                     if (fileData.revisions) {
                         //revisioned data
                         this.data.revisions = this.calculateDeltas(fileData.revisions);
                     } else {
+
                         //unrevisioned data
                         if (fileData.nodes && fileData.nodes[0]) {
                             fileData = fileData.nodes[0];
+
                         } else if (fileData.children) {
                             fileData = fileData;
                         } else {
@@ -68,7 +72,6 @@ class DataService {
                                                            "dataPath": "file format"
                                                        }]});
                         }
-
                         this.data.revisions = [
                             fileData
                         ];

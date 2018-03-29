@@ -30,14 +30,10 @@ class TestVilleController {
 
     loadFileOrSample(urlService, dataService, settingsService) {
 
-        this.loadFile(urlService, dataService, settingsService, "./sample.json",
-            () =>  {
-
-
-
+        this.loadFile(urlService, dataService, settingsService, "./sample.json").then(
+            ()=>{},
+            ()=>{
                 window.alert("failed loading sample data");
-
-
             }
 
         );
@@ -52,26 +48,32 @@ class TestVilleController {
         this.scenarioService.applyScenario(this.scenarioService.getDefaultScenario());
     }
 
-    loadFile(urlService, dataService, settingsService, path, toDoIfFail) {
+    loadFile(urlService, dataService, settingsService, path) {
 
         let ctx = this;
-        urlService.getFileDataFromFile(path).then(
-            (data) => {
+        return new Promise((resolve, reject )=> {
+            urlService.getFileDataFromFile(path).then(
+                (data) => {
 
-                // set loaded data
+                    // set loaded data
 
-                dataService.setFileData(data).then(
-                    () => {
-                        ctx.loadingFinished();
-                        settingsService.updateSettingsFromUrl();
-                    },
-                    (r) => {ctx.printErrors(r);}
-                );
+                    dataService.setFileData(data).then(
+                        () => {
+                            ctx.loadingFinished();
+                            settingsService.updateSettingsFromUrl();
+                            resolve();
+                        },
+                        (r) => {
+                            ctx.printErrors(r);
+                            reject();
+                        }
+                    );
 
-            },
+                },
 
-            () => toDoIfFail()
-        );
+                () => {reject();}
+            );
+        });
     }
 
     /**
