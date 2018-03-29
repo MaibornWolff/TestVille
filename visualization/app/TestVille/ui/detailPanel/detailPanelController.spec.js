@@ -54,9 +54,6 @@ describe("app.testVille.ui.detailPanel.detailPanelController", function() {
     describe("should react to events on its scope", ()=>{
 
 
-
-
-
         it("should accept the thrown event",(done)=>{
             detailPanelController.onSettingsChanged = (payload)=>{
                 expect(payload).to.equal("payload");
@@ -92,7 +89,7 @@ describe("app.testVille.ui.detailPanel.detailPanelController", function() {
             };
             detailPanelController.setSelectedDetails = sinon.spy();
             detailPanelController.onSelect(data);
-            expect(detailPanelController.setSelectedDetails.calledWithExactly("somenode"));
+            expect(detailPanelController.setSelectedDetails.called).to.be.true;
         });
 
 
@@ -107,37 +104,26 @@ describe("app.testVille.ui.detailPanel.detailPanelController", function() {
         });
 
 
-        it("should clearSelectedDetails when invalid or no node is selected",() => {
+        it("should clearSelectedDetails when an invalid dataname is selected", ()=>{
 
             var data = {
-                "to": {
-                    "notanode": "somenode"
-                }
+                "from": null,
+                "to": null
             };
             detailPanelController.clearSelectedDetails = sinon.spy();
-            detailPanelController.onSelect(data);
-            expect(detailPanelController.clearSelectedDetails.calledWithExactly());
 
-            data = {
-                "notato": {
-                    "node": "somenode"
-                }
-            };
             detailPanelController.onSelect(data);
-            expect(detailPanelController.clearSelectedDetails.calledWithExactly());
 
-            data = {};
-            detailPanelController.onSelect(data);
-            expect(detailPanelController.clearSelectedDetails.calledWithExactly());
+            expect(detailPanelController.clearSelectedDetails.called).to.be.true;
+            detailPanelController.restore;
+
 
         });
+
 
     })
 
 
-    /**
-     * @test {DetailPanelController}
-     */
     describe("controller.isSelected.tests", ()=>{
 
 

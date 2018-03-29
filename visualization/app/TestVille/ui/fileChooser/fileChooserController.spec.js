@@ -32,7 +32,7 @@ describe("app.testVille.ui.fileChooser.fileChooserController", function() {
             fileChooserController = $controller("fileChooserController", {$scope: $rootScope, dataService: dataService});
             fileChooserController.printErrors({errors:[{message:"a", dataPath:"b"}]});
 
-            expect(console.log.calledOnce);
+            expect(console.log.calledOnce).to.be.true;
             console.log = o;
 
         });

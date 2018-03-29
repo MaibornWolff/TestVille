@@ -26,8 +26,8 @@ describe("app.testVille.codeMap.threeViewer.threeUpdateCycleService", function()
         threeUpdateCycleService.updatables.push(ref1, ref2);
         threeUpdateCycleService.update();
 
-        expect(ref1.calledOnce);
-        expect(ref2.calledOnce);
+        expect(ref1.calledOnce).to.be.true;
+        expect(ref2.calledOnce).to.be.true;
 
     }));
 

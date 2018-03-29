@@ -26,40 +26,41 @@ describe("app.testVille.core.scenarioService", function() {
         sandbox.restore();
     });
 
-    /**
-     * @test {ScenarioService#applyScenario}
-     */
-    it("should apply the settings from a given scenario", ()=>{
+    describe("Service.applyScenario.tests", ()=>{
 
-        var range = new Range(1,2,false);
-        var settings = new Settings("map", range, "areaMetric", "heightMetric", "colorMetric", false, false);
-        var scenario = new Scenario("SomeName", settings);
+        it("should apply the settings from a given scenario", ()=>{
 
-        settingsService.applySettings = sinon.spy();
+            var range = new Range(1,2,false);
+            var settings = new Settings("map", range, "areaMetric", "heightMetric", "colorMetric", false, false);
+            var scenario = new Scenario("SomeName", settings);
+            settingsService.applySettings = sinon.spy();
 
-        scenarioService.applyScenario(scenario);
+            scenarioService.applyScenario(scenario);
 
-        sinon.assert.calledWith(settingsService.applySettings, sinon.match.same(settings));
-    });
-
-    /**
-     * @test {ScenarioService#getScenarios}
-     */
-    it("should return an array of scenarios", ()=>{
-        var scenarios = scenarioService.getScenarios();
-        scenarios.forEach((s)=>{
-            expect(s.constructor == Scenario).to.be.true;
+            sinon.assert.calledWith(settingsService.applySettings, sinon.match.same(settings));
         });
+
     });
 
-    /**
-     * @test {ScenarioService#getDefaultScenario}
-     */
-    it("default scenario should be rloc/mcc/mcc", ()=>{
-        var scenario = scenarioService.getDefaultScenario();
-        expect(scenario.settings.areaMetric).to.be.equal("rloc");
-        expect(scenario.settings.heightMetric).to.be.equal("mcc");
-        expect(scenario.settings.colorMetric).to.be.equal("mcc");
+    describe("Service.getScenarios.tests", ()=>{
+
+        it("should return an array of scenarios", ()=>{
+            var scenarios = scenarioService.getScenarios();
+            scenarios.forEach((s)=>{
+                expect(s.constructor == Scenario).to.be.true;
+            });
+        });
+
     });
 
+    describe("Service.getDefaultScenario.test",()=>{
+
+        it("default scenario should be rloc/mcc/mcc", ()=>{
+            var scenario = scenarioService.getDefaultScenario();
+            expect(scenario.settings.areaMetric).to.equal("rloc");
+            expect(scenario.settings.heightMetric).to.equal("mcc");
+            expect(scenario.settings.colorMetric).to.equal("mcc");
+        });
+
+    });
 });

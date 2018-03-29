@@ -81,7 +81,7 @@ describe("app.testVille.ui.settingsPanel.settingsPanelController.Test", ()=>{
             settingsPanelController.notify();
 
 
-            expect(settingsService.onSettingsChanged.calledOnce);
+            expect(settingsService.onSettingsChanged.calledOnce).to.be.true;
 
         });
     });
@@ -97,7 +97,7 @@ describe("app.testVille.ui.settingsPanel.settingsPanelController.Test", ()=>{
             settingsPanelController.showUrlParams();
 
 
-            expect(window.prompt.calledOnce);
+            expect(window.prompt.calledOnce).to.be.true;
             window.prompt = tmp;
 
         });
