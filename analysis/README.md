@@ -28,13 +28,26 @@
 The current version supports `Jira-Xray` and `hp-alm`.
 
 ##### Jira-Xray
-* Export the desired data to a .xml-file preferably with all available fields.
+* Export the desired test data to a .xml-file preferably with all available fields.
+
+###### On Unix Systems (Mac, Linux)
 * > ***./gradlew makeVisFile -PARGS="-xray -i*** exportFilePath.xml ***-o*** visualizationFilePath.json ***"***
-* > ***./gradlew makeVisFile -PARGS="-xray -i*** exportFilePath.xml ***-c*** configurattionFilePath ***-o*** visualizationFilePath.json ***"***
+* > ***./gradlew makeVisFile -PARGS="-xray -i*** exportFilePath.xml ***-c*** configFilePath.xml ***-o*** visualizationFilePath.json ***"***
+
+###### On Dos Systems
+* > ***gradlew.bat makeVisFile -PARGS="-xray -i*** exportFilePath.xml ***-o*** visualizationFilePath.json ***"***
+* > ***gradlew.bat makeVisFile -PARGS="-xray -i*** exportFilePath.xml ***-c*** configFilePath.xml ***-o*** visualizationFilePath.json ***"***
 
 
 ##### hp-alm
-* Export data with ...sql.
-* > ./gradlew makeVisFile -PARGS="-alm -i exportFilePath.[xls|xlsx] -o VisualizationFilePath.json".
+* Export your test data with this ![sql-file](./export.sql)
+###### On Unix Systems (Mac, Linux)
+* > ***./gradlew makeVisFile -PARGS="-alm -i*** exportFilePath.xml ***-o*** visualizationFilePath.json ***"***
+* > ***./gradlew makeVisFile -PARGS="-alm -i*** exportFilePath.xml ***-c*** configFilePath.xml ***-o*** visualizationFilePath.json ***"***
 
-The output file can be loaded in the visualization module for visualizing.
+###### On Dos Systems
+* > ***gradlew.bat makeVisFile -PARGS="-alm -i*** exportFilePath.xml ***-o*** visualizationFilePath.json ***"***
+* > ***gradlew.bat makeVisFile -PARGS="-alm -i*** exportFilePath.xml ***-c*** configFilePath.xml ***-o*** visualizationFilePath.json ***"***
+
+
+The output file can be loaded in the visualization module.
