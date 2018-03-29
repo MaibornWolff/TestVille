@@ -31,9 +31,10 @@ Once you have installed the project, you can use all grunt tasks described in th
 
 ## Gradle Tasks
 [[Back To Top]](#jump-to-section)
-
+* > On Unix Systems (Mac, Linux) use: ./gradlew
+* > On Dos Systems use: gradlew.bat
 #### Build
-
+ 
 `[./gradlew | gradlew.bat] build` builds the project in dist/app. This artifact is ready to be served as a web application.
 `[./gradlew | gradlew.bat] doc` generates the esdoc documentation in dist/doc/
 
