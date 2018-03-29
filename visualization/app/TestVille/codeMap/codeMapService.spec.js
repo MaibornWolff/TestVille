@@ -183,7 +183,7 @@ describe("app.testVille.codeMap.codeMapService", () => {
         abstract.initInformationToDisplay("test", "Heckklappe lässt sich manuell öffnen || id: 22", 1, 2, 2);
         abstract.transparent = false;
         expected.myContent = abstract;
-        expect(angular.equals(actual.myContent, expected.myContent)).to.equal(true);
+        expect(angular.equals(actual.myContent, expected.myContent)).to.be.true;
     });
 
     it("it should create an column and Buildings with correct matrices",  () => {
@@ -218,7 +218,7 @@ describe("app.testVille.codeMap.codeMapService", () => {
         const generalExpected = angular.equals(actual.children[0].myContent, expected1) &&
             angular.equals(actual.children[1].myContent, expected2)
         ;
-        expect(generalExpected).to.equal(true);
+        expect(generalExpected).to.be.true;
     });
 
     it("should create Block with correct columns(matrices)", () => {

@@ -130,6 +130,7 @@ class DetailPanelController{
             this.setSelectedDetails(data.to);
         } else {
             this.clearSelectedDetails();
+
         }
     }
 
@@ -144,6 +145,7 @@ class DetailPanelController{
     isSelected() {
         if(this.details && this.details.selected) {
             return this.details.selected.name ? true : false;
+
         } else {
             return false;
         }
@@ -165,6 +167,7 @@ class DetailPanelController{
             this.details.selected.colorDelta  = null;
             this.details.selected.link        = selected.link;
         }.bind(this));
+
     }
 
 

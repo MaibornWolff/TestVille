@@ -23,7 +23,7 @@ describe("app.testVille.codeMap.threeViewer.threeSceneService", function() {
         angular.mock.inject(function(threeSceneService){
 
             //expectations
-            expect(THREE.Scene.calledOnce);
+            expect(THREE.Scene.calledOnce).to.be.true;
 
         });
 
