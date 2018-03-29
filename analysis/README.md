@@ -29,7 +29,8 @@ The current version supports `Jira-Xray` and `hp-alm`.
 
 ##### Jira-Xray
 * Export the desired data to a .xml-file preferably with all available fields.
-* > ***./gradlew makeVisFile -PARGS="-xray -i*** exportFilePath.xml ***-o*** VisualizationFilePath.json ***"***
+* > ***./gradlew makeVisFile -PARGS="-xray -i*** exportFilePath.xml ***-o*** visualizationFilePath.json ***"***
+* > ***./gradlew makeVisFile -PARGS="-xray -i*** exportFilePath.xml ***-c*** configurattionFilePath ***-o*** visualizationFilePath.json ***"***
 
 
 ##### hp-alm
