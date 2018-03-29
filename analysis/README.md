@@ -31,23 +31,23 @@ The current version supports `Jira-Xray` and `hp-alm`.
 * Export the desired test data to a .xml-file preferably with all available fields.
 
 ###### On Unix Systems (Mac, Linux)
-* > ***./gradlew makeVisFile -PARGS="-xray -i*** exportFilePath.xml ***-o*** visualizationFilePath.json ***"***
-* > ***./gradlew makeVisFile -PARGS="-xray -i*** exportFilePath.xml ***-c*** configFilePath.xml ***-o*** visualizationFilePath.json ***"***
+* > ***./gradlew analyse -PARGS="-xray -i*** exportFilePath.xml ***-o*** visualizationFilePath.json ***"***
+* > ***./gradlew analyse -PARGS="-xray -i*** exportFilePath.xml ***-c*** configFilePath.xml ***-o*** visualizationFilePath.json ***"***
 
 ###### On Dos Systems
-* > ***gradlew.bat makeVisFile -PARGS="-xray -i*** exportFilePath.xml ***-o*** visualizationFilePath.json ***"***
-* > ***gradlew.bat makeVisFile -PARGS="-xray -i*** exportFilePath.xml ***-c*** configFilePath.xml ***-o*** visualizationFilePath.json ***"***
+* > ***gradlew.bat analyse -PARGS="-xray -i*** exportFilePath.xml ***-o*** visualizationFilePath.json ***"***
+* > ***gradlew.bat analyse -PARGS="-xray -i*** exportFilePath.xml ***-c*** configFilePath.xml ***-o*** visualizationFilePath.json ***"***
 
 
 ##### hp-alm
 * Export your test data with this ![sql-file](./export.sql)
 ###### On Unix Systems (Mac, Linux)
-* > ***./gradlew makeVisFile -PARGS="-alm -i*** exportFilePath.xml ***-o*** visualizationFilePath.json ***"***
-* > ***./gradlew makeVisFile -PARGS="-alm -i*** exportFilePath.xml ***-c*** configFilePath.xml ***-o*** visualizationFilePath.json ***"***
+* > ***./gradlew analyse -PARGS="-alm -i*** exportFilePath.xml ***-o*** visualizationFilePath.json ***"***
+* > ***./gradlew analyse -PARGS="-alm -i*** exportFilePath.xml ***-c*** configFilePath.xml ***-o*** visualizationFilePath.json ***"***
 
 ###### On Dos Systems
-* > ***gradlew.bat makeVisFile -PARGS="-alm -i*** exportFilePath.xml ***-o*** visualizationFilePath.json ***"***
-* > ***gradlew.bat makeVisFile -PARGS="-alm -i*** exportFilePath.xml ***-c*** configFilePath.xml ***-o*** visualizationFilePath.json ***"***
+* > ***gradlew.bat analyse -PARGS="-alm -i*** exportFilePath.xml ***-o*** visualizationFilePath.json ***"***
+* > ***gradlew.bat analyse -PARGS="-alm -i*** exportFilePath.xml ***-c*** configFilePath.xml ***-o*** visualizationFilePath.json ***"***
 
 
 The output file can be loaded in the visualization module.
