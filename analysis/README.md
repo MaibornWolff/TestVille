@@ -40,7 +40,7 @@ The current version supports `Jira-Xray` and `hp-alm`.
 
 
 ##### hp-alm
-* Export your test data with this ![sql-file](./export.sql)
+* Export your test data with this [sql-file](./export.sql)
 ###### On Unix Systems (Mac, Linux)
 * > ***./gradlew analyse -PARGS="-alm -i*** exportFilePath.xml ***-o*** visualizationFilePath.json ***"***
 * > ***./gradlew analyse -PARGS="-alm -i*** exportFilePath.xml ***-c*** configFilePath.xml ***-o*** visualizationFilePath.json ***"***
