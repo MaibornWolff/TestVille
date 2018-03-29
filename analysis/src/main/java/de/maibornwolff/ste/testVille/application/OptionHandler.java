@@ -101,8 +101,8 @@ public class OptionHandler {
 
     private String getDefaultConfigFilePath(ManagementTool tool) {
         if(null == tool) return null;
-        String almDefaultConfig  = "./src/main/resources/hpAlmDefaultConfiguration.xml";
-        String xrayDefaultConfig = "./src/main/resources/jiraXrayDefaultConfiguration.xml";
+        String almDefaultConfig  = "./analysis/src/main/resources/hpAlmDefaultConfiguration.xml";
+        String xrayDefaultConfig = "./analysis/src/main/resources/jiraXrayDefaultConfiguration.xml";
         switch (tool){
             case JIRA_XRAY: return xrayDefaultConfig;
             case HP_ALM:    return almDefaultConfig;

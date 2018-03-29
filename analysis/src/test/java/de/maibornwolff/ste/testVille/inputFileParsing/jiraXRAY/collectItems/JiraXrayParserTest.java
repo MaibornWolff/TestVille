@@ -1,6 +1,8 @@
 package de.maibornwolff.ste.testVille.inputFileParsing.jiraXRAY.collectItems;
 
 import de.maibornwolff.ste.testVille.domainModell.*;
+import de.maibornwolff.ste.testVille.domainModell.jiraXray.Epic;
+import de.maibornwolff.ste.testVille.domainModell.jiraXray.TestSet;
 import de.maibornwolff.ste.testVille.inputFileParsing.jiraXRAY.JiraXrayParser;
 import de.maibornwolff.ste.testVille.inputFileParsing.jiraXRAY.JiraXrayParsingState;
 import org.junit.jupiter.api.*;

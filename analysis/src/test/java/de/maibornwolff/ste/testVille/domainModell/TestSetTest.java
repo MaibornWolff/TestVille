@@ -1,5 +1,6 @@
 package de.maibornwolff.ste.testVille.domainModell;
 
+import de.maibornwolff.ste.testVille.domainModell.jiraXray.TestSet;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 import java.util.Collection;
@@ -11,7 +12,7 @@ class TestSetTest {
     @TestFactory
     Collection<DynamicTest> correctnessCheck() {
         //arrange
-        TestSet set = new TestSet();
+        TestSet set = new TestSet(-1);
 
         // act & assert
         set.addAssociatedElementKeys("haha", "hihi", "hoho");

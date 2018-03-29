@@ -1,5 +1,6 @@
 package de.maibornwolff.ste.testVille.inputFileParsing.hpALM.exportProcess;
 
+import de.maibornwolff.ste.testVille.inputFileParsing.hpALM.HpAlmParser;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
@@ -8,15 +9,15 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class ExportHandlerTest {
+class HpAlmParserTest {
 
     @Test
     void writeTest () throws Exception{
 
         // Arrange
-        ExportHandler  exH;
+        HpAlmParser exH;
 
-        exH = new ExportHandler("./src/test/resources/TestS.xls","./src/test/resources/TestSConfig.xml") ;
+        exH = new HpAlmParser("./src/test/resources/TestS.xls","./src/test/resources/TestSConfig.xml") ;
         exH.makeVisualisationFile("./src/test/resources/TestSIstErg.json");
 
         String strActual   = extractFileContent("./src/test/resources/TestSIstErg.json");

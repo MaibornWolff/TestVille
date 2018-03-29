@@ -1,108 +1,52 @@
 package de.maibornwolff.ste.testVille.vizualisationFileWriting;
 
-import de.maibornwolff.ste.testVille.application.AnalysisRunSetting;
-import de.maibornwolff.ste.testVille.application.OptionHandler;
-import de.maibornwolff.ste.testVille.inputFileParsing.hpALM.exportProcess.ExportHandler;
-import de.maibornwolff.ste.testVille.inputFileParsing.jiraXRAY.TranslationMapBuilder;
+import de.maibornwolff.ste.testVille.inputFileParsing.VisualizationTree;
 
-import java.io.File;
 import java.io.FileWriter;
-import java.io.Writer;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
+import java.io.IOException;
 
 public class VisualizationFileGenerator {
 
-    private AnalysisRunSetting runSetting;
+    private VisualizationTree parsingStepArtifact;
+    private String visualizationFilePath;
 
 
-    public VisualizationFileGenerator(List<String> commandLineArgs) throws Exception{
-        this.runSetting = new OptionHandler(commandLineArgs).getRunSetting();
-        if(this.runSetting == null) System.exit(0);
+    public VisualizationFileGenerator(VisualizationTree tree, String visualizationFilePath) throws Exception{
+        this.parsingStepArtifact   = tree;
+        this.visualizationFilePath = visualizationFilePath;
     }
 
-    private void generateVisualizationFileHpAlm() throws Exception{
-        ExportHandler eh = new ExportHandler(this.runSetting.getExportFilePath(), this.runSetting.getConfigurationFilePath());
-        eh.makeVisualisationFile(this.runSetting.getVisualizationFileTarget());
+    public void generateVisualizationFile() throws Exception {
+        FileWriter writer = this.createVisualizationFileWriter();
+        writer.write(this.generateVisualizationFileContent().toString());
+        this.terminateWriteProcess(writer);
     }
 
-    private void generateVisualizationFileXray() throws Exception {
-        de.maibornwolff.ste.testVille.inputFileParsing.jiraXRAY.collectItems.ExportHandler eh;
-        eh = new de.maibornwolff.ste.testVille.inputFileParsing.jiraXRAY.collectItems.ExportHandler(this.runSetting.getExportFilePath());
-        List<Writable> toWrite = castToWritables(eh.getAllEpics()).stream().filter(x -> !x.getWritableChildren().isEmpty()).collect(Collectors.toList());
-        this.createVisualizationFile(this.runSetting.getVisualizationFileTarget(), toWrite);
+    private void terminateWriteProcess(FileWriter writer) throws Exception {
+        writer.close();
     }
 
-
-    public void generateVisualizationFile() throws Exception{
-        switch (this.runSetting.getExportOrigin()) {
-            case HP_ALM:    generateVisualizationFileHpAlm(); break;
-            case JIRA_XRAY: generateVisualizationFileXray();  break;
-        }
+    private FileWriter createVisualizationFileWriter() throws IOException {
+        return new FileWriter(this.visualizationFilePath);
     }
 
-    private static <A> List<Writable> castToWritables(List<A> listOfAs) {
-        return listOfAs.stream().map(x -> (Writable) x).collect(Collectors.toList());
+    private StringBuilder generateVisualizationFileContent() {
+        StringBuilder toWrite = new StringBuilder();
+        toWrite.append(this.visualizationFileHeader());
+        toWrite.append(this.visualizationFileBody());
+        toWrite.append(this.visualizationFileFooter());
+        return toWrite;
     }
 
-
-    private Map<String, Map<String, Integer>> generateTranslationMap() throws Exception{
-        return TranslationMapBuilder.buildHashMapFromXmlDocument(this.runSetting.getConfigurationFilePath());
-    }
-
-    private static Map<String, Integer> generatePriorityRankingMap(Map<String, Map<String, Integer>> translationMap) {
-            Map<String, Integer> priorityMap = translationMap.get("priority");
-
-            final List<Map.Entry<String, Integer>> entries = priorityMap.entrySet()
-                    .stream()
-                    .sorted((x, y) -> y.getValue() - x.getValue()).collect(Collectors.toList())
-            ;
-            return entries.stream().reduce(new HashMap<String, Integer>(), (x, y) -> {
-                x.put(y.getKey(), 1 + entries.indexOf(y));
-                return x;
-            }, (x, y) -> {x.putAll(y); return x;})
-            ;
-    }
-
-    private void createVisualizationFile(String visualizationFilePath, List<Writable> toWrite) throws Exception {
-        StringBuilder contentToBeWrite = contentToBeWrite(toWrite);
-        Writer writer = null;
-
-        try{
-            writer = new FileWriter(new File(visualizationFilePath));
-            writer.write(contentToBeWrite.toString());
-        }catch (Exception e) {
-            throw new Exception("visualization file could not be created!");
-        }
-
-        finally {
-            if(writer != null) {
-                writer.close();
-            }
-        }
-
-    }
-
-    private StringBuilder contentToBeWrite(List<Writable> toWrite) throws Exception {
-        StringBuilder puffer = new StringBuilder(visualizationFileHeader());
-        Map<String, Map<String, Integer>> translationMap     = this.generateTranslationMap();
-        Map<String, Integer>              priorityRankingMap = generatePriorityRankingMap(translationMap);
-        puffer.append(Writable.produceWritablesStringRepresentation(toWrite, new AtomicInteger(), translationMap, priorityRankingMap));
-        puffer.append(visualizationFileFooter());
-        return puffer;
+    private StringBuilder visualizationFileBody() {
+        return this.parsingStepArtifact.produceWritableStringRepresentation();
     }
 
     private String visualizationFileHeader() {
-        return "{\"projectName\":\"___________\"," +
-                "\"_comment\": \"Visualization file generated by TesLa_2.0.0_\"" +
-                ", \"nodes\":\n[{\"name\":\"root\", \"type\":\"root\",\"attributes\":{}, \"children\":["
-        ;
+        return "{\"projectName\":\"___________\", \"_comment\": \"Visualization file generated by TesLa_2.0.0_\", " ;
     }
 
     private String visualizationFileFooter() {
-        return "]}]}";
+        return "}";
     }
 }

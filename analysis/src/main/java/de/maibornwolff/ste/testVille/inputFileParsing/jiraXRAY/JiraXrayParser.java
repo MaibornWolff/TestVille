@@ -1,13 +1,20 @@
 package de.maibornwolff.ste.testVille.inputFileParsing.jiraXRAY;
 
+import de.maibornwolff.ste.testVille.domainModell.jiraXray.Epic;
+import de.maibornwolff.ste.testVille.domainModell.jiraXray.JiraXrayTestCase;
+import de.maibornwolff.ste.testVille.domainModell.jiraXray.TestExecution;
+import de.maibornwolff.ste.testVille.domainModell.jiraXray.TestSet;
+import de.maibornwolff.ste.testVille.inputFileParsing.Parser;
+import de.maibornwolff.ste.testVille.inputFileParsing.common.IDGenerator;
 import de.maibornwolff.ste.testVille.inputFileParsing.common.Pair;
 import de.maibornwolff.ste.testVille.domainModell.*;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+
+import javax.xml.parsers.SAXParserFactory;
+import java.io.File;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * This implementation extends the org.xml.sax.helpers.DefaultHandler.
@@ -19,14 +26,18 @@ import java.util.Map;
  *
  * (c) maibornwolff, TestVille, 2018
  */
-public class JiraXrayParser extends DefaultHandler {
+public class JiraXrayParser extends DefaultHandler implements Parser {
+    private final List<Item>      collectedItems;
+    private JiraXrayParsingState  currentState;
+    private Map<String, String>   currentMap;
+    private Pair<String, String>  currentPair;
+    private final List<String>    xRayKnownUntranslatableFieldToExtract = List.of("assignee", "reporter");
+    private final List<String>    xRayKnownUndesirableFields            = List.of("rank");
+    private final IDGenerator     localIDGenerator                      = new IDGenerator();
 
-    private final List<Item>        collectedItems;
-    private JiraXrayParsingState currentState;
-    private Map<String, String>     currentMap;
-    private Pair<String, String>    currentPair;
-    private final List<String> xRayKnownUntranslatableFieldToExtract = List.of("assignee", "reporter");
-    private final List<String> xRayKnownUndesirableFields = List.of("rank");
+    private int generateNextLocalKey() {
+        return this.localIDGenerator.generateNextUniqueKey();
+    }
 
     public JiraXrayParser() {
         super();
@@ -311,8 +322,8 @@ public class JiraXrayParser extends DefaultHandler {
      * stored in this.currentMap.
      * @return an TestCase-Object
      */
-    private TestCase translateHashmapToTestCase() {
-        TestCase result = new TestCase();
+    private JiraXrayTestCase translateHashmapToTestCase() {
+        JiraXrayTestCase result = new JiraXrayTestCase(this.generateNextLocalKey());
         this.setItemSettings(result);
 
         if(result.isItemInvalid()) {
@@ -329,7 +340,7 @@ public class JiraXrayParser extends DefaultHandler {
      * @return an Story-Object
      */
     private Epic translateHashmapToEpic() {
-        Epic result = new Epic();
+        Epic result = new Epic(this.generateNextLocalKey());
         this.setItemSettings(result);
         if(result.isItemInvalid()) {
             return null;
@@ -343,7 +354,7 @@ public class JiraXrayParser extends DefaultHandler {
      * @return an TestSet-Object.
      */
     private TestSet translateHashmapToTestSet() {
-        TestSet result = new TestSet();
+        TestSet result = new TestSet(this.generateNextLocalKey());
         this.setItemSettings(result);
         if(result.isItemInvalid()) {
             return null;
@@ -358,7 +369,7 @@ public class JiraXrayParser extends DefaultHandler {
      * @return an TestExecution-Object.
      */
     private TestExecution translateMapToTestExecution() {
-        TestExecution currentExtractedTestExecution = new TestExecution();
+        TestExecution currentExtractedTestExecution = new TestExecution(this.generateNextLocalKey());
         this.setItemSettings(currentExtractedTestExecution);
         if(currentExtractedTestExecution.isItemInvalid()) {
             return null;
@@ -409,42 +420,30 @@ public class JiraXrayParser extends DefaultHandler {
         }
     }
 
-    /**
-     * shows the Testcase item the keys of items that it connected to.
-     * @param item: linked Testcase.
-     */
     private void setTestCaseAssociatedElementKeys(TestCase item) {
         String associatedElements = this.getCurrentMap().get("Test Sets association with a Test");
         completeAssociatedElementKeys(item, associatedElements);
 
         if(this.getCurrentMap().containsKey("Epic Link")){
-            item.addAssociatedElementKeys(this.getCurrentMap().get("Epic Link"));
+            item.addAssociatedItemKeys(this.getCurrentMap().get("Epic Link"));
         }
     }
 
-    /**
-     * shows the TestSet item the keys of items that it connected to.
-     * @param item: linked TestSet.
-     */
     private void setTestSetAssociatedElementKeys(TestSet item) {
         String associatedElements = this.getCurrentMap().get("Tests association with a Test Set");
         completeAssociatedElementKeys(item, associatedElements);
 
         if(this.getCurrentMap().containsKey("Epic Link")){
-            item.addAssociatedElementKeys(this.getCurrentMap().get("Epic Link"));
+            item.addAssociatedItemKeys(this.getCurrentMap().get("Epic Link"));
         }
     }
 
-    /**
-     * shows the TestExecution item the keys of items that it connected to.
-     * @param item: linked Testcase.
-     */
     private void setTestExecutionAssociatedElementKeys(TestExecution item) {
         String associatedElements = this.getCurrentMap().get("Tests association with a Test Execution");
         completeAssociatedElementKeys(item, associatedElements);
 
         if(this.getCurrentMap().containsKey("Epic Link")){
-            item.addAssociatedElementKeys(this.getCurrentMap().get("Epic Link"));
+            item.addAssociatedItemKeys(this.getCurrentMap().get("Epic Link"));
         }
     }
 
@@ -453,7 +452,7 @@ public class JiraXrayParser extends DefaultHandler {
 
         keyContainer = hardTrim(keyContainer);
         String[] li  = keyContainer.split(",");
-        item.addAssociatedElementKeys(li);
+        item.addAssociatedItemKeys(li);
     }
 
     private static String hardTrim(String str) {
@@ -475,20 +474,12 @@ public class JiraXrayParser extends DefaultHandler {
         return "";
     }
 
-    /**
-     * this function fetch in item the current extracted settings(key, title, priority).
-     * @param item item
-     */
     public void setItemSettings(Item item) {
         item.setKey     (this.getCurrentMap().get("key"));
         item.setName    (this.getCurrentMap().get("title"));
         item.setPriority(this.getCurrentMap().get("priority"));
     }
 
-    /**
-     *
-     * @return all simple fields name that should be extracted.
-     */
     private static List<String> listOfSimplesFields() {
         return List.of("priority",
                 "title",
@@ -502,26 +493,14 @@ public class JiraXrayParser extends DefaultHandler {
         );
     }
 
-    /**
-     * This method saves the extracted name of an field.
-     * @param fieldName Name of the field.
-     */
     private void saveFieldName(String fieldName) {
         this.currentPair.applyFunctionToFirst(x -> x + fieldName);//.first += fieldName;
     }
 
-    /**
-     * This method saves the extracted name of an field.
-     * @param fieldValue Value of the field.
-     */
     private void saveFieldValue(String fieldValue) {
         this.currentPair.applyFunctionToSecond(x -> x + fieldValue);
     }
 
-    /**
-     * this method get extracted data and saves it either as fieldName or as fieldValue.
-     * @param data Received data.
-     */
     private void saveExtractedData(String data) {
         data = data.trim();
 
@@ -532,10 +511,6 @@ public class JiraXrayParser extends DefaultHandler {
         }
     }
 
-    /**
-     * Saves current extracted item in the list {@link #collectedItems} if the current item
-     * is valid (!= null).
-     */
     private void saveExtractedItem() {
         Item extractedItem = this.translateHashmapToItem();
         if(extractedItem != null) {
@@ -543,12 +518,165 @@ public class JiraXrayParser extends DefaultHandler {
         }
     }
 
-    /**
-     * stores the value of the current extracted field value in {@link #currentPair}.
-     */
     private void saveCurrentField() {
         if(this.currentPairIsOkay()) {
             this.currentMap.put(this.currentPair.getFirst(), this.currentPair.getSecond());
         }
+    }
+
+    @Override
+    public Collection<Item> parse(String fileToParse, String configFilePath) throws Exception {
+        JiraXrayParser jiraXrayParser = new JiraXrayParser();
+        SAXParserFactory.newInstance().newSAXParser().parse(new File(fileToParse), jiraXrayParser);
+        jiraXrayParser.manageExtractedItems(configFilePath);
+        return extractAllEpics(jiraXrayParser.getCollectedItems());
+    }
+
+    private void manageExtractedItems(String configFilePath) throws Exception {
+        associateEpicsToTestCases(this.getCollectedItems());
+        letExtractedTestCasesKnowTheirCountExecutions(this.getCollectedItems());
+        completeExtractedItemsWithDummyEpic();
+        showExtractedTestCaseTheirTranslationMap(configFilePath);
+    }
+
+    private void showExtractedTestCaseTheirTranslationMap(String configFile) throws Exception {
+        JiraXrayTestCase.translationMap = TranslationMapBuilder.buildHashMapFromXmlDocument(configFile);
+    }
+
+    private void completeExtractedItemsWithDummyEpic() {
+        this.collectedItems.add(createEpicForLooseTestCases(this.getCollectedItems()));
+    }
+
+    private Epic createEpicForLooseTestCases(Collection<Item> allExtractedItems) {
+        Epic dummyEpic = this.createDummyEpic();
+        dummyEpic.addAllAssociatedItems(extractLooseTestCases(allExtractedItems));
+        return dummyEpic;
+    }
+
+
+    private static void associateEpicsToTestCases(Collection<Item> allExtractedItems) {
+        allExtractedItems
+                .stream()
+                .filter(JiraXrayParser:: isEpic)
+                .forEach(x -> associateEpicToTestCases((Epic) x, allExtractedItems));
+    }
+
+    private static boolean isEpic(Item maybeEpic) {
+        return maybeEpic.getItemTyp() == ItemTyp.EPIC;
+    }
+
+    private static void associateEpicToTestCases(Epic epic, Collection<Item> allExtractedItems) {
+        for(Item item: allExtractedItems) {
+            if(isTestCase(item) && existsAssociationBetweenEpicUndTestCase(epic, item)) {
+                epic.addAllAssociatedItems(item);
+            }else if(isTestSet(item) && existsAssociationBetweenEpicUndTestSet(epic, item)) {
+                Collection<Item> testCaseBelongEpic = extractTestCasesBelongTestSet(item, allExtractedItems);
+                epic.addAllAssociatedItems(testCaseBelongEpic);
+            }
+        }
+    }
+
+    private static boolean existsAssociationBetweenEpicUndTestSet(Epic epic, Item testSet) {
+        return testSet.getAssociatedItemKeys().contains(epic.getKey());
+    }
+
+    private static boolean existsAssociationBetweenEpicUndTestCase(Epic epic, Item test) {
+        return test.getAssociatedItemKeys().contains(epic.getKey());
+    }
+
+    private static Collection<Item> extractTestCasesBelongTestSet(Item testSet, Collection<Item> items) {
+        return items
+                .stream()
+                .filter(JiraXrayParser::isTestCase)
+                .filter(x -> x.getAssociatedItemKeys().contains(testSet.getKey()))
+                .collect(Collectors.toSet());
+    }
+
+    private static boolean isTestCase(Item maybeTestCase) {
+        return maybeTestCase.getItemTyp() == ItemTyp.TESTCASE;
+    }
+
+    private static boolean isTestSet(Item maybeTestSet) {
+        return maybeTestSet.getItemTyp() == ItemTyp.TESTSET;
+    }
+
+
+    private static Collection<Item> extractLooseTestCases(Collection<Item> allExtractedItems) {
+        Collection<Item> looseTestCases = new ArrayList<>();
+        looseTestCases.addAll(extractDirectLooseTestCases(  allExtractedItems));
+        looseTestCases.addAll(extractIndirectLooseTestCases(allExtractedItems));
+        return looseTestCases;
+    }
+
+    private static Collection<Item> extractDirectLooseTestCases(Collection<Item> allExtractedItems) {
+        Collection<String> mergedKeysFromItemAssociatedToEpics = extractAllEpics(allExtractedItems)
+                .stream()
+                .map(Item::getAssociatedItemKeys)
+                .reduce(new ArrayList<>(), (x, y) -> {x.addAll(y); return x;});
+       return allExtractedItems
+                .stream()
+                .filter(x -> isTestCase(x) && (!mergedKeysFromItemAssociatedToEpics.contains(x.getKey())))
+                .collect(Collectors.toList());
+    }
+
+    private static Collection<Item> extractIndirectLooseTestCases(Collection<Item> allExtractedItems) {
+        Collection<Item>   looseTestSets = extractLooseTestSets(allExtractedItems);
+        Collection<String> mergedKeysFromItemAssociatedToTestSets = looseTestSets
+                .stream()
+                .map(Item::getAssociatedItemKeys)
+                .reduce(new ArrayList<>(), (x, y) -> {x.addAll(y); return x;});
+
+        return allExtractedItems
+                .stream()
+                .filter(x -> isTestCase(x) && (!mergedKeysFromItemAssociatedToTestSets.contains(x.getKey())))
+                .collect(Collectors.toList());
+    }
+
+    private static Collection<Item> extractLooseTestSets(Collection<Item> allExtractedItems) {
+        Collection<String> mergedKeysFromItemAssociatedToEpics = extractAllEpics(allExtractedItems)
+                .stream()
+                .map(Item::getAssociatedItemKeys)
+                .reduce(new ArrayList<>(), (x, y) -> {x.addAll(y); return x;});
+        return allExtractedItems
+                .stream()
+                .filter(x -> isTestSet(x) && (!mergedKeysFromItemAssociatedToEpics.contains(x.getKey())))
+                .collect(Collectors.toList());
+    }
+
+    private Epic createDummyEpic() {
+        Epic dummyEpic = new Epic(this.generateNextLocalKey());
+        dummyEpic.setKey("dummyKey-1");
+        dummyEpic.setName("DummyEpic");
+        dummyEpic.setPriority("Minor");
+        return dummyEpic;
+    }
+
+
+    private static Collection<Item> extractAllEpics(Collection<Item> allExtractedItems) {
+        return allExtractedItems.stream().filter(JiraXrayParser::isEpic).collect(Collectors.toList());
+    }
+
+    private static Collection<TestExecution> extractAllTestExecutions(Collection<Item> allExtractedItems) {
+        return allExtractedItems
+                .stream()
+                .filter(JiraXrayParser::isTestExecution)
+                .map(x -> (TestExecution) x)
+                .collect(Collectors.toList());
+    }
+
+    private static boolean isTestExecution(Item maybeTestExecution) {
+        return maybeTestExecution.getItemTyp() == ItemTyp.TESTEXECUTION;
+    }
+
+    private static void letExtractedTestCasesKnowTheirCountExecutions(Collection<Item> allItems) {
+        Collection<TestExecution>    allTestExecutions = extractAllTestExecutions(allItems);
+        Collection<JiraXrayTestCase> allTestCases      = extractAllTestCases(allItems);
+        allTestCases.forEach(x -> x.addCountExecutionsAsTestCaseMetric(allTestExecutions));
+    }
+
+    private static Collection<JiraXrayTestCase> extractAllTestCases(Collection<Item> allItems) {
+        return allItems.stream().filter(JiraXrayParser::isTestCase)
+                .map(x -> (JiraXrayTestCase) x)
+                .collect(Collectors.toList());
     }
 }

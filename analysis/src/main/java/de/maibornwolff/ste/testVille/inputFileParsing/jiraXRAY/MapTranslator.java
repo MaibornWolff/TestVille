@@ -24,21 +24,30 @@ public class MapTranslator {
         return translateEntrySetToHashMap(set, translationMap);
     }
 
+    public static HashMap<String, Integer> translateTestCasePropertyHashMap(Map<String, String> originalPropertyMap) {
+        Set<Map.Entry<String, String>> set = originalPropertyMap.entrySet();
+        return translateEntrySetToHashMap(set, null);
+    }
+
     private static HashMap<String, Integer> translateEntrySetToHashMap(Set<Map.Entry<String, String>> propertySet,
                                                                 Map<String, Map<String, Integer>> translationMap) {
 
-        HashMap<String, Integer> translatedHashMap = new HashMap<>();
+        final HashMap<String, Integer> translatedHashMap = new HashMap<>();
 
-        for (Map.Entry<String, String> entry: propertySet) {
+        propertySet.forEach(entry -> {
             String fieldName  = entry.getKey().trim().toLowerCase();
             String fieldValue = entry.getValue().trim().toLowerCase();
-            int metricValue = translateFieldValueToMetricValue(fieldName, fieldValue, translationMap);
-            if((metricValue == -2) || (metricValue >= 0)) {
+            int metricValue   = translateFieldValueToMetricValue(fieldName, fieldValue, translationMap);
+
+            if(isValueSuccessFullTranslated(metricValue)) {
                 translatedHashMap.putIfAbsent(entry.getKey().trim(), metricValue);
             }
-        }
-
+        });
         return translatedHashMap;
+    }
+
+    private static boolean isValueSuccessFullTranslated(int translationResult) {
+        return (translationResult == -2) || (translationResult >= 0);
     }
 
     private static int translateFieldValueToMetricValue(String fieldName, String fieldValue,

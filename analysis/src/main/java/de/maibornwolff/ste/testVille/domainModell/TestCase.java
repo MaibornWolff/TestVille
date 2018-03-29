@@ -3,17 +3,14 @@ package de.maibornwolff.ste.testVille.domainModell;
 import de.maibornwolff.ste.testVille.inputFileParsing.jiraXRAY.MapTranslator;
 import de.maibornwolff.ste.testVille.vizualisationFileWriting.Writable;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class TestCase extends Item implements Writable {
 
     private Map<String, String> propertyMap;
 
-    public TestCase() {
-        super();
+    public TestCase(int localKey) {
+        super(localKey);
         this.propertyMap = new HashMap<>();
     }
 
@@ -60,7 +57,7 @@ public class TestCase extends Item implements Writable {
 
     @Override
     public List<Writable> getWritableChildren() {
-        return null;
+        return emptyList();
     }
 
     @Override
@@ -84,12 +81,32 @@ public class TestCase extends Item implements Writable {
     }
 
     @Override
-    public Map<String, Integer> getMetricsToBeWrite(Map<String, Map<String, Integer>> translationMap) {
-        return MapTranslator.translateTestCasePropertyHashMap(this.getPropertyMap(), translationMap);
+    public StringBuilder getWritableMetricsAsString() {
+        StringBuilder buffer = new StringBuilder();
+        buffer.append(produceMetricsStringRepresentationHeader());
+        buffer.append(produceMetricsStringRepresentationBody());
+        buffer.append(produceMetricsStringRepresentationFooter());
+        return buffer;
+    }
+
+    private String produceMetricsStringRepresentationBody() {
+        Map<String, Integer> translatedMetrics = MapTranslator.translateTestCasePropertyHashMap(this.getPropertyMap());
+        return Item.produceStringRepresentationOfFields(translatedMetrics.entrySet());
     }
 
     @Override
-    public Map<String, String> getUntranslatableProperties() {
-        return this.getUntranslatableFields();
+    public String getWritableUntranslatableFieldsAsString() {
+        return super.getWritableUntranslatableFieldsAsString();
     }
+
+    public static String produceMetricsStringRepresentationHeader() {
+        return ", \"attribute\": { ";
+    }
+
+    public static String produceMetricsStringRepresentationFooter() {
+        return "}";
+    }
+
+    private List<Writable> emptyList() {return List.of();}
+
 }

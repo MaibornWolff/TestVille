@@ -1,18 +1,22 @@
 package de.maibornwolff.ste.testVille.domainModell;
 
+import de.maibornwolff.ste.testVille.vizualisationFileWriting.Writable;
+
 import java.util.*;
 
-public abstract class Item implements Comparable<Item>{
+public abstract class Item implements Comparable<Item> {
 
-    private String                    key;
+    private String                    key;        // key from export
+    private int                       localId;  // from this application generated key
     private String                    name;
     private String                    priority;
-    private final Map<String, String> untranslatableFields;
-    private final List<String>        associatedElementKeys;
+    private final Map<String, String> untranslatableFields; // Example: reporter, projectName
+    private final List<String>        associatedItemKeys;
 
-    Item () {
-        this.associatedElementKeys = new ArrayList<>();
-        this.untranslatableFields  = new HashMap<>();
+    public Item (int localId) {
+        this.localId              = localId;
+        this.associatedItemKeys   = new ArrayList<>();
+        this.untranslatableFields = new HashMap<>();
     }
 
     /**
@@ -37,14 +41,14 @@ public abstract class Item implements Comparable<Item>{
      * @param element Keys of a element that have a link to this LinkedItem.
      */
     private void addAssociatedElementKey(String element) {
-        this.associatedElementKeys.add(element);
+        this.associatedItemKeys.add(element);
     }
 
     /**
      * This function adds new associated elements to this LinkedItem.
      * @param xs Keys of elements that have a link to this LinkedItem.
      */
-    public void addAssociatedElementKeys(String ... xs) {
+    public void addAssociatedItemKeys(String ... xs) {
         Arrays.stream(xs)
             .filter(s -> (s != null) && !s.trim().equals(""))
             .map(String::trim)
@@ -52,11 +56,11 @@ public abstract class Item implements Comparable<Item>{
     }
 
     /**
-     * Getter for the attribute {@link #associatedElementKeys}.
-     * @return this.associatedElementKeys
+     * Getter for the attribute {@link #associatedItemKeys}.
+     * @return this.associatedItemKeys
      */
-    public List<String> getAssociatedElementKeys() {
-        return associatedElementKeys;
+    public List<String> getAssociatedItemKeys() {
+        return associatedItemKeys;
     }
 
     /**
@@ -96,7 +100,9 @@ public abstract class Item implements Comparable<Item>{
      * @param name New name of this Item.
      */
     public void setName(String name) {
-        this.name = name;
+        String n = name.trim();
+        if(n.isEmpty()) this.name = "No_Name";
+        this.name = n;
     }
 
     /**
@@ -116,7 +122,7 @@ public abstract class Item implements Comparable<Item>{
 
     @Override
     public int hashCode() {
-        return Objects.hash(key, name, priority, untranslatableFields, associatedElementKeys);
+        return Objects.hash(key, name, priority, untranslatableFields, associatedItemKeys);
     }
 
     /**
@@ -132,10 +138,23 @@ public abstract class Item implements Comparable<Item>{
      * available itemTypes: TESTCASE, TESTSET, STORY, TESTEXECUTION.
      * @return ItemTyp.
      */
-    public abstract ItemTyp getItemTyp();
+    public ItemTyp getItemTyp() {
+        return ItemTyp.ITEM;
+    }
 
     @Override
     public int compareTo(Item item) {
         return this.getKey().compareTo(item.getKey());
+    }
+
+    public String getWritableUntranslatableFieldsAsString() {
+        Set<Map.Entry<String, String>> entries = this.getUntranslatableFields().entrySet();
+        return produceStringRepresentationOfFields(entries);
+    }
+
+    public static  <A, B> String produceStringRepresentationOfFields(Set<Map.Entry<A, B>> fields) {
+        return fields.stream()
+                .map(x -> Writable.produceEntryString(x.getKey().toString(), x.getValue().toString(),false))
+                .reduce("", (x, y) -> x.isEmpty() ? x.concat(y) : x.concat(", ").concat(y));
     }
 }

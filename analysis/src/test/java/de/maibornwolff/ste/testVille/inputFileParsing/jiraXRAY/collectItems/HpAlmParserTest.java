@@ -1,6 +1,6 @@
 package de.maibornwolff.ste.testVille.inputFileParsing.jiraXRAY.collectItems;
 
-import de.maibornwolff.ste.testVille.domainModell.Epic;
+import de.maibornwolff.ste.testVille.domainModell.jiraXray.Epic;
 import de.maibornwolff.ste.testVille.domainModell.Item;
 import de.maibornwolff.ste.testVille.domainModell.TestCase;
 import org.junit.jupiter.api.DisplayName;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ExportHandlerTest {
+class HpAlmParserTest {
 
     private ExportHandler exportHandler;
 
