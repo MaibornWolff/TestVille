@@ -6,12 +6,28 @@ task installDependencies( type : org.ysb33r.gradle.nodejs.tasks.NpmTask ) {
     command  'install'
 }
 
-task buildVisualization( type : org.ysb33r.gradle.nodejs.tasks.NpmTask, dependsOn: installDependencies ) {
+task buildProject( type : org.ysb33r.gradle.nodejs.tasks.NpmTask, dependsOn: installDependencies ) {
     command  'run'
     cmdArgs  'build'
 }
 
-task startServer( type : org.ysb33r.gradle.nodejs.tasks.NpmTask ) {
+task serve( type : org.ysb33r.gradle.nodejs.tasks.NpmTask ) {
     command  'run'
     cmdArgs  'serve'
 }
+
+task testProject ( type : org.ysb33r.gradle.nodejs.tasks.NpmTask, dependsOn: buildProject ) {
+    command  'run'
+    cmdArgs  'test'
+}
+
+task docProject ( type : org.ysb33r.gradle.nodejs.tasks.NpmTask, dependsOn: buildProject ) {
+    command  'run'
+    cmdArgs  'doc'
+}
+
+task watchApp ( type : org.ysb33r.gradle.nodejs.tasks.NpmTask ) {
+    command  'run'
+    cmdArgs  'watch:app'
+}
+
