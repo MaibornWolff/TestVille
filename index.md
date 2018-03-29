@@ -101,7 +101,7 @@ Use the "Invert Color" option, to declare a high value to be better then a low v
 
 # Demo
 
-[Browser Demo](visualization/dist/app/)
+[Visualization Demo](visualization/dist/app/)
 
 # Further information
 
@@ -109,24 +109,12 @@ Use the "Invert Color" option, to declare a high value to be better then a low v
 
 [Readme](https://github.com/MaibornWolff/TestVille/tree/master/visualization)
 
-[Browser Demo](visualization/dist/app/)
-
-[Coverage](visualization/dist/coverage/lcov-report)
-
-[Reference](visualization/docs/)
+[Visualization Demo](visualization/dist/app/)
 
 ## Analysis
 
 [Readme](https://github.com/MaibornWolff/TestVille/tree/master/analysis)
 
-# Contributing
-
-[Contributing](https://github.com/MaibornWolff/codecharta/blob/master/CONTRIBUTE.md)
-
-[Code of Conduct](https://github.com/MaibornWolff/codecharta/blob/master/CODE_OF_CONDUCT.md)
-
 # Releases and Changelog
 
 [Releases](https://github.com/MaibornWolff/TestCharta/releases)
-
-[Changelog](https://github.com/MaibornWolff/codecharta/blob/master/CHANGELOG.md)
