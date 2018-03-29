@@ -36,8 +36,7 @@ Anyone will be able to understand where your testing is at, even if your project
   - > Unix systems: ./gradlew   makeVisFile -PARGS="[options]"
 ```markdown
 Options:
--demo
-      Generate demo visualization file
+
 -xray
       Jira-Xray as data origin
 -alm
