@@ -13,6 +13,68 @@ describe("app.testVille.codeMap.codeMapUtilities", () => {
         codeMapUtilities = new CodeMapUtilities();
     });
 
+    describe("Utilities.computeFaceNormal.tests",()=>{
+
+        it("should compute the normal for an given face", () => {
+            const face = {a: 0, b: 1, c: 2};
+            const vertices = [new THREE.Vector3(1, 0, 0), new THREE.Vector3(0, 1, 0), new THREE.Vector3(0, 0, 1)];
+
+            const actual   = CodeMapUtilities.computeFaceNormal(face, vertices);
+            const expected = new THREE.Vector3(1, 1, 1);
+
+            expect(angular.equals(actual, expected)).to.be.true;
+
+        });
+    });
+
+    describe("Utilities.mergeAttributeOfFace.tests", ()=>{
+
+        it("should merge the Attributes of Face",()=>{
+
+            var face = {a: 0, b: 1, c: 2};
+            var verticesOfCurrentGeo = [new THREE.Vector3(1, 0, 0), new THREE.Vector3(0, 1, 0), new THREE.Vector3(0, 0, 1)];
+            var color = new THREE.Color( 0xff0000 );
+            var colors= [];
+            var normals= [];
+            var vertices= [];
+
+
+            CodeMapUtilities.mergeAttributeOfFace(face, verticesOfCurrentGeo, color, colors, normals,vertices)
+
+
+            expect(colors.length).to.equal(9);
+            expect(normals.length).to.equal(9);
+            expect(vertices.length).to.equal(9);
+            expect(vertices).to.deep.equal([1,0,0,0,1,0,0,0,1]);
+
+        });
+    });
+
+    describe("mergeAndAddObjectsToScene",()=>{
+
+        it("should return [] when sceneGraph is undefined", ()=>{
+
+            var scene;
+            var sceneGraph;
+
+
+            var result= CodeMapUtilities.mergeAndAddObjectsToScene(scene, sceneGraph);
+
+
+            expect(result).to.be.empty;
+        });
+
+        it("",()=>{
+
+
+        });
+    });
+
+    describe("Utilities.extractFinalStreet.tests",()=>{
+
+        it("")
+    });
+
     it("should check the correctness of the jsonNode depth", () => {
        const node =  {children:
            [
@@ -26,7 +88,7 @@ describe("app.testVille.codeMap.codeMapUtilities", () => {
        };
 
        const result = CodeMapUtilities.depthCheck(node, 2);
-       expect(result).to.equals(true);
+       expect(result).to.be.true;
     });
 
     it("should compute an correct matrix to place a street on the right side of an mainStreet", () => {
@@ -35,7 +97,7 @@ describe("app.testVille.codeMap.codeMapUtilities", () => {
         const result         = CodeMapUtilities.createMatrixToPlaceStreetRight(depth);
         const expectedResult = new THREE.Matrix4().makeTranslation(0, 0, -depth);
 
-        expect(angular.equals(result, expectedResult)).to.equal(true);
+        expect(result).to.deep.equal(expectedResult);
     });
 
     it("should compute an correct matrix to place a street on the left side of an mainStreet",  () => {
@@ -46,7 +108,7 @@ describe("app.testVille.codeMap.codeMapUtilities", () => {
         const expected = new THREE.Matrix4().makeRotationY(Math.PI);
         expected.premultiply(new THREE.Matrix4().makeTranslation(-width, 0, -depth));
 
-        expect(angular.equals(actual, expected)).to.equal(true);
+        expect(angular.equals(actual, expected)).to.be.true;
     });
 
     it("should compute an correct matrix to place a mainStreet under the finalStreet", () => {
@@ -57,7 +119,7 @@ describe("app.testVille.codeMap.codeMapUtilities", () => {
        const expected = new THREE.Matrix4().makeRotationY(Math.PI);
        expected.premultiply(new THREE.Matrix4().makeTranslation(length, 0 , marge));
 
-        expect(angular.equals(actual, expected)).to.equal(true);
+        expect(angular.equals(actual, expected)).to.be.true;
     });
 
     it("should compute an correct matrix to place a mainStreet over the finalStreet", () => {
@@ -66,7 +128,7 @@ describe("app.testVille.codeMap.codeMapUtilities", () => {
         const actual   = CodeMapUtilities.createMatrixToPlaceMainStreetOver(length);
         const expected = new THREE.Matrix4().makeTranslation(length, 0, 0);
 
-        expect(angular.equals(actual, expected)).to.equal(true);
+        expect(angular.equals(actual, expected)).to.be.true;
     });
 
     it("should compute an correct matrix to place a block under an given street", () => {
@@ -78,7 +140,7 @@ describe("app.testVille.codeMap.codeMapUtilities", () => {
         const expected = new THREE.Matrix4().makeRotationY(Math.PI);
         expected.premultiply(new THREE.Matrix4().makeTranslation(block.blockProperties.blockWidth + length, 0, streetDepth));
 
-        expect(angular.equals(actual, expected)).to.equal(true);
+        expect(angular.equals(actual, expected)).to.be.true;
     });
 
     it("should compute an correct matrix to place a block over an given street", () => {
@@ -87,17 +149,7 @@ describe("app.testVille.codeMap.codeMapUtilities", () => {
         const actual   = CodeMapUtilities.createMatrixToPlaceBlockOverStreet(length);
         const expected = new THREE.Matrix4().makeTranslation(length, 0, 0);
 
-        expect(angular.equals(actual, expected)).to.equal(true);
-    });
-
-    xit("should create an correct Abstract3D-Object",  () => {
-        const id      = 673;
-        const geoType = 2;
-
-        const actual   = CodeMapUtilities.createAbstract3D(geoType, id, 0, 0, 0, 0, 0);
-        const expected = new Abstract3D(geoType, id, 0, 0, 0, 0);
-
-        expect(angular.equals(actual, expected)).to.equal(true);
+        expect(angular.equals(actual, expected)).to.be.true;
     });
 
     it("should compute the right length for an given metric value",  () => {
@@ -113,7 +165,7 @@ describe("app.testVille.codeMap.codeMapUtilities", () => {
         const actual   = CodeMapUtilities.generateScaleMatrix(new Abstract3D(0, -1, 90, 100, 0xffffff, 23));
         const expected = new THREE.Matrix4().makeScale(90, 100, 23);
 
-        expect(angular.equals(actual, expected)).to.equal(true);
+        expect(angular.equals(actual, expected)).to.be.true;
     });
 
     it("should extracts the leafs of the tree",  () => {
@@ -166,7 +218,7 @@ describe("app.testVille.codeMap.codeMapUtilities", () => {
             }
         ];
 
-        expect(angular.equals(actual, expected)).to.equal(true);
+        expect(angular.equals(actual, expected)).to.be.true;
     });
 
     it("should extract all element with an given depth", () => {
@@ -209,15 +261,6 @@ describe("app.testVille.codeMap.codeMapUtilities", () => {
         expect(actual).to.equal(expected);
     });
 
-    it("should compute the normal for an given face", () => {
-        const face = {a: 0, b: 1, c: 2};
-        const vertices = [new THREE.Vector3(1, 0, 0), new THREE.Vector3(0, 1, 0), new THREE.Vector3(0, 0, 1)];
 
-        const actual   = CodeMapUtilities.computeFaceNormal(face, vertices);
-        const expected = new THREE.Vector3(1, 1, 1);
-
-        expect(angular.equals(actual, expected)).to.equal(true);
-
-    });
 
 } );
