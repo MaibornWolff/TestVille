@@ -36,6 +36,7 @@ Once you have installed the project, you can use all grunt tasks described in th
 #### Build
  
 `[./gradlew | gradlew.bat] build` builds the project in dist/app. This artifact is ready to be served as a web application.
+
 `[./gradlew | gradlew.bat] doc` generates the esdoc documentation in dist/doc/
 
 
@@ -46,6 +47,7 @@ Once you have installed the project, you can use all grunt tasks described in th
 #### Run
 
 `[./gradlew | gradlew.bat] serve` starts a simple web server and serves the project on localhost:9000.
+
 `[./gradlew | gradlew.bat] start` starts the nwjs app
 
 #### Package
@@ -55,6 +57,7 @@ Once you have installed the project, you can use all grunt tasks described in th
 #### Watch
 
 `[./gradlew | gradlew.bat] watch:app` watches the app directory and triggers a quick rebuild.
+
 `[./gradlew | gradlew.bat] watch:unit` watches the unit test directory and runs tests on change.
 
 ## URL Parameters used by the web application
