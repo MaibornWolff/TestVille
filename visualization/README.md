@@ -14,51 +14,39 @@
 
 #### Install application for desktop usage
 
-* Download or build [latest version](https://github.com/MaibornWolff/testVille/releases/latest) for your system. 
+* Download or build [latest version](https://github.com/MaibornWolff/TestVille/releases/latest). 
 * Doubleclick the system specific Runnable. You may be required to give it executable rights. 
-
-#### Install project for development
-
-* Install node 8
-* Install dependencies `npm install`.
+* run project: see **Gradle Tasks**
 
 Once you have installed the project, you can use all grunt tasks described in the next section.
-
-#### Install web application on server
-
-* Download or build latest web version.
-* Copy all files (dist/app or the downloaded directory) to a served directory which is accessible from the internet.
 
 ## Gradle Tasks
 [[Back To Top]](#jump-to-section)
 * > On Unix Systems (Mac, Linux) use: ./gradlew
 * > On Dos Systems use: gradlew.bat
+
+#### Install dependencies
+
+`[./gradlew | gradlew.bat] installDependencies`
+
 #### Build
  
-`[./gradlew | gradlew.bat] build` builds the project in dist/app. This artifact is ready to be served as a web application.
+`[./gradlew | gradlew.bat] buildProject` builds the project in dist/app. This artifact is ready to be served as a web application.
 
-`[./gradlew | gradlew.bat] doc` generates the esdoc documentation in dist/doc/
+`[./gradlew | gradlew.bat] docProject` generates the esdoc documentation in dist/doc/
 
 
 #### Test
 
-`[./gradlew | gradlew.bat] test` runs all unit tests on the source files in app/ and generates a coverage report in dist/coverage/.
+`[./gradlew | gradlew.bat] testProject` runs all unit tests on the source files in app/ and generates a coverage report in dist/coverage/.
 
 #### Run
 
 `[./gradlew | gradlew.bat] serve` starts a simple web server and serves the project on localhost:9000.
 
-`[./gradlew | gradlew.bat] start` starts the nwjs app
-
-#### Package
-
-`[./gradlew | gradlew.bat] package` packages the nwjs app
-
 #### Watch
 
-`[./gradlew | gradlew.bat] watch:app` watches the app directory and triggers a quick rebuild.
-
-`[./gradlew | gradlew.bat] watch:unit` watches the unit test directory and runs tests on change.
+`[./gradlew | gradlew.bat] watchApp` watches the app directory and triggers a quick rebuild.
 
 ## URL Parameters used by the web application
 [[Back To Top]](#jump-to-section)
