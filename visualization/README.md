@@ -27,7 +27,7 @@ Once you have installed the project, you can use all grunt tasks described in th
 
 #### Install dependencies
 
-`[./gradlew | gradlew.bat] installDependencies`
+`[./gradlew | gradlew.bat] installDependencies` the first time you use this command it takes a bit longer
 
 #### Build
  
