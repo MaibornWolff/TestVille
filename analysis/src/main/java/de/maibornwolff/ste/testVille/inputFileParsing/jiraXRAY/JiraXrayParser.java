@@ -1,11 +1,13 @@
 package de.maibornwolff.ste.testVille.inputFileParsing.jiraXRAY;
 
+import de.maibornwolff.ste.testVille.configurationFileHandling.TranslationMapBuilder;
 import de.maibornwolff.ste.testVille.domainModell.jiraXray.Epic;
 import de.maibornwolff.ste.testVille.domainModell.jiraXray.JiraXrayTestCase;
 import de.maibornwolff.ste.testVille.domainModell.jiraXray.TestExecution;
 import de.maibornwolff.ste.testVille.domainModell.jiraXray.TestSet;
 import de.maibornwolff.ste.testVille.inputFileParsing.Parser;
 import de.maibornwolff.ste.testVille.inputFileParsing.common.IDGenerator;
+import de.maibornwolff.ste.testVille.inputFileParsing.common.ManagementTool;
 import de.maibornwolff.ste.testVille.inputFileParsing.common.Pair;
 import de.maibornwolff.ste.testVille.domainModell.*;
 import org.xml.sax.Attributes;
@@ -30,7 +32,7 @@ public class JiraXrayParser extends DefaultHandler implements Parser {
     private final List<Item>      collectedItems;
     private JiraXrayParsingState  currentState;
     private Map<String, String>   currentMap;
-    private Pair<String, String>  currentPair;
+    public Pair<String, String>  currentPair;
     private final List<String>    xRayKnownUntranslatableFieldToExtract = List.of("assignee", "reporter");
     private final List<String>    xRayKnownUndesirableFields            = List.of("rank");
     private final IDGenerator     localIDGenerator                      = new IDGenerator();
@@ -540,7 +542,7 @@ public class JiraXrayParser extends DefaultHandler implements Parser {
     }
 
     private void showExtractedTestCaseTheirTranslationMap(String configFile) throws Exception {
-        JiraXrayTestCase.translationMap = TranslationMapBuilder.buildHashMapFromXmlDocument(configFile);
+        JiraXrayTestCase.translationMap = new TranslationMapBuilder(configFile, ManagementTool.JIRA_XRAY).getTranslationMap();
     }
 
     private void completeExtractedItemsWithDummyEpic() {

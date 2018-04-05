@@ -26,6 +26,10 @@ class DateExtractor {
         ;
     }
 
+    public static boolean isValidDate(String maybeContainsDate) {
+        return translateStringToLocalDate(maybeContainsDate) != null;
+    }
+
     private static LocalDate translateStringToLocalDate(String dd, String mm, String yy) {
         try {
             int dayOfMonth = Integer.valueOf(dd);

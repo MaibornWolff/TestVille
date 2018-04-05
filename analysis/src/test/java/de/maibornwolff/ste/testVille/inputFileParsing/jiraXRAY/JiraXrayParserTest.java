@@ -1,8 +1,9 @@
-package de.maibornwolff.ste.testVille.inputFileParsing.jiraXRAY.collectItems;
+package de.maibornwolff.ste.testVille.inputFileParsing.jiraXRAY;
 
 import de.maibornwolff.ste.testVille.domainModell.*;
 import de.maibornwolff.ste.testVille.domainModell.jiraXray.Epic;
 import de.maibornwolff.ste.testVille.domainModell.jiraXray.TestSet;
+import de.maibornwolff.ste.testVille.inputFileParsing.common.Pair;
 import de.maibornwolff.ste.testVille.inputFileParsing.jiraXRAY.JiraXrayParser;
 import de.maibornwolff.ste.testVille.inputFileParsing.jiraXRAY.JiraXrayParsingState;
 import org.junit.jupiter.api.*;
@@ -17,9 +18,6 @@ class JiraXrayParserTest {
 
     /**
      * state-based testing. A JiraXrayParser has many states
-
-    @TestFactory
-    @DisplayName("should extract fields (name, value)")
     Collection<DynamicTest> characterTest() {
         // arrange
         JiraXrayParser itemCollector = new JiraXrayParser("item.xml");
@@ -61,7 +59,7 @@ class JiraXrayParserTest {
         map.put("key", "i-194");
         map.put("title", "setTest");
         map.put("priority", "high");
-        Item item = new Epic();
+        Item item = new Epic(1);
 
         // act
         jiraXrayParser.setCurrentMap(map);
@@ -86,7 +84,7 @@ class JiraXrayParserTest {
         map.put("priority", "high");
         //map.put("linked", "[i-1994; aba12; 199io]");
         map.put("type", "epic");
-        Epic expectedItem = new Epic();
+        Epic expectedItem = new Epic(1);
 
         // act
         jiraXrayParser.setCurrentMap(map);
@@ -111,7 +109,7 @@ class JiraXrayParserTest {
         map.put("priority", "high");
         map.put("Tests association with a Test Set", "[i-1994; aba12; 199io]");
         map.put("type", "test set");
-        TestSet expectedItem = new TestSet();
+        TestSet expectedItem = new TestSet(1);
 
         // act
         jiraXrayParser.setCurrentMap(map);
@@ -119,7 +117,7 @@ class JiraXrayParserTest {
         expectedItem.setName("setTest");
         expectedItem.setPriority("high");
         expectedItem.setKey("i-194");
-        expectedItem.addAssociatedElementKeys("i-1994", "aba12", "199io");
+        expectedItem.addAssociatedItemKeys("i-1994", "aba12", "199io");
 
         // assert
         assertEquals(actualItem, expectedItem, "created TestSet is invalid");
@@ -140,7 +138,7 @@ class JiraXrayParserTest {
         HashMap<String, String> expectedMap = new HashMap<>();
         expectedMap.put("lastTestRunStatus", "1");
         expectedMap.put("runs", "12");
-        TestCase expectedItem = new TestCase();
+        TestCase expectedItem = new TestCase(1);
 
         // act
         jiraXrayParser.setCurrentMap(map);
@@ -197,7 +195,7 @@ class JiraXrayParserTest {
     }
 
     @TestFactory
-    @DisplayName("Should notice the item-end-tag and build appropriated Item-Object")
+    @DisplayName("Should notice the item-end-tag and build an appropriated Item-Object")
     Collection<DynamicTest> endElementTestII() {
         // arrange
         JiraXrayParser jiraXrayParser = new JiraXrayParser();
@@ -212,7 +210,7 @@ class JiraXrayParserTest {
         HashMap<String, String> expectedMap = new HashMap<>();
         expectedMap.put("lastTestRunStatus", "1");
         expectedMap.put("runs", "12");
-        TestCase expectedItem = new TestCase();
+        TestCase expectedItem = new TestCase(1);
 
 
         // act
@@ -230,10 +228,10 @@ class JiraXrayParserTest {
                 () -> assertEquals(JiraXrayParsingState.START, jiraXrayParser.getCurrentState())
         );
 
-        /*DynamicTest dt2 = DynamicTest.dynamicTest(
+        DynamicTest dt2 = DynamicTest.dynamicTest(
                 "the currentPair should be reset to (\"\", \"\")",
                 () -> assertEquals(new Pair<>("", ""), jiraXrayParser.currentPair)
-        );*/
+        );
 
         DynamicTest dt3 = DynamicTest.dynamicTest(
                 "the currentPair should be reset",
@@ -247,14 +245,14 @@ class JiraXrayParserTest {
                 )
         );
 
-        return List.of(dt1, /*dt2,*/ dt3, dt4);
+        return List.of(dt1, dt2, dt3, dt4);
     }
 
-   /* @TestFactory
+    @TestFactory
     @DisplayName("Should transfer the extracted data from currentPair to currentMap")
     Collection<DynamicTest> endElementTestIII() {
         // arrange
-        JiraXrayParser itemCollector = new JiraXrayParser("....xml");
+        JiraXrayParser itemCollector = new JiraXrayParser();
         itemCollector.currentPair = new Pair<>("hey", "1221");
 
         // act
@@ -275,7 +273,7 @@ class JiraXrayParserTest {
         );
 
         return List.of(dt1, dt2, dt3);
-    }*/
+    }
 
     @Test
     @DisplayName("The JiraXrayParser should notice a invalid end-tag and does't not change his state")

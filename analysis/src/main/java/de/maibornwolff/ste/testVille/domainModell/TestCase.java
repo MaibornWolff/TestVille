@@ -7,7 +7,8 @@ import java.util.*;
 
 public class TestCase extends Item implements Writable {
 
-    private Map<String, String> propertyMap;
+    public static Map<String, Map<String, Integer>> translationMap;
+    public Map<String, String> propertyMap;
 
     public TestCase(int localKey) {
         super(localKey);
@@ -20,11 +21,7 @@ public class TestCase extends Item implements Writable {
 
     public void setPropertyMap(Map<String, String> map) {this.propertyMap = map;}
 
-    int getPropertyNumber() {
-        return this.propertyMap.size();
-    }
-
-    public Map <String, String> getPropertyMap() {
+    private Map <String, String> getPropertyMap() {
         return propertyMap;
     }
 
@@ -45,7 +42,7 @@ public class TestCase extends Item implements Writable {
         return Objects.hash(super.hashCode(), propertyMap);
     }
 
-    @Override
+    /*@Override
     public String toString() {
         StringBuilder result = new StringBuilder();
         result.append("\n{ name -> ").append(this.getName()).append("\n");
@@ -53,7 +50,7 @@ public class TestCase extends Item implements Writable {
         result.append("  priority -> ").append(this.getPriority()).append("}\n");
         this.propertyMap.forEach((String x, String y) -> result.append(x).append(" -> ").append(y).append("\n"));
         return result.toString();
-    }
+    }*/
 
     @Override
     public List<Writable> getWritableChildren() {
@@ -67,12 +64,12 @@ public class TestCase extends Item implements Writable {
 
     @Override
     public String getWritableID() {
-        return this.getKey();
+        return ""+this.getLocalId();
     }
 
     @Override
     public String getWritableName() {
-        return this.getName();
+        return this.getName() + " (id: "+this.getKey()+")";
     }
 
     @Override
@@ -84,26 +81,38 @@ public class TestCase extends Item implements Writable {
     public StringBuilder getWritableMetricsAsString() {
         StringBuilder buffer = new StringBuilder();
         buffer.append(produceMetricsStringRepresentationHeader());
-        buffer.append(produceMetricsStringRepresentationBody());
+        buffer.append(produceMetricsStringRepresentationBody(translationMap));
         buffer.append(produceMetricsStringRepresentationFooter());
         return buffer;
     }
 
-    private String produceMetricsStringRepresentationBody() {
-        Map<String, Integer> translatedMetrics = MapTranslator.translateTestCasePropertyHashMap(this.getPropertyMap());
-        return Item.produceStringRepresentationOfFields(translatedMetrics.entrySet());
+    private String produceMetricsStringRepresentationBody(Map<String, Map<String, Integer>> translationMap) {
+        Map<String, Integer> translatedMetrics = MapTranslator
+                .translateTestCasePropertyHashMap(this.getPropertyMap(), translationMap);
+        return produceMetricsStringRepresentation(translatedMetrics.entrySet());
+    }
+
+    private static <A> String produceMetricsStringRepresentation(Set<Map.Entry<String, A>> fields) {
+        return fields.stream()
+                .sorted(Comparator.comparing(Map.Entry::getKey)) // alphabetical sort of metrics
+                .map(x -> TestCase.produceMetricStringRepresentation(x.getKey(), x.getValue()))
+                .reduce("", (x, y) -> x.isEmpty() ? x.concat(y) : x.concat(", ").concat(y));
+    }
+
+    private static <A>  String produceMetricStringRepresentation(String metricName, A metricValue) {
+        return "\"" + metricName + "\"" + ": " + metricValue.toString();
     }
 
     @Override
     public String getWritableUntranslatableFieldsAsString() {
-        return super.getWritableUntranslatableFieldsAsString();
+        return super.getUntranslatableFieldsAsString();
     }
 
-    public static String produceMetricsStringRepresentationHeader() {
-        return ", \"attribute\": { ";
+    private static String produceMetricsStringRepresentationHeader() {
+        return "\"attributes\": { ";
     }
 
-    public static String produceMetricsStringRepresentationFooter() {
+    private static String produceMetricsStringRepresentationFooter() {
         return "}";
     }
 

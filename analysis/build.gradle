@@ -42,7 +42,7 @@ jar {
     }
 }
 
-task makeVizFile(type: JavaExec ){
+task analyse(type: JavaExec ){
     def  execArgs = ["-h"]
 
     if(project.hasProperty('ARGS')) {

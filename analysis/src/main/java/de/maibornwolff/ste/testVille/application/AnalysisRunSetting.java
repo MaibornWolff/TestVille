@@ -9,7 +9,7 @@ public class AnalysisRunSetting {
     private String visualizationFileTarget;
     private final ManagementTool exportOrigin;
 
-    AnalysisRunSetting(String configurationFilePath, String exportFilePath, String visualizationFileTarget, ManagementTool exportOrigin) {
+    public AnalysisRunSetting(String configurationFilePath, String exportFilePath, String visualizationFileTarget, ManagementTool exportOrigin) {
         this.configurationFilePath = configurationFilePath;
         this.exportFilePath = exportFilePath;
         this.visualizationFileTarget = visualizationFileTarget;

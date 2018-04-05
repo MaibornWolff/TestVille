@@ -20,7 +20,6 @@ public class Main {
         try {
             AnalysisRunSetting         setting   = new OptionHandler(List.of(args)).getRunSetting();
             if(setting == null) return;
-            System.out.println(setting.getConfigurationFilePath());
             TestVilleParser            parser    = new TestVilleParser(setting);
             VisualizationTree parseResult        = parser.parse();
             VisualizationFileGenerator generator = new VisualizationFileGenerator(parseResult, setting.getVisualizationFileTarget());

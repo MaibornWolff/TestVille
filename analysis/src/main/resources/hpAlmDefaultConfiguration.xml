@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<translationConfiguration>
+    
+    <settings>
+        <testCaseId column="0"/>
+        <testCaseName column="1"/>
+        <testCasePriority column="10"/>
+        <requirementId column="11"/>
+        <requirementName column="12"/>
+        <requirementPriority column="17"/>
+    </settings>
+
+    <field name="countTestSteps" column="2"/>
+    <field name="designStatus" column="3">
+        <valueTranslation stringValue="Design" numValue="1"/>
+        <valueTranslation stringValue="Imported" numValue="2"/>
+        <valueTranslation stringValue="Maintenance" numValue="3"/>
+        <valueTranslation stringValue="Obsolete" numValue="4"/>
+        <valueTranslation stringValue="Ready for Review" numValue="5"/>
+        <valueTranslation stringValue="Reviewed" numValue="6"/>
+    </field>
+    <field name="testCasePriority" column="10">
+        <valueTranslation stringValue="4-Low" numValue="1"/>
+        <valueTranslation stringValue="3-Medium" numValue="2"/>
+        <valueTranslation stringValue="2-High" numValue="3"/>
+        <valueTranslation stringValue="1-Critical" numValue="4"/>
+        <valueTranslation stringValue="0-NO_VALUE" numValue="0"/>
+    </field>
+    <field name="developmentPeriod" column="6" />
+    <field name="modificationPeriod" column="30" />
+    <field name="testResult" column="20">
+        <valueTranslation stringValue="Passed" numValue="1"/>
+        <valueTranslation stringValue="N/A" numValue="2"/>
+        <valueTranslation stringValue="Blocked" numValue="3"/>
+        <valueTranslation stringValue="Not Completed" numValue="4"/>
+        <valueTranslation stringValue="No Run" numValue="5"/>
+        <valueTranslation stringValue="Failed" numValue="6"/>
+    </field>
+    <field name="executionPeriod" column="21" />
+    <field name="defectStatus" column="27"/>
+    <field name="defectCriticality" column="26"/>
+    <field name="defectCreationPeriod" column="28"/>
+
+    <field name="countExecutions" column="18"/>
+    <field name="countDefects" column="23"/>
+    <field name="countOpenedDefects" column="25"/>
+    
+</translationConfiguration>

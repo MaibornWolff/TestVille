@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="translationConfiguration">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="settings">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="testCaseId">
+                                <xs:complexType>
+                                    <xs:attribute name="column" type="xs:int"/>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="testCaseName">
+                                <xs:complexType>
+                                    <xs:attribute name="column" type="xs:int"/>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="testCasePriority">
+                                <xs:complexType>
+                                    <xs:attribute name="column" type="xs:int"/>
+                                </xs:complexType>
+                            </xs:element>
+
+                            <xs:element name="requirementId">
+                                <xs:complexType>
+                                    <xs:attribute name="column" type="xs:int"/>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="requirementName">
+                                <xs:complexType>
+                                    <xs:attribute name="column" type="xs:int"/>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="requirementPriority">
+                                <xs:complexType>
+                                    <xs:attribute name="column" type="xs:int"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+
+                <xs:element name="field" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="valueTranslation" minOccurs="0" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:attribute name="stringValue" type="xs:string"/>
+                                    <xs:attribute name="numValue" type="xs:int"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="name"   type="xs:string"/>
+                        <xs:attribute name="column" type="xs:int"/>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

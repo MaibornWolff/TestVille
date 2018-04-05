@@ -1,9 +1,5 @@
 package de.maibornwolff.ste.testVille.vizualisationFileWriting;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.stream.Collectors;
 
 /**
  * This interface is a general visualization file(in json-Format) writer designed with the pattern <b>composite</b>.
@@ -28,6 +24,10 @@ public interface Writable {
 
     String getWritableID();
 
+    private String getCorrectedWritableName() {
+        return correctString(this.getWritableName());
+    }
+
     String getWritableName();
 
     String getWritableType();
@@ -41,15 +41,16 @@ public interface Writable {
         writableHeader = writableHeader.concat(this.produceWritablePreHeader());
         writableHeader = writableHeader.concat(this.produceNameEntry());
         writableHeader = writableHeader.concat(this.produceIDEntry());
-        writableHeader = writableHeader.concat(this.producePriorityEntry());
         writableHeader = writableHeader.concat(this.produceTypeEntry());
+        writableHeader = writableHeader.concat(this.producePriorityEntry());
+        writableHeader = writableHeader.concat(this.getWritableUntranslatableFieldsAsString());
         return writableHeader;
     }
 
     private String produceWritablePreHeader() { return "{ "; }
 
     private String produceNameEntry() {
-        return produceEntryString("name", this.getWritableName(), true);
+        return produceEntryString("name", this.getCorrectedWritableName(), true);
     }
 
     private String produceIDEntry() {
@@ -65,8 +66,8 @@ public interface Writable {
     }
 
     static String produceEntryString(String entryName, String entryValue, boolean needCommaAtEnd) {
-        String enquotedEntryName  = placeStringInQuotes(entryName);
-        String enquotedEntryValue = placeStringInQuotes(entryValue);
+        String enquotedEntryName  = placeInQuotes(correctString(entryName));
+        String enquotedEntryValue = placeInQuotes(correctString(entryValue));
         return concatEntryNameAndValue(enquotedEntryName, enquotedEntryValue, needCommaAtEnd);
     }
 
@@ -75,9 +76,9 @@ public interface Writable {
         return needCommaAtEnd ? result + ", " : result;
     }
 
-    private static String placeStringInQuotes(String str) {
-        str = (str == null) ? "" : str;
-        return "\"" + str + "\"";
+    private  static <A> String placeInQuotes(A str) {
+        String result = (str == null) ? "" : str.toString();
+        return "\"" + result + "\"";
     }
 
 
@@ -105,15 +106,10 @@ public interface Writable {
     }
 
     private StringBuilder produceWritableChildrenStringRepresentation() {
-        System.out.println(this.getWritableType());
         return this.getWritableChildren()
                 .stream()
                 .map(Writable:: produceWritableStringRepresentation)
                 .reduce(new StringBuilder(), (x, y) -> x.toString().isEmpty() ? y : x.append(", ").append(y));
-    }
-
-    private String produceSeparator() {
-        return ", ";
     }
 
     private String produceWritablePreBody() {
@@ -122,5 +118,9 @@ public interface Writable {
 
     private String produceWritablePostBody() {
         return "]";
+    }
+
+    private static String correctString(String str) {
+        return str.replaceAll("[\"']", "");
     }
 }

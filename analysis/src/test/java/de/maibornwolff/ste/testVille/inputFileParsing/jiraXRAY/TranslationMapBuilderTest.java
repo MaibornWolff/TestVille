@@ -1,7 +1,8 @@
-package de.maibornwolff.ste.testVille.inputFileParsing.jiraXRAY.helpers;
+package de.maibornwolff.ste.testVille.inputFileParsing.jiraXRAY;
 
+import de.maibornwolff.ste.testVille.configurationFileHandling.TranslationMapBuilder;
+import de.maibornwolff.ste.testVille.inputFileParsing.common.ManagementTool;
 import de.maibornwolff.ste.testVille.inputFileParsing.common.Pair;
-import de.maibornwolff.ste.testVille.inputFileParsing.jiraXRAY.TranslationMapBuilder;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -39,11 +40,11 @@ class TranslationMapBuilderTest {
 
         // act
         expectedMap.putIfAbsent("status", buildFirstHashMapFrom(firstPairs));
-        expectedMap.putIfAbsent("testrunstatus", buildFirstHashMapFrom(firstPairs));
+        expectedMap.putIfAbsent("testRunStatus", buildFirstHashMapFrom(firstPairs));
         expectedMap.putIfAbsent("priority", buildFirstHashMapFrom(secondPairs));
 
         try {
-            actualMap = TranslationMapBuilder.buildHashMapFromXmlDocument("./src/test/resources/defaultJiraXrayConfigFile.xml");
+            actualMap = new TranslationMapBuilder("./src/test/resources/jiraXrayTestConfiguration.xml", ManagementTool.JIRA_XRAY).getTranslationMap();
         } catch (Exception e) {
             System.err.println(e.getMessage());
             System.err.println("TranslationMapBuilderTest can't run!");
@@ -53,12 +54,11 @@ class TranslationMapBuilderTest {
         assertEquals(expectedMap, actualMap, "created TranslationMap is invalid!");
     }
 
-    private HashMap<String, Integer> buildFirstHashMapFrom(List<Pair<String, Integer>> toTransform) {
+    private Map<String, Integer> buildFirstHashMapFrom(List<Pair<String, Integer>> toTransform) {
         HashMap<String, Integer> map = new HashMap<>();
         for (Pair<String, Integer> p: toTransform) {
-            map.putIfAbsent(p.getFirst().toLowerCase(), p.getSecond());
+            map.putIfAbsent(p.getFirst(), p.getSecond());
         }
         return map;
     }
-
 }

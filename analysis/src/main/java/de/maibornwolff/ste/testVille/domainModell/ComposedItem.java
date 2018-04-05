@@ -55,7 +55,7 @@ public class ComposedItem extends Item implements Writable{
 
     @Override
     public List<Writable> getWritableChildren() {
-        Stream<Writable> writableChildren = this.getAssociatedItems().stream().map(x -> (Writable) x);
+        Stream<Writable> writableChildren = this.getAssociatedItems().stream().map(x -> (Writable) x).sorted();
         return writableChildren.collect(Collectors.toList());
     }
 
@@ -66,12 +66,12 @@ public class ComposedItem extends Item implements Writable{
 
     @Override
     public String getWritableID() {
-        return this.getKey();
+        return ""+this.getLocalId();
     }
 
     @Override
     public String getWritableName() {
-        return this.getName();
+        return this.getName() + " (id: "+this.getKey()+")";
     }
 
     @Override
@@ -82,5 +82,10 @@ public class ComposedItem extends Item implements Writable{
     @Override
     public StringBuilder getWritableMetricsAsString() {
         return new StringBuilder("\"attributes\": {}");
+    }
+
+    @Override
+    public String getWritableUntranslatableFieldsAsString() {
+        return super.getUntranslatableFieldsAsString();
     }
 }

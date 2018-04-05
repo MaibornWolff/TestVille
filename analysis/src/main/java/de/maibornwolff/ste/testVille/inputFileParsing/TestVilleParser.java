@@ -30,7 +30,6 @@ public class TestVilleParser {
     private VisualizationTree parseWithGivenParser(Parser usedParser) throws Exception {
         if(usedParser != null) {
             Collection<Item> parseResult = usedParser.parse(this.setting.getExportFilePath(), this.setting.getConfigurationFilePath());
-            System.out.println(parseResult.size());
             return VisualizationTree.buildVisualizationTreeFrom(parseResult);
         }
         return null;

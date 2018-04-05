@@ -1,7 +1,7 @@
-package de.maibornwolff.ste.testVille.inputFileParsing.jiraXRAY.helpers;
+package de.maibornwolff.ste.testVille.inputFileParsing.jiraXRAY;
 
-import de.maibornwolff.ste.testVille.inputFileParsing.jiraXRAY.MapTranslator;
-import de.maibornwolff.ste.testVille.inputFileParsing.jiraXRAY.TranslationMapBuilder;
+import de.maibornwolff.ste.testVille.configurationFileHandling.TranslationMapBuilder;
+import de.maibornwolff.ste.testVille.inputFileParsing.common.ManagementTool;
 import org.junit.jupiter.api.*;
 import java.util.Collection;
 import java.util.HashMap;
@@ -31,8 +31,8 @@ class MapTranslatorTest {
 
         // act
         toBeTranslated.put("status",            "fail");
-        toBeTranslated.put("testRunStatus",     "ABORTED");
-        toBeTranslated.put("priority",          "MAjOr");
+        toBeTranslated.put("testRunStatus",     "aborted");
+        toBeTranslated.put("priority",          "Major");
         toBeTranslated.put("should be ignored", "Major");
         toBeTranslated.put("steps",             "13");
 
@@ -80,9 +80,9 @@ class MapTranslatorTest {
     private Map<String, Map<String,Integer>> buildTranslationMapFromConfigFile() {
 
         Map<String, Map<String, Integer>> translationMap = null;
-        String usedConfigFileForTest = "./src/test/resources/defaultJiraXrayConfigFile.xml";
+        String usedConfigFileForTest = "./src/test/resources/jiraXrayDefaultConfiguration.xml";
         try {
-            translationMap = TranslationMapBuilder.buildHashMapFromXmlDocument(usedConfigFileForTest);
+            translationMap = new TranslationMapBuilder(usedConfigFileForTest, ManagementTool.JIRA_XRAY).getTranslationMap();
         } catch (Exception e) {
             System.err.println(e.getMessage());
             System.err.println("TranslationTest can't run!");

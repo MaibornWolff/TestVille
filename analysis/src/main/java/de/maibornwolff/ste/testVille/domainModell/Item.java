@@ -19,6 +19,10 @@ public abstract class Item implements Comparable<Item> {
         this.untranslatableFields = new HashMap<>();
     }
 
+    public int getLocalId() {
+        return this.localId;
+    }
+
     /**
      * Getter for the attribute {@link #untranslatableFields}.
      * @return this.untranslatableFields
@@ -100,9 +104,11 @@ public abstract class Item implements Comparable<Item> {
      * @param name New name of this Item.
      */
     public void setName(String name) {
-        String n = name.trim();
-        if(n.isEmpty()) this.name = "No_Name";
-        this.name = n;
+        if(name == null || name.trim().isEmpty()){
+            this.name = "No_Name";
+            return;
+        }
+        this.name = name.trim();
     }
 
     /**
@@ -147,14 +153,15 @@ public abstract class Item implements Comparable<Item> {
         return this.getKey().compareTo(item.getKey());
     }
 
-    public String getWritableUntranslatableFieldsAsString() {
+    public String getUntranslatableFieldsAsString() {
         Set<Map.Entry<String, String>> entries = this.getUntranslatableFields().entrySet();
         return produceStringRepresentationOfFields(entries);
     }
 
-    public static  <A, B> String produceStringRepresentationOfFields(Set<Map.Entry<A, B>> fields) {
+    private static String produceStringRepresentationOfFields(Set<Map.Entry<String, String>> fields) {
         return fields.stream()
-                .map(x -> Writable.produceEntryString(x.getKey().toString(), x.getValue().toString(),false))
-                .reduce("", (x, y) -> x.isEmpty() ? x.concat(y) : x.concat(", ").concat(y));
+                .sorted(Comparator.comparing(Map.Entry::getKey))
+                .map(x -> Writable.produceEntryString(x.getKey(), x.getValue(),false))
+                .reduce("", (x, y) ->  x.concat(y).concat(", "));
     }
 }

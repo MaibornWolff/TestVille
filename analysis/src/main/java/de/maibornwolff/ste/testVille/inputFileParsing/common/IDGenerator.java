@@ -4,10 +4,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class IDGenerator {
 
-    final AtomicInteger keyCentral;
+    private AtomicInteger keyCentral;
 
     public IDGenerator() {
-        this.keyCentral = new AtomicInteger();
+        this.keyCentral = new AtomicInteger(1);
     }
 
     public int generateNextUniqueKey() {

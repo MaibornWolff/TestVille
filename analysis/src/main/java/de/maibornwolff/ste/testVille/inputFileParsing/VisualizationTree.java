@@ -13,14 +13,14 @@ import java.util.stream.Collectors;
 public class VisualizationTree extends ComposedItem {
 
     private static  IDGenerator localIdGenerator = new IDGenerator();
-    private static  String      nodeName         = "groupedItem";
 
     private static int generateNextLocalKey() {
-        return localIdGenerator.generateNextUniqueKey();
+        return -localIdGenerator.generateNextUniqueKey();
     }
 
     private VisualizationTree() {
         super(generateNextLocalKey());
+        this.setKey(""+this.getLocalId());
         this.setName("root");
         this.setPriority("root");
     }
@@ -29,7 +29,6 @@ public class VisualizationTree extends ComposedItem {
         VisualizationTree tree = new VisualizationTree();
         Set<Item> itemsAfterInnerGrouping = groupInnerItemsOf(items);
         tree.setAssociatedItems(buildItemGroups(itemsAfterInnerGrouping));
-        System.out.println(tree.getAssociatedItems().size());
         return tree;
     }
 
@@ -51,15 +50,17 @@ public class VisualizationTree extends ComposedItem {
 
     private static Set<Item> buildItemGroups(Collection<Item> allItems) {
         Set<String> availablePriorities = extractAssociatedItemPriorities(allItems);
-        //System.out.println(allItems);
-        return availablePriorities.stream().map(x -> buildItemGroup(x, allItems)).collect(Collectors.toSet());
+        return availablePriorities.stream().sorted().map(x -> buildItemGroup(x, allItems)).collect(Collectors.toSet());
     }
 
     private static ComposedItem buildItemGroup(String groupPriority, Collection<Item> allItems) {
-        ComposedItem result = new ComposedItem(generateNextLocalKey());
+        int itemID = generateNextLocalKey();
+        String nodeName = "groupedItem";
+        ComposedItem result = new ComposedItem(itemID);
         result.addAllAssociatedItems(extractAssociatedItemWithPriority(groupPriority, allItems));
         result.setName(nodeName);
         result.setPriority(groupPriority);
+        result.setKey(groupPriority);
         return result;
     }
 
@@ -67,11 +68,11 @@ public class VisualizationTree extends ComposedItem {
         return allItems.stream().map(Item:: getPriority).collect(Collectors.toSet());
     }
 
-    private static List<Item> extractAssociatedItemWithPriority(String priority, Collection<Item> allItems) {
+    private static Collection<Item> extractAssociatedItemWithPriority(String priority, Collection<Item> allItems) {
         return allItems
                 .stream()
                 .filter(x -> x.getPriority().equals(priority))
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
 
     /*private static int maxDepthOfComposedItem(Item ci) {
