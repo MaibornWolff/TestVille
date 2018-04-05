@@ -144,6 +144,11 @@ module.exports = function (grunt) {
                     {"expand": true, "cwd": "app/img/", "src": ["*"], "dest": "dist/app/img", "flatten": true}
                 ]
             },
+            pdf:{
+                files:[
+                    {"expand": true, "cwd": "app/", "src": ["**/*.pdf"], "dest": "dist/app/", "flatten": true}
+                ]
+            },
             json: {
                 files: [
                     {"expand": true, "cwd": "app/", "src": ["**/*.json"], "dest": "dist/app/", "flatten": true}
@@ -262,7 +267,7 @@ module.exports = function (grunt) {
     // tasks
     grunt.registerTask("default", ["build"]);
 
-    grunt.registerTask("build", ["clean:app", "jshint", "browserify", "ngAnnotate:app", "htmlmin", "copy:style", "concat:css", "clean:style", "copy:materialize", "copy:sliderDirective", "copy:json", "copy:hammer", "copy:fontawesome", "copy:angular", "copy:images", "copy:jquery", "copy:license", "string-replace"]);
+    grunt.registerTask("build", ["clean:app", "jshint", "browserify", "ngAnnotate:app", "htmlmin", "copy:style", "concat:css", "clean:style", "copy:materialize", "copy:sliderDirective", "copy:json", "copy:hammer", "copy:fontawesome", "copy:angular", "copy:images", "copy:jquery", "copy:license", "copy:pdf", "string-replace"]);
     grunt.registerTask("test", ["clean:coverage", "mocha_istanbul"]);
     grunt.registerTask("doc", ["clean:doc", "exec:doc"]);
     grunt.registerTask("package", ["clean:package", "nwjs", "force:compress"]);

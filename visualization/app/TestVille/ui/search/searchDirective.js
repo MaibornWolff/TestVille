@@ -32,8 +32,6 @@ class SearchDirective{
     //declares whether the inputfield is visible or not
     link(scope, element) {
         element.find("#searchButton").bind("click", this.toggle);
-        element.find("#searchPanel").bind("change", this.method);
-
     }
 
     //animates the inputfield
