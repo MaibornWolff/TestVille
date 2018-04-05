@@ -50,7 +50,7 @@ task analyse(type: JavaExec ){
     }
 
     args(execArgs)
-    main      = 'de.maibornwolff.ste.testVille.Main'
+    main      = 'Main'
     classpath = sourceSets.main.runtimeClasspath
 }
 
