@@ -119,4 +119,4 @@ Use the "Invert Color" option, to declare a high value to be better then a low v
 
 # Releases and Changelog
 
-[Releases](https://github.com/MaibornWolff/TestCharta/releases)
+[Releases](https://github.com/MaibornWolff/TestVille/releases/latest)
