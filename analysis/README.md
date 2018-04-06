@@ -48,9 +48,9 @@ Export your test data with this [script](./../exportScripts/exportHpAlm_v02.sql)
 
 ###### On Unix Systems (Mac, Linux)
 * Default execution
-** > ***./gradlew analyse -PARGS="-alm -i*** exportFilePath.xml ***-o*** visualizationFilePath.json ***"***
+*** > ***./gradlew analyse -PARGS="-alm -i*** exportFilePath.xml ***-o*** visualizationFilePath.json ***"***
 * Execution with custom configuration file
-** > ***./gradlew analyse -PARGS="-alm -i*** exportFilePath.xml ***-c*** configFilePath.xml ***-o*** visualizationFilePath.json ***"***
+*** > ***./gradlew analyse -PARGS="-alm -i*** exportFilePath.xml ***-c*** configFilePath.xml ***-o*** visualizationFilePath.json ***"***
 
 ###### On Dos Systems
 * Default execution
