@@ -26,4 +26,4 @@ The online demo offers the possibility to visualize your analyzed data online ([
 Have a bug, a feature request or any question? Please open a new issue. Feedback is always welcome.
 
 #### License
-see LICENSE.md.
+see [LICENSE](./license.md).
