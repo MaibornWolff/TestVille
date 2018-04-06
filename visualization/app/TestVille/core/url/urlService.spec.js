@@ -14,15 +14,6 @@ describe("app.testVille.core.url.urlService", function() {
         $httpBackend = _$httpBackend_;
     }));
 
-    describe("service.getUrl.tests", ()=>{
-
-        it("url should be location's url", ()=>{
-            $location.url("somePath.html");
-            expect(urlService.getUrl()).to.equal($location.absUrl());
-        });
-
-    });
-
 
 
     describe("service.getParameterByName.test", ()=>{
@@ -59,6 +50,16 @@ describe("app.testVille.core.url.urlService", function() {
         });
 
     });
+
+    describe("service.getUrl.tests", ()=>{
+
+        it("url should be location's url", ()=>{
+            $location.url("somePath.html");
+            expect(urlService.getUrl()).to.equal($location.absUrl());
+        });
+
+    });
+
 
     describe("service.getFileDataFromQueryParam.tests", ()=>{
 

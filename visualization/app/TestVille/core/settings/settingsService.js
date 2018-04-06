@@ -91,6 +91,16 @@ class SettingsService {
 
     }
 
+
+    /**
+     * Broadcasts a settings-changed event with the new {Settings} object as a payload
+     * @emits {settings-changed} on call
+     */
+    onSettingsChanged() {
+        this.rootScope.$broadcast("settings-changed", this.settings);
+    }
+
+
     onCameraChanged(camera) {
         if(
             this.settings.camera.x !== camera.position.x ||
@@ -100,19 +110,11 @@ class SettingsService {
             this.settings.camera.x = camera.position.x;
             this.settings.camera.y = camera.position.y;
             this.settings.camera.z = camera.position.z;
-            // There is no domainModell in CC which needs live updates when camera changes. Broadcasting an
+            // There is no component in TestVille which needs live updates when camera changes. Broadcasting an
             // onSettingsChanged Event would cause big performance issues
-            // this.onSettingsChanged();
         }
     }
 
-    /**
-     * Broadcasts a settings-changed event with the new {Settings} object as a payload
-     * @emits {settings-changed} on call
-     */
-    onSettingsChanged() {
-        this.rootScope.$broadcast("settings-changed", this.settings);
-    }
 
     /**
      * updates the settings object according to url parameters. url parameters are named like the accessors of the Settings object. E.g. scale.x or areaMetric
@@ -203,16 +205,6 @@ class SettingsService {
     }
 
     /**
-     * Returns a metric from the metrics object. If it is not found the last possible metric will be returned.
-     * @param id id
-     * @param {object} metrics metrics object
-     * @returns {string} metric
-     */
-    getMetricByIdOrLast (id, metrics) {
-        return metrics[Math.min(id, metrics.length-1)];
-    }
-
-    /**
      * corrects settings, if the chosen metric is not available in the current map, the first three metrics are chosen as a default.
      * @param {Settings} settings
      */
@@ -223,6 +215,18 @@ class SettingsService {
         result.colorMetric = this.getMetricOrDefault(this.dataService.data.metrics, settings.colorMetric, this.getMetricByIdOrLast(2, this.dataService.data.metrics));
         return result;
     }
+
+    /**
+     * Returns a metric from the metrics object. If it is not found the last possible metric will be returned.
+     * @param id id
+     * @param {object} metrics metrics object
+     * @returns {string} metric
+     */
+    getMetricByIdOrLast (id, metrics) {
+        return metrics[Math.min(id, metrics.length-1)];
+    }
+
+
 
     /**
       * Checks if the given metricName is in the metricsArray. If it is in there, we return it, else we return the defaultValue.

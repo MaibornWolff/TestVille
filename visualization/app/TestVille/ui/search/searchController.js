@@ -16,6 +16,7 @@ class SearchController{
 
         this.input = "";
 
+        //limits the Number of the shown suggestions
         this.upperLimit= 25;
 
         this.container = document.getElementById("container");
@@ -47,6 +48,7 @@ class SearchController{
                 this.myStyle = {width: `${225}px`};
 
             }else{
+
                 this.$rootScope.$broadcast("onsearch", {searched: this.resultsList[0]});
             }
 
@@ -55,6 +57,7 @@ class SearchController{
 
         const altKey = 18;
         if(keyCode === altKey){
+
             this.upperLimit= this.upperLimit+25;
         }
 
