@@ -32,8 +32,8 @@ Anyone will be able to understand where your testing is at, even if your project
 
 ## Generate a visualization file from test data
 
-* Export your test Project (instructions available [on](https://github.com/MaibornWolff/TestVille/tree/master/analysis/readme.md))
-* Run the `analysis-module` with the export file ([see](https://github.com/MaibornWolff/TestVille/tree/master/analysis/readme.md)).
+* Export your test Project (instructions available [on](https://github.com/MaibornWolff/TestVille/tree/master/analysis/README.md))
+* Run the `analysis-module` with the export file ([see](https://github.com/MaibornWolff/TestVille/tree/master/analysis/README.md)).
 * CLI-Commands:
   - > Dos  systems: gradlew.bat analyse -PARGS="[options]"
   - > Unix systems: ./gradlew   analyse -PARGS="[options]"
