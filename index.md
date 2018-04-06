@@ -67,7 +67,6 @@ An output file has been created.
 #### Online
 * Open your browser and navigate to https://maibornwolff.github.io/TestVille/visualization/dist/app/
 * An demo graphic has been displayed
-* An demo graphic has been displayed
 * You can choose the before generated file and visualize it (folder icon)
 
 Now you can see the analysis of the test data visualized in coloured streets and blocks.
