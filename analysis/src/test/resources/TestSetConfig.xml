@@ -46,6 +46,5 @@
 		<property propertyName="countExecutions" column="18" default="0"/>
 		<property propertyName="countDefects" column="23"/> 
 		<property propertyName="countOpenedDefects" column="25"/>
-		
 	</properties>
 </config>
