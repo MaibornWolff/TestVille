@@ -1,10 +1,8 @@
 package de.maibornwolff.ste.testVille.domainModell.jiraXray;
 
 import de.maibornwolff.ste.testVille.domainModell.TestCase;
-import de.maibornwolff.ste.testVille.inputFileParsing.jiraXRAY.MapTranslator;
 
 import java.util.Collection;
-import java.util.Map;
 
 public class JiraXrayTestCase extends TestCase {
 

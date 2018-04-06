@@ -11,7 +11,7 @@ public class VisualizationFileGenerator {
     private String visualizationFilePath;
 
 
-    public VisualizationFileGenerator(VisualizationTree tree, String visualizationFilePath) throws Exception{
+    public VisualizationFileGenerator(VisualizationTree tree, String visualizationFilePath) {
         this.parsingStepArtifact   = tree;
         this.visualizationFilePath = visualizationFilePath;
     }

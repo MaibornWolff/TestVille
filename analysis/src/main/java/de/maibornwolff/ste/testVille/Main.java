@@ -2,12 +2,10 @@ package de.maibornwolff.ste.testVille;
 
 import de.maibornwolff.ste.testVille.application.AnalysisRunSetting;
 import de.maibornwolff.ste.testVille.application.OptionHandler;
-import de.maibornwolff.ste.testVille.domainModell.Item;
 import de.maibornwolff.ste.testVille.inputFileParsing.TestVilleParser;
 import de.maibornwolff.ste.testVille.inputFileParsing.VisualizationTree;
 import de.maibornwolff.ste.testVille.vizualisationFileWriting.VisualizationFileGenerator;
 
-import java.util.Collection;
 import java.util.List;
 
 public class Main {

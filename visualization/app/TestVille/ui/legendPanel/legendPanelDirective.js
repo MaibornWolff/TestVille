@@ -62,7 +62,13 @@ class LegendPanelDirective{
      */
     link(scope, element) {
         element.find("#legendButton").bind("click", this.toggle);
-        element.find("#legendPanel").bind("change",this.method);
+
+        element.find("#testVilleLegendButton").bind("click", this.openPdf);
+
+    }
+
+    openPdf(){
+        window.open("./testVilleLegend.pdf","_self","");
     }
 
     /**

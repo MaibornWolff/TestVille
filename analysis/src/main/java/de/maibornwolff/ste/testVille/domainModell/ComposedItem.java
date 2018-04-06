@@ -1,6 +1,5 @@
 package de.maibornwolff.ste.testVille.domainModell;
 
-import de.maibornwolff.ste.testVille.domainModell.hpALM.Requirement;
 import de.maibornwolff.ste.testVille.vizualisationFileWriting.Writable;
 
 import java.util.*;
@@ -32,10 +31,6 @@ public class ComposedItem extends Item implements Writable{
 
     private void addAssociatedItemIfAbsent(Item newAssociatedElement) {
         this.associatedItems.add(newAssociatedElement);
-    }
-
-    private boolean doesRequirementContainsTestCase(Item maybeAlreadyContained) {
-        return this.getAssociatedItems().stream().anyMatch(x -> x.equals(maybeAlreadyContained));
     }
 
     public Set<Item> getAssociatedItems() {

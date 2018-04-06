@@ -75,8 +75,11 @@ class DataValidatorService {
         if(root.children){
             levelOfTree=root.children;
             horizontalPosition[j]=0;
+
             while(horizontalPosition[j]<levelOfTree.length||
             (levelOfTree.parent&&levelOfTree[0].parent.parent.children)){
+
+
                 for(var i=0;i<levelOfTree.length;i++){
                 }
                 if( horizontalPosition[j]===0&&!(data.revisions && j===1)&&!(this.uniqueArray(levelOfTree))){
@@ -115,7 +118,7 @@ class DataValidatorService {
 
         return new Promise((resolve, reject) => {
 
-            this.http.get("schema.json").then(
+            this.http.get("./schema.json").then(
                 (response) => {
 
                     if(response.status === 200) {

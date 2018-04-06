@@ -73,7 +73,7 @@ class TreeMapService {
         node.length = node.y1-node.y0;
         node.height = node.isLeaf ? heightScale * node.data.attributes[heightKey]  : p;
         node.z0 = p * node.depth;
-        node.z1 = p* node.depth + node.height;
+        node.z1 = p * node.depth + node.height;
         node.attributes = node.data.attributes;
         node.name = node.data.name;
         if (node.data.deltas){

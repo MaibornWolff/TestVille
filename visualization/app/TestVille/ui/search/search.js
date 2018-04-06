@@ -19,6 +19,7 @@ angular.module("app.testVille.ui.search").directive(
     () => new SearchDirective()
 );
 
+//prevents pagemoving, when using the arrowkeys in an inputfield
 angular.module("app.testVille.ui.search").directive("disableArrows", function() {
 
                                             function disableArrows(event) {

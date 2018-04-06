@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public interface Parser {
-    Collection<Item> parse (String fileToParse, String configurationFile) throws Exception;
+    Collection<Item> parse(String fileToParse, String configurationFile) throws Exception;
 
     default  <A> List<Item> castToItems(Collection<A> listOfAs) {
         return listOfAs.stream().map(x -> (Item) x).collect(Collectors.toList());

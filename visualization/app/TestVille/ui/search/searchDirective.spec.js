@@ -17,11 +17,11 @@ describe("app.testVille.ui.search.searchDirective", function() {
 
             directive.toggle();
 
-            expect(directive.visible);
+            expect(directive.visible).to.be.true;
 
             directive.toggle();
 
-            expect(!directive.visible);
+            expect(!directive.visible).to.be.true;
 
 
         });
