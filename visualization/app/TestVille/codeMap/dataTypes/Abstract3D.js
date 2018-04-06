@@ -365,19 +365,15 @@ export class Abstract3D {
      */
     static colorAsString(color) {
 
-        if(color === 0x00ff00) {
-            return  "green";
-        }else if(color === 0xff0000) {
-            return "red";
-        }else if(color === 0xffff00) {
-            return "yellow";
-        }else if(color === 0x0000ff) {
-            return "blue";
-        }else if(color === 0xff8c00){
-            return "orange";
+        switch (color) {
+            case 0x00ff00: return "green";
+            case 0xff0000: return "red";
+            case 0xffff00: return "yellow";
+            case 0x0000ff: return "blue";
+            case 0xff8c00: return "orange";
+            case 0xff00ff: return "purple";
+            default:       return "braun";
         }
-
-        return "unknown";
     }
 
 }
