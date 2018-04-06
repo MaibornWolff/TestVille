@@ -44,6 +44,7 @@ describe("app.testVille.ui.search.searchController", ()=>{
 
 
 
+
     }))
 
 
@@ -62,6 +63,7 @@ describe("app.testVille.ui.search.searchController", ()=>{
 
 
             controller.keyPressed(64 , "he");
+
 
 
 
@@ -103,6 +105,7 @@ describe("app.testVille.ui.search.searchController", ()=>{
 
 
 
+
             expect(controller.resultsList[0].name).to.equal("Heckklappe lässt sich manuell öffnen || id: 22");
             expect(controller.resultsList).to.have.length(1);
             expect(controller.myStyle).to.deep.equal({width: `${225}px`});
@@ -130,6 +133,7 @@ describe("app.testVille.ui.search.searchController", ()=>{
 
 
             controller.keyPressed(77 , "Heckklappe lässt sich manuell öffnen || id: 22");
+
 
 
 

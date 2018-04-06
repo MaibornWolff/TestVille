@@ -141,6 +141,7 @@ class SearchController{
             this.upperLimit= this.upperLimit+25;
         }
 
+
     }
 
     selectAndUnselect(keyCode, input) {
@@ -171,12 +172,6 @@ class SearchController{
 
         return this.resultsList.length===1 && input.toLowerCase()===this.resultsList[0].name.toLowerCase();
     }
-
-
-
-
-
-
 }
 
 
