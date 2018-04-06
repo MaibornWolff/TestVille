@@ -4,36 +4,47 @@
 
 [Downloads](https://github.com/MaibornWolff/TestVille/releases)
 
+<<<<<<< HEAD
 # What is CodeCharta ?
 
 TestVille allows the visualization of tests using a city-layout. It consists of two parts:
 
 visualization: GUI for visualising data
 analysis:      Tools for generating visualisation data
+=======
+# What is TestVille ?
+
+Are you tired of reporting your testing state using bar charts or tables freighted with numbers counting successful test runs or coverage? These may be hard to understand or at least boring for anyone lacking full insider knowledge. This poses a challenge especially to timeboxed development in agile teams, where transparency and precision are key values.
+
+TestVille is an open source visualization tool that addresses these needs: it allows for an intuitive understanding of your progress reporting using common indicators such as priority, number of test steps or successful test runs.
+
+TestVille transforms your IT project data into a city map, which is populated by test cases in the form of buildings of different size, shape, and color. The streets connecting the buildings represent their respective requirements. Do you see the street with the red houses? Seems like we have a problem over there.
+
+Anyone will be able to understand where your testing is at, even if your project contains tens of thousands of test cases. In this interactive presentation, we introduce you to the ways in which Testville makes the everyday life of a tester easier and also show you how to participate in its future development.
+>>>>>>> f9e7db47dcfb08a61b424acb8e2cae5ea887d644
 
 # Quickstart
 
 
-## How to install CodeCharta from github
+## How to install TestVille from github
 
-- Download the [latest release](https://github.com/MaibornWolff/TestVille/releases/latest) of TestVille (TestVille-analysis and TestVille-visualization)
+- Download the [latest version](https://github.com/MaibornWolff/TestVille/releases/latest) of TestVille (TestVille-analysis and TestVille-visualization)
 - you should now have the analysis and visualization package 
 - unpack both packages
 - enter the TestVille directory with your favorite console
 
-- > Dos  systems: gradlew.bat build then gradlew.bat buildVisualization
-- > Unix systems: ./gradlew   build then ./gradlew   buildVisualization
+- > Dos  systems: `gradlew.bat build` then `gradlew.bat buildVisualization`
+- > Unix systems: `./gradlew   build` then `./gradlew   buildVisualization`
 
 ## Generate a visualization file from test data
 
-Export your test Project preferably with all available fields to a `.xml-file` 
-Choose a sonar analysed project of your choice and enter the file, url and project-id. If necessary, generate a User Token in the sonar remote instance and include it in the following command:
+* Export your test Project
+* Run the `analysisy-module` with the export file ([see](https://github.com/MaibornWolff/TestVille/tree/master/analysis)).
+* CLI-Commands:
   - > Dos  systems: gradlew.bat makeVisFile -PARGS="[options]"
   - > Unix systems: ./gradlew   makeVisFile -PARGS="[options]"
 ```markdown
 Options:
--demo
-      Generate demo visualization file
 -xray
       Jira-Xray as data origin
 -alm
@@ -50,12 +61,19 @@ An output file has been created.
 
 ## Visualize the analyzed test data
 
-Open the visualization directory and run the executable
-A new window should open now. 
-![Image](images/screenshot_visu.PNG)
 
-- In the right lower corner, click on the folder icon. 
-- Choose the generated .json file from the previous step
+#### Local
+* Enter the visualization directory with your favorite console
+* Build the visualization module: > `[./gradlew | gradlew.bat] build`
+* Start a local server: > `[./gradlew | gradlew.bat] startServer`
+* Start your favorite browser an navigate to dist/app
+* An demo graphic has been diplayed
+* You can choose the before generated file and visualize it (folder icon).
+
+#### Online
+* Open your browser and navigate to https://maibornwolff.github.io/TestVille/visualization/dist/app/
+* An demo graphic has been diplayed
+* You can choose the before generated file and visualize it (folder icon).
 
 Now you can see the analysis of the test data visualized in coloured streets and blocks. 
 
@@ -91,7 +109,7 @@ Use the "Invert Color" option, to declare a high value to be better then a low v
 
 # Demo
 
-[Browser Demo](visualization/dist/app/)
+[Visualization Demo](visualization/dist/app/)
 
 # Further information
 
@@ -99,24 +117,12 @@ Use the "Invert Color" option, to declare a high value to be better then a low v
 
 [Readme](https://github.com/MaibornWolff/TestVille/tree/master/visualization)
 
-[Browser Demo](visualization/dist/app/)
-
-[Coverage](visualization/dist/coverage/lcov-report)
-
-[Reference](visualization/docs/)
+[Visualization Demo](visualization/dist/app/)
 
 ## Analysis
 
 [Readme](https://github.com/MaibornWolff/TestVille/tree/master/analysis)
 
-# Contributing
-
-[Contributing](https://github.com/MaibornWolff/codecharta/blob/master/CONTRIBUTE.md)
-
-[Code of Conduct](https://github.com/MaibornWolff/codecharta/blob/master/CODE_OF_CONDUCT.md)
-
 # Releases and Changelog
 
 [Releases](https://github.com/MaibornWolff/TestCharta/releases)
-
-[Changelog](https://github.com/MaibornWolff/codecharta/blob/master/CHANGELOG.md)
