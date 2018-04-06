@@ -23,68 +23,32 @@ class SearchController{
 
         this.myStyle = {width: `${225}px`};
 
+        this.eventNotThrownYet = true;
 
-    }
-
-
-
-
-    keyPressed(keyCode, input){
-
-
-
-        this.resultsList = this.codeMapService.searchList.filter(function (el){
-        return el.toLowerCase().indexOf(input.toLowerCase()) > -1;
-        });
-
-
-        if(this.InputMatchesExactlyOneElementInTheList(input)){
-
-            const spaceKey = 32;
-            if(keyCode === spaceKey) {
-
-                this.input = "";
-                this.$rootScope.$broadcast("offsearch");
-                this.myStyle = {width: `${225}px`};
-
-            }else{
-
-                this.$rootScope.$broadcast("onsearch", {searched: this.resultsList[0]});
-            }
-
-        }
-
-
-        const altKey = 18;
-        if(keyCode === altKey){
-
-            this.upperLimit= this.upperLimit+25;
-        }
+        this.metricList= ["reporter", "assignee", "type", "created", "name"];
 
 
     }
 
-    InputMatchesExactlyOneElementInTheList(input){
-
-        return this.resultsList.length===1 && input.toLowerCase()===this.resultsList[0].toLowerCase();
-    }
 
 
 
     changingInput(){
 
         this.upperLimit=25;
+        this.eventNotThrownYet=true;
 
 
 
+        //calculates the inputfieldwidth
+        var element = document.createElement("pre");
+        element.style = "font: inherit; display: inline";
+        this.container.appendChild(element);
+        element.innerHTML = this.input;
+        var rect = element.getBoundingClientRect();
+        element.remove();
 
-        this.element = document.createElement("span");
-        this.container.appendChild(this.element);
-        this.element.innerHTML = this.input;
-        this.rect = this.element.getBoundingClientRect();
-        this.element.remove();
-
-        this.px = this.rect.width;
+        this.px = rect.width;
 
         if(this.px>205){
 
@@ -97,6 +61,121 @@ class SearchController{
         }
 
     }
+
+    keyPressed(keyCode, input){
+
+        var metrics= [];
+        var inputs= [];
+
+        if(this.startsWithMetric(input)){
+
+            var metricWithInput= input.split(",");
+
+            for( var i=0; i<metricWithInput; i++ ) {
+
+                var metricAndInput = metricWithInput.split(":");
+                metrics.push(this.theCorrectMetric(metricAndInput[0]));
+                inputs.push(metricAndInput[1]);
+                this.filterTheList(metrics, inputs);
+
+            }
+
+        }else {
+
+            metrics.push("name");
+            inputs.push(input);
+            this.filterTheList(metrics, inputs);
+        }
+
+        this.raiseUpperLimit(keyCode);
+        this.selectAndUnselect(keyCode, input);
+
+
+    }
+
+    startsWithMetric(input){
+
+        console.log("startswithmetric");
+        for(var i=0; i<this.metricList.length; i++){
+            if(input.toLowerCase().startsWith(this.metricList[i])){
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    theCorrectMetric(metric){
+
+        for(var i=0; i<this.metricList.length; i++){
+            if(metric.toLowerCase().equals(this.metricList[i].toLowerCase())){
+                return this.metricList[i];
+            }
+        }
+    }
+
+    filterTheList(metrics, inputs){
+
+        this.resultsList = this.codeMapService.searchList.filter(function (el){
+
+            for(var i=0; i<metrics.length; i++){
+
+
+                console.log("hier vielleicht");
+                if(el[metrics[i]].toLowerCase().indexOf(inputs[i].toLowerCase()) === -1){
+                    console.log("vielleicht");
+                    return false;
+                }
+            }
+            return true;
+        });
+
+    }
+
+    raiseUpperLimit(keyCode){
+
+        const altKey = 18;
+        if(keyCode === altKey){
+
+            this.upperLimit= this.upperLimit+25;
+        }
+
+    }
+
+    selectAndUnselect(keyCode, input) {
+
+        if (this.InputMatchesExactlyOneElementInTheList(input)) {
+
+            const spaceKey = 32;
+            if (keyCode === spaceKey) {
+
+                this.input = "";
+                this.$rootScope.$broadcast("offsearch");
+                this.myStyle = {width: `${225}px`};
+                this.eventNotThrownYet = true;
+
+
+            } else if (this.eventNotThrownYet) {
+
+                this.$rootScope.$broadcast("onsearch", {searched: this.resultsList[0]});
+
+                this.eventNotThrownYet = false;
+
+            }
+
+        }
+    }
+
+    InputMatchesExactlyOneElementInTheList(input){
+
+        return this.resultsList.length===1 && input.toLowerCase()===this.resultsList[0].name.toLowerCase();
+    }
+
+
+
+
+
 
 }
 

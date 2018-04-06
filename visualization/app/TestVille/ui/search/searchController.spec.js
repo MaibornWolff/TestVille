@@ -18,11 +18,28 @@ describe("app.testVille.ui.search.searchController", ()=>{
         $rootScope= _$rootScope_;
 
         controller= $controller("searchController", {dataService: dataService, codeMapService: codeMapService, settingsService: settingsService, $rootScope: $rootScope});
-        controller.codeMapService.searchList = ["Heckklappe lässt sich manuell öffnen || id: 22",
-                                                           "01.02. Öffnen per Schlüssel || id: 23",
-                                                           "Öffnen der  Heckklappe || id: 94",
-                                                           "Heckklappe öffnen per Kommando || id: 84",
-                                                           "Korrekte Anzeige und Berechnung des Steuersatzes || id: 70"];
+        controller.codeMapService.searchList = [
+            {name:"Heckklappe lässt sich manuell öffnen || id: 22",
+                reporter: "Sibille",
+                type:"testcase",
+                created:"12.03.1999"},
+            {name:"01.02. Öffnen per Schlüssel || id: 23",
+                reporter: "Sibille",
+                type:"testcase",
+                created:"15.06.2016"},
+            {name:"Öffnen der  Heckklappe || id: 94",
+                reporter: "Matthias",
+                type:"testcase",
+                created:"13.02.2012"},
+            {name:"Heckklappe öffnen per Kommando || id: 84",
+                reporter: "Richard",
+                type:"testcase",
+                created:"27.12.2017"},
+            {name:"Korrekte Anzeige und Berechnung des Steuersatzes || id: 70",
+                reporter: "Richard",
+                type:"epic",
+                created:"01.01.2001"},
+        ];
 
 
 
@@ -48,7 +65,7 @@ describe("app.testVille.ui.search.searchController", ()=>{
 
 
 
-            expect(controller.resultsList[0]).to.equal("Heckklappe lässt sich manuell öffnen || id: 22");
+            expect(controller.resultsList[0].name).to.equal("Heckklappe lässt sich manuell öffnen || id: 22");
             expect(controller.resultsList).to.have.length(3);
             expect(onSearchSpy.calledOnce).to.be.false;
             expect(offSearchSpy.calledOnce).to.be.false;
@@ -56,6 +73,21 @@ describe("app.testVille.ui.search.searchController", ()=>{
 
 
         })
+
+        it("should not throw the on-search-event twice",()=>{
+
+            var onSearchSpy = sinon.spy();
+            controller.$rootScope.$on("onsearch", onSearchSpy);
+
+
+
+            controller.keyPressed(64, "Heckklappe lässt sich manuell öffnen || id: 22");
+            controller.keyPressed(64, "Heckklappe lässt sich manuell öffnen || id: 22");
+
+
+
+            expect(onSearchSpy.calledOnce).to.be.true;
+        });
 
         it("should throw just the offsearch-event, when using space, while the input equals just one object in the list", ()=>{
 
@@ -71,7 +103,7 @@ describe("app.testVille.ui.search.searchController", ()=>{
 
 
 
-            expect(controller.resultsList[0]).to.equal("Heckklappe lässt sich manuell öffnen || id: 22");
+            expect(controller.resultsList[0].name).to.equal("Heckklappe lässt sich manuell öffnen || id: 22");
             expect(controller.resultsList).to.have.length(1);
             expect(controller.myStyle).to.deep.equal({width: `${225}px`});
             expect(controller.input).to.equals("");
@@ -101,7 +133,7 @@ describe("app.testVille.ui.search.searchController", ()=>{
 
 
 
-            expect(controller.resultsList[0]).to.equal("Heckklappe lässt sich manuell öffnen || id: 22");
+            expect(controller.resultsList[0].name).to.equal("Heckklappe lässt sich manuell öffnen || id: 22");
             expect(controller.resultsList).to.have.length(1);
             expect(onSearchSpy.called).to.be.true;
             expect(offSearchSpy.called).to.be.false;
