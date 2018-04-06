@@ -67,7 +67,7 @@ class JiraXrayParserTest {
 
         // assert
         DynamicTest dt1 = testFactoryHelper("item name check", "item name is invalid","setTest", item.getName());
-        DynamicTest dt2 = testFactoryHelper("item priority check", "item value is invalid","high", item.getPriority());
+        DynamicTest dt2 = testFactoryHelper("item priority check", "item value is invalid","0:: high", item.getPriority());
         DynamicTest dt3 = testFactoryHelper("item key check", "item key is invalid","i-194", item.getKey());
 
         return List.of(dt1, dt2, dt3);

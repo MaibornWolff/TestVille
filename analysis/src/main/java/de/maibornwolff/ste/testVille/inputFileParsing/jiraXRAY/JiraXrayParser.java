@@ -528,21 +528,27 @@ public class JiraXrayParser extends DefaultHandler implements Parser {
 
     @Override
     public Collection<Item> parse(String fileToParse, String configFilePath) throws Exception {
+        TranslationMapBuilder tmb = new TranslationMapBuilder(configFilePath, ManagementTool.JIRA_XRAY);
+        this.showItemsTheirPriorityRanking(tmb);
+        this.showTestCaseTheirTranslationMap(tmb);
         JiraXrayParser jiraXrayParser = new JiraXrayParser();
         SAXParserFactory.newInstance().newSAXParser().parse(new File(fileToParse), jiraXrayParser);
-        jiraXrayParser.manageExtractedItems(configFilePath);
+        jiraXrayParser.manageExtractedItems();
         return extractAllEpics(jiraXrayParser.getCollectedItems());
     }
 
-    private void manageExtractedItems(String configFilePath) throws Exception {
+    private void manageExtractedItems() {
         associateEpicsToTestCases(this.getCollectedItems());
         letExtractedTestCasesKnowTheirCountExecutions(this.getCollectedItems());
         completeExtractedItemsWithDummyEpic();
-        showExtractedTestCaseTheirTranslationMap(configFilePath);
     }
 
-    private void showExtractedTestCaseTheirTranslationMap(String configFile) throws Exception {
-        JiraXrayTestCase.translationMap = new TranslationMapBuilder(configFile, ManagementTool.JIRA_XRAY).getTranslationMap();
+    private void showItemsTheirPriorityRanking(TranslationMapBuilder tmb) {
+        Item.priorityRanking = tmb.getPriorityRanking();
+    }
+
+    private void showTestCaseTheirTranslationMap(TranslationMapBuilder tmb) {
+        JiraXrayTestCase.translationMap = tmb.getTranslationMap();
     }
 
     private void completeExtractedItemsWithDummyEpic() {

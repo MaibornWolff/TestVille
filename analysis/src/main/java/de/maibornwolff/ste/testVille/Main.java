@@ -30,7 +30,7 @@ public class Main {
     }
 
     private static void printError(Exception e) {
-        System.err.println(e.toString());
+        System.err.println(e.getMessage());
         System.err.println("the visualization file could not be generated!");
         System.exit(0);
     }

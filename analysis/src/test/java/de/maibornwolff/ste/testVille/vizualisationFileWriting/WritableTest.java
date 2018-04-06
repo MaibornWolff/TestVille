@@ -39,7 +39,7 @@ class WritableTest {
     @DisplayName("it should produce an valid string representation of a TestCase")
     void stringRepresentationOfItemCheck() {
         //arrange
-        String expected   = "{\"name\":\"funny(id:tcü1)\",\"id\":\"123\",\"type\":\"TESTCASE\",\"priority\":\"Major\"" +
+        String expected   = "{\"name\":\"funny(id:tcü1)\",\"id\":\"123\",\"type\":\"TESTCASE\",\"priority\":\"0::Major\"" +
                 ",\"assignee\":\"JNiada\",\"reporter\":\"JNiada\",\"attributes\":{\"countExecutions\":34,\"updated\":23},\"children\":[]}";
 
         // act
@@ -54,7 +54,7 @@ class WritableTest {
     void stringRepresentationOfComposedItemCheck() {
         //arrange
         ComposedItem epic = new Epic(123);
-        String expected   = "{\"name\":\"TestContainer(id:e12)\",\"id\":\"123\",\"type\":\"EPIC\",\"priority\":\"Major\"" +
+        String expected   = "{\"name\":\"TestContainer(id:e12)\",\"id\":\"123\",\"type\":\"EPIC\",\"priority\":\"0::Major\"" +
                 ",\"assignee\":\"JNiada\",\"reporter\":\"JNiada\",\"attributes\":{},\"children\":[" +
                 tc1.produceWritableStringRepresentation() + /* already tested in stringRepresentationOfItemCheck */
                 ","+ tc2.produceWritableStringRepresentation() + /* already tested in stringRepresentationOfItemCheck */

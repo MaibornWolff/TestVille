@@ -24,7 +24,6 @@ public class HpAlmParser implements Parser {
 
     private Map<String, Integer> extractionProtocol;
     private Map<String, String>  onRowAvailableData;
-    private Map<String, Integer> priorityRanking;
     private Set<Requirement>     requirements;        // Bank of Requirement.
     private IDGenerator          localIDGenerator = new IDGenerator();
 
@@ -42,12 +41,16 @@ public class HpAlmParser implements Parser {
         ConfigurationFileValidator.validateConfigurationFile(configFilePath, ManagementTool.HP_ALM);
         this.extractionProtocol = new ExtractionProtocolBuilder(configFilePath).getExtractionProtocol();
         TranslationMapBuilder tmb = new TranslationMapBuilder(configFilePath, ManagementTool.HP_ALM);
-        this.priorityRanking      = tmb.getPriorityRanking();
+        this.showItemsTheirPriorityRanking(tmb);
         this.showTestCaseTheirTranslationMap(tmb);
     }
 
     private void showTestCaseTheirTranslationMap(TranslationMapBuilder tmb) {
         TestCase.translationMap = tmb.getTranslationMap();
+    }
+
+    private void showItemsTheirPriorityRanking(TranslationMapBuilder tmb) {
+        Item.priorityRanking = tmb.getPriorityRanking();
     }
 
     private static String extractCellContent (Row currentRow, int cellNum) {
@@ -122,14 +125,12 @@ public class HpAlmParser implements Parser {
         TestCase tc = new TestCase(this.generateNextLocalId());
         this.setTestCaseSettings(tc);
         this.setTestCaseProperties(tc);
-        this.specifyItemPriorityRank(tc);
         return tc;
     }
 
     private Requirement buildRequirementFromAvailableData() {
         Requirement req = new Requirement(this.generateNextLocalId());
         this.setRequirementSettings(req);
-        this.specifyItemPriorityRank(req);
         return req;
     }
 
@@ -199,15 +200,5 @@ public class HpAlmParser implements Parser {
         this.initExtractionProtocolAndPriorityRanking(configurationFilePath);
         this.exploreExportFileAndExtractItems(fileToParse);
         return this.castToItems(this.requirements);
-    }
-
-    private void specifyItemPriorityRank(Item item) {
-        Integer itemRank = this.priorityRanking.get(item.getPriority());
-        if (itemRank == null) {
-            item.setPriority("0:: " + item.getPriority());
-            return;
-        }
-        String newPriorityString = itemRank + ":: " + item.getPriority();
-        item.setPriority(newPriorityString);
     }
 }
