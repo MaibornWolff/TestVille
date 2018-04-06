@@ -16,24 +16,27 @@ Anyone will be able to understand where your testing is at, even if your project
 
 # Quickstart
 
-
 ## How to install TestVille from github
 
-- Download the [latest version](https://github.com/MaibornWolff/TestVille/releases/latest) of TestVille (TestVille-analysis and TestVille-visualization)
-- you should now have the analysis and visualization package 
-- unpack both packages
-- enter the TestVille directory with your favorite console
+#### Requirements
+* Bash or similar
+* JDK 9 (Oracle OpenJDK)
 
-- > Dos  systems: `gradlew.bat build` then `gradlew.bat buildVisualization`
-- > Unix systems: `./gradlew   build` then `./gradlew   buildVisualization`
+#### Installation
+- Download the [latest version](https://github.com/MaibornWolff/TestVille/releases/latest) of TestVille (TestVille-analysis and TestVille-visualization)
+- You should now have the analysis and visualization package 
+- Unpack both packages
+- Enter the TestVille directory with your favorite console
+- > Dos  systems: `gradlew.bat build` `&& `gradlew.bat buildProject`
+- > Unix systems: `./gradlew   build` `&& `./gradlew   buildProject`
 
 ## Generate a visualization file from test data
 
-* Export your test Project
-* Run the `analysisy-module` with the export file ([see](https://github.com/MaibornWolff/TestVille/tree/master/analysis)).
+* Export your test Project (instructions available [on](https://github.com/MaibornWolff/TestVille/tree/master/analysis/readme.md))
+* Run the `analysis-module` with the export file ([see](https://github.com/MaibornWolff/TestVille/tree/master/analysis/readme.md)).
 * CLI-Commands:
-  - > Dos  systems: gradlew.bat makeVisFile -PARGS="[options]"
-  - > Unix systems: ./gradlew   makeVisFile -PARGS="[options]"
+  - > Dos  systems: gradlew.bat analyse -PARGS="[options]"
+  - > Unix systems: ./gradlew   analyse -PARGS="[options]"
 ```markdown
 Options:
 -xray
@@ -41,32 +44,33 @@ Options:
 -alm
       Hp-alm as data origin
 -i, -inputFile
-      Input file
--o, --outputFile
+      Input file (export file)
+-o, -outputFile
       Output file
--c, --config
+-c, -config
       Configuration file for customized handling of test fields
 ```
  
 An output file has been created.
 
 ## Visualize the analyzed test data
-
+![takeALook](./images/legendImage.png)
 
 #### Local
 * Enter the visualization directory with your favorite console
-* Build the visualization module: > `[./gradlew | gradlew.bat] build`
-* Start a local server: > `[./gradlew | gradlew.bat] startServer`
-* Start your favorite browser an navigate to dist/app
-* An demo graphic has been diplayed
-* You can choose the before generated file and visualize it (folder icon).
+* Build the visualization module: > `[./gradlew | gradlew.bat] buildProject`
+* Start a local server: > `[./gradlew | gradlew.bat] serve`
+* Start your favorite browser an navigate to `dist/app
+* An demo graphic has been displayed.
+* You can choose the before generated file and visualize it (folder icon)
 
 #### Online
 * Open your browser and navigate to https://maibornwolff.github.io/TestVille/visualization/dist/app/
-* An demo graphic has been diplayed
-* You can choose the before generated file and visualize it (folder icon).
+* An demo graphic has been displayed
+* An demo graphic has been displayed
+* You can choose the before generated file and visualize it (folder icon)
 
-Now you can see the analysis of the test data visualized in coloured streets and blocks. 
+Now you can see the analysis of the test data visualized in coloured streets and blocks.
 
 Navigation:
 - left click and drag -> rotate 
@@ -76,7 +80,7 @@ Tip: If your device has a touch display, you can quickly navigate with your fing
 
 Change the visualized content:
 - click on the second button for the settings
-![Image](images/screenshot_visu2.PNG)
+![settings](images/settingsImage.png)
 
 **Metrics:**
 
