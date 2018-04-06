@@ -27,8 +27,8 @@ Anyone will be able to understand where your testing is at, even if your project
 - You should now have the analysis and visualization package 
 - Unpack both packages
 - Enter the TestVille directory with your favorite console
-- > Dos  systems: `gradlew.bat build` `&& `gradlew.bat buildProject`
-- > Unix systems: `./gradlew   build` `&& `./gradlew   buildProject`
+- > Dos  systems: `gradlew.bat build buildProject`
+- > Unix systems: `./gradlew   build buildProject`
 
 ## Generate a visualization file from test data
 
