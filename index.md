@@ -4,14 +4,6 @@
 
 [Downloads](https://github.com/MaibornWolff/TestVille/releases)
 
-<<<<<<< HEAD
-# What is CodeCharta ?
-
-TestVille allows the visualization of tests using a city-layout. It consists of two parts:
-
-visualization: GUI for visualising data
-analysis:      Tools for generating visualisation data
-=======
 # What is TestVille ?
 
 Are you tired of reporting your testing state using bar charts or tables freighted with numbers counting successful test runs or coverage? These may be hard to understand or at least boring for anyone lacking full insider knowledge. This poses a challenge especially to timeboxed development in agile teams, where transparency and precision are key values.
@@ -21,7 +13,6 @@ TestVille is an open source visualization tool that addresses these needs: it al
 TestVille transforms your IT project data into a city map, which is populated by test cases in the form of buildings of different size, shape, and color. The streets connecting the buildings represent their respective requirements. Do you see the street with the red houses? Seems like we have a problem over there.
 
 Anyone will be able to understand where your testing is at, even if your project contains tens of thousands of test cases. In this interactive presentation, we introduce you to the ways in which Testville makes the everyday life of a tester easier and also show you how to participate in its future development.
->>>>>>> f9e7db47dcfb08a61b424acb8e2cae5ea887d644
 
 # Quickstart
 
