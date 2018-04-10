@@ -28,7 +28,7 @@ class VisualizationFileGeneratorTest {
         AnalysisRunSetting ars         = new AnalysisRunSetting(configFilePath, testFilePath, target, ManagementTool.HP_ALM);
         TestVilleParser    tvp         = new TestVilleParser(ars);
         VisualizationTree  parseResult = tvp.parse();
-        VisualizationFileGenerator gen = new VisualizationFileGenerator(parseResult, ars.getVisualizationFileTarget());
+        VisualizationFileGenerator gen = new VisualizationFileGenerator(parseResult, ars.getVisualizationFilePath());
 
         // Act
         gen.generateVisualizationFile();
