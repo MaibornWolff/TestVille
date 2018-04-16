@@ -25,7 +25,7 @@ class SearchController{
 
         this.eventNotThrownYet = true;
 
-        this.metricList= ["reporter", "assignee", "type", "created", "name"];
+        this.attributeList= ["reporter", "assignee", "type", "name"];
 
 
     }
@@ -64,40 +64,39 @@ class SearchController{
 
     keyPressed(keyCode, input){
 
-        var metrics= [];
+        var attributes= [];
         var inputs= [];
 
-        if(this.startsWithMetric(input)){
+        if(this.startsWithAttribute(input)){
 
-            var metricWithInput= input.split(",");
+            var attributeWithInput= input.split(",");
 
-            for( var i=0; i<metricWithInput; i++ ) {
+            for( var i=0; i<attributeWithInput.length; i++ ) {
 
-                var metricAndInput = metricWithInput.split(":");
-                metrics.push(this.theCorrectMetric(metricAndInput[0]));
-                inputs.push(metricAndInput[1]);
-                this.filterTheList(metrics, inputs);
+                var attributeAndInput = attributeWithInput[i].split(":");
+                attributes.push(this.CorrectAttribute(attributeAndInput[0]));
+                inputs.push(attributeAndInput[1]);
+                this.filterTheList(attributes, inputs);
 
             }
 
         }else {
 
-            metrics.push("name");
+            attributes.push("name");
             inputs.push(input);
-            this.filterTheList(metrics, inputs);
+            this.filterTheList(attributes, inputs);
         }
-
+        console.log(this.resultsList);
         this.raiseUpperLimit(keyCode);
         this.selectAndUnselect(keyCode, input);
 
 
     }
 
-    startsWithMetric(input){
+    startsWithAttribute(input){
 
-        console.log("startswithmetric");
-        for(var i=0; i<this.metricList.length; i++){
-            if(input.toLowerCase().startsWith(this.metricList[i])){
+        for(var i=0; i<this.attributeList.length; i++){
+            if(input.toLowerCase().startsWith(this.attributeList[i])){
 
                 return true;
             }
@@ -106,26 +105,26 @@ class SearchController{
         return false;
     }
 
-    theCorrectMetric(metric){
+    CorrectAttribute(attribute){
 
-        for(var i=0; i<this.metricList.length; i++){
-            if(metric.toLowerCase().equals(this.metricList[i].toLowerCase())){
-                return this.metricList[i];
+        for(var i=0; i<this.attributeList.length; i++){
+            if(attribute.toLowerCase()===this.attributeList[i].toLowerCase()){
+                return this.attributeList[i];
             }
         }
     }
 
-    filterTheList(metrics, inputs){
+    filterTheList(attributes, inputs){
 
         this.resultsList = this.codeMapService.searchList.filter(function (el){
 
-            for(var i=0; i<metrics.length; i++){
+            for(var i=0; i<attributes.length; i++){
 
+                console.log(el[attributes[i]]);
+                console.log(inputs[i]);
+                if(el[attributes[i]].toLowerCase().indexOf(inputs[i].toLowerCase()) === -1){
 
-                console.log("hier vielleicht");
-                if(el[metrics[i]].toLowerCase().indexOf(inputs[i].toLowerCase()) === -1){
-                    console.log("vielleicht");
-                    return false;
+                    return false + console.log("nope");
                 }
             }
             return true;
@@ -170,7 +169,12 @@ class SearchController{
 
     InputMatchesExactlyOneElementInTheList(input){
 
+        console.log("eventuell");
+
         return this.resultsList.length===1 && input.toLowerCase()===this.resultsList[0].name.toLowerCase();
+
+
+
     }
 }
 

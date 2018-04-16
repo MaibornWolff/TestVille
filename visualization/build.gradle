@@ -6,7 +6,7 @@ task installDependencies( type : org.ysb33r.gradle.nodejs.tasks.NpmTask ) {
     command  'install'
 }
 
-task buildProject( type : org.ysb33r.gradle.nodejs.tasks.NpmTask, dependsOn: installDependencies ) {
+task buildDist( type : org.ysb33r.gradle.nodejs.tasks.NpmTask, dependsOn: installDependencies ) {
     command  'run'
     cmdArgs  'build'
 }
