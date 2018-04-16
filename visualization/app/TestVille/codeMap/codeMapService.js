@@ -3,6 +3,7 @@
 import * as THREE          from "three";
 import {StaticJsonHandler} from "./dataTypes/StaticJsonHandler.js";
 import {CodeMapUtilities}  from "./codeMapUtilities";
+import {SearchableFactory} from "../core/searchableFactory/searchableFactory";
 
 
 /**
@@ -112,7 +113,8 @@ export class CodeMapService {
         this.clearScene();
         this.sceneRoot = this.drawRoot(s.map);
         this.clickList = CodeMapUtilities.mergeAndAddObjectsToScene(this.scene, this.sceneRoot);
-        this.searchList = this.getAllRequirementAndTestNames();
+        this.searchList = SearchableFactory.extractSearchableElementsFrom(s.map);
+        console.log(this.searchList);
     }
 
     /**
@@ -557,32 +559,6 @@ export class CodeMapService {
             return minWith + (areaValue * factor * maxWith);
         }
         return widthOfCurrentColumn;
-    }
-
-    /**
-     * This function return the names of all requirements and testcases.
-     */
-    getAllRequirementAndTestNames() {
-        let nameList = [];
-        for(let i = 0; i < this.clickList.length; i++) {
-            this.extractAllNames(this.clickList[i], nameList);
-        }
-
-        return nameList;
-    }
-
-    extractAllNames(object, nameList) {
-        if(object.hasOwnProperty("myContent") && (object.myContent.nodeInfo !== null)) {
-            if(nameList.indexOf(object.myContent.nodeInfo.getName()) === -1) {
-                nameList.push(object.myContent.nodeInfo.getName());
-            }
-        }
-
-        if(object.hasOwnProperty("children")) {
-            for(let i = 0; i < object.children.length; i++) {
-                this.extractAllNames(object.children[i], nameList);
-            }
-        }
     }
 
     drawRoot(jsonNode) {
