@@ -32,8 +32,9 @@ export class CodeMapUtilities {
             0xffa500, // 2-high (requirementCategory / testCaseCategory)
             0xffff00, // 3-medium (requirementCategory / testCaseCategory)
             0x0000ff, // 4-low (requirementCategory / testCaseCategory)
-            0xff00ff, // unknown (for self-defined severity)
-            0x00ff00 // clear, ok (for testCase)
+            0xff00ff, //  Trivial xray
+            0x00ff00, // clear, ok (for testCase)
+            0x8b4513// braun unknown (for self-defined severity)
         ];
 
         this.streetWidth = 4;

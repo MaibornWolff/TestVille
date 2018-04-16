@@ -1,24 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <translationConfiguration>
-<field name="status">
-        <valueTranslation stringValue="to do"              numValue="6"/>
-        <valueTranslation stringValue="pass"               numValue="1"/>
-        <valueTranslation stringValue="executing"          numValue="2"/>
-        <valueTranslation stringValue="fail"               numValue="7"/>
-        <valueTranslation stringValue="aborted"            numValue="5"/>
-        <valueTranslation stringValue="blocked"            numValue="4"/>
-        <valueTranslation stringValue="pending_validation" numValue="3"/>
-        <valueTranslation stringValue="in specification"   numValue="7"/>
-</field>
-<field name="priority">
-        <valueTranslation stringValue="Minor"    numValue="2"/>
-        <valueTranslation stringValue="Critical" numValue="6"/>
-        <valueTranslation stringValue="Major"    numValue="5"/>
-        <valueTranslation stringValue="High"     numValue="4"/>
-        <valueTranslation stringValue="Medium"   numValue="3"/>
-        <valueTranslation stringValue="Trivial"  numValue="1"/>
-</field>
-<field name="testRunStatus">
+    <field name="status">
         <valueTranslation stringValue="todo"              numValue="6"/>
         <valueTranslation stringValue="pass"               numValue="1"/>
         <valueTranslation stringValue="executing"          numValue="2"/>
@@ -27,5 +9,22 @@
         <valueTranslation stringValue="blocked"            numValue="4"/>
         <valueTranslation stringValue="pending_validation" numValue="3"/>
         <valueTranslation stringValue="in specification"   numValue="7"/>
-</field>
+    </field>
+    <field name="priority">
+        <valueTranslation stringValue="Minor"    numValue="2"/>
+        <valueTranslation stringValue="Major"    numValue="5"/>
+        <valueTranslation stringValue="High"     numValue="4"/>
+        <valueTranslation stringValue="Medium"   numValue="3"/>
+        <valueTranslation stringValue="Trivial"  numValue="1"/>
+    </field>
+    <field name="testRunStatus">
+        <valueTranslation stringValue="todo"              numValue="6"/>
+        <valueTranslation stringValue="pass"               numValue="1"/>
+        <valueTranslation stringValue="executing"          numValue="2"/>
+        <valueTranslation stringValue="fail"               numValue="7"/>
+        <valueTranslation stringValue="aborted"            numValue="5"/>
+        <valueTranslation stringValue="blocked"            numValue="4"/>
+        <valueTranslation stringValue="pending_validation" numValue="3"/>
+        <valueTranslation stringValue="in specification"   numValue="7"/>
+    </field>
 </translationConfiguration>

@@ -184,7 +184,8 @@ export class CodeMapService {
             case "2::" : return this.utilities.severityColors[2];
             case "3::" : return this.utilities.severityColors[5];
             case "4::" : return this.utilities.severityColors[3];
-            default    : return this.utilities.severityColors[4];
+            case "5::" : return this.utilities.severityColors[4];
+            default    : return this.utilities.severityColors[6];
         }
     }
 

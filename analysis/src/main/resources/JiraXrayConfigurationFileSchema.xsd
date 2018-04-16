@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="translationConfiguration">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="field" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="valueTranslation" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:attribute name="stringValue" type="xs:string"/>
+                                    <xs:attribute name="numValue"    type="xs:int"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="name" type="xs:string"/>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

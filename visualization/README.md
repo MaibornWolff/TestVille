@@ -57,7 +57,7 @@ followed by a key value pair `key=value`. Additional parameters can be
 added by appending `&key2=value2`. E.g. `http://yourdomain.com/pathtocc/index.html?file=something.json&scaling.x=2&areaMetric=myMetric`
 
 * The `file` parameter is a special parameter which accepts a file location. The file must be reachable through XHR.
-* All other parameters are defined by the [Settings class](/visualization/app/testVille/core/settings/model/settings.js). 
+* All other parameters are defined by the [Settings class](./app/TestVille/core/settings/model/settings.js). 
 `areaMetric=myMetric` therefore sets the value of settings.areaMetric to `myMetric`. Nested properties like `settings.scale.x` can be 
 set by the query parameter `scaling.x=42`
 * The `map` parameter is disabled since it would be too much for the URL bar of your browser.
@@ -67,6 +67,6 @@ It provides a simple way to customize your links with query parameters.
 ## JSON structure
 [[Back To Top]](#jump-to-section)
 
-[Example Data](/visualization/app/testVille/sample.json)
+[Example Data](./visualization/app/testVille/sample.json)
 
-[JSON Schema](/visualization/app/testVille/core/data/schema.json)
+[JSON Schema](./visualization/app/testVille/core/data/schema.json)
