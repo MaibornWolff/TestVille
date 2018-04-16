@@ -114,7 +114,6 @@ export class CodeMapService {
         this.sceneRoot = this.drawRoot(s.map);
         this.clickList = CodeMapUtilities.mergeAndAddObjectsToScene(this.scene, this.sceneRoot);
         this.searchList = SearchableFactory.extractSearchableElementsFrom(s.map);
-        console.log(this.searchList);
     }
 
     /**
