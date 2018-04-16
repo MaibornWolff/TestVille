@@ -20,7 +20,7 @@ public class Main {
             if(setting == null) return;
             TestVilleParser            parser    = new TestVilleParser(setting);
             VisualizationTree parseResult        = parser.parse();
-            VisualizationFileGenerator generator = new VisualizationFileGenerator(parseResult, setting.getVisualizationFileTarget());
+            VisualizationFileGenerator generator = new VisualizationFileGenerator(parseResult, setting.getVisualizationFilePath());
             generator.generateVisualizationFile();
         }catch (Exception e) {
             printError(e);

@@ -1,18 +1,64 @@
 package de.maibornwolff.ste.testVille.application;
 
+import de.maibornwolff.ste.testVille.common.CommandLineArg;
+import de.maibornwolff.ste.testVille.common.Option;
 import de.maibornwolff.ste.testVille.inputFileParsing.common.ManagementTool;
 
-import java.util.List;
+import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class OptionHandler {
-    private final List<String> commandLineArgs;
 
-    public OptionHandler(List<String> commandLineArgs){
-        this.commandLineArgs = commandLineArgs;
+    private final List<CommandLineArg>  commandLineArgs;
+    private final List<Option>  fromUserChosenOptions;
+    private final List<Integer> indexesOfChosenOptions;
+
+    public OptionHandler(List<String> commandLineArgsAsStrings) throws Exception {
+        this.commandLineArgs = transformToCommandLineArgs(commandLineArgsAsStrings);
+        this.fromUserChosenOptions = this.extractAllAvailableOptions();
+        this.indexesOfChosenOptions = extractIndexesOfAvailableOptions();
     }
 
-    private static String helpMsg() {
+    private static List<CommandLineArg> transformToCommandLineArgs(List<String> commandLineArgsAsStrings) {
+        boolean noArgsAvailable = commandLineArgsAsStrings.stream().allMatch(String::isEmpty);
+        if(noArgsAvailable) return List.of(new CommandLineArg("-help"));
+
+        return commandLineArgsAsStrings
+                .stream()
+                .map(CommandLineArg:: new)
+                .collect(Collectors.toList());
+    }
+
+    private List<Option> extractAllAvailableOptions() throws Exception {
+        List<Option> availableOptions = this.commandLineArgs
+                .stream()
+                .filter(CommandLineArg:: startsLikeOption)
+                .map(CommandLineArg::toOption)
+                .collect(Collectors.toList());
+        if(!areFromUserChosenOptionsValid(availableOptions)) throwExceptionWithWarningMsg("Some chosen options are invalid!");
+        return availableOptions;
+    }
+
+    private static boolean areFromUserChosenOptionsValid(List<Option> options) {
+        return options
+                .stream()
+                .allMatch(Option::isValidOption);
+    }
+
+    private List<Integer> extractIndexesOfAvailableOptions() {
+        List<Integer> optionIndexes = new ArrayList<>();
+        int index = 0;
+        for (CommandLineArg arg: this.commandLineArgs) {
+            if(arg.startsLikeOption()){
+                optionIndexes.add(index);
+            }
+            index ++;
+        }
+        return optionIndexes;
+    }
+
+    private static String produceHelpMessage() {
         return "\nTestVille\n\t@version: 2.0.0\n\t@module:  analysis\n"+
         "\t@task:    extract necessary data from a export file and processes it to produce a visualization file.\n"+
         "\t@options:\n" +
@@ -23,83 +69,62 @@ public class OptionHandler {
                 "\t\t-o/-output <visualization file target>      precise the target for visualization file.";
     }
 
-    private boolean userNeedHelp() {
-        return (this.commandLineArgs.size() == 1) && isHelpOption(this.getArg(0));
+    private boolean doesUserNeedHelp() {
+        return (this.fromUserChosenOptions.size() == 1) && this.fromUserChosenOptions.get(0).isHelpOption();
     }
 
-    private boolean isHelpOption(String option) {
-        option = optionCorrection(option);
-        return Options.H.toString().toLowerCase().equals(option)
-                || Options.HELP.toString().toLowerCase().equals(option);
-    }
-
-    private boolean containsHelpOption() {
-        List<String> correctedArgs = this.getCorrectedCommandLineArgs();
-        return correctedArgs.contains(Options.H.toString().toLowerCase())
-                || correctedArgs.contains(Options.HELP.toString().toLowerCase());
+    private boolean doesUserChoseHelpOption() {
+        return this.fromUserChosenOptions.stream().anyMatch(Option::isHelpOption);
     }
 
     private boolean containsInconsistentHelpRequest() {
-        return (!this.userNeedHelp()) && this.containsHelpOption();
+        return (!this.doesUserNeedHelp()) && this.doesUserChoseHelpOption();
     }
 
     public AnalysisRunSetting getRunSetting() throws Exception {
         if(this.containsInconsistentHelpRequest()) {
-            throw new Exception("Inconsistent arguments! Use -h/-help option for help.");
-        } else if(this.userNeedHelp()) {
-            System.out.println(helpMsg());
+            throwExceptionWithWarningMsg("Inconsistent arguments!");
+        } else if(this.doesUserNeedHelp()) {
+            System.out.println(produceHelpMessage());
             return null;
         }
         return createRunSetting();
     }
 
-    private static String optionCorrection(String option) {
-        if((option == null) || option.isEmpty()) return null;
-        option = option.trim();
-        return option.startsWith("-") ? option.trim().substring(1) : option;
-    }
-
-    private List<String> getCorrectedCommandLineArgs() {
-        return this.commandLineArgs.stream().map(OptionHandler::optionCorrection).collect(Collectors.toList());
-    }
-
-    private String getArg(int argIndex) {
-        return this.commandLineArgs.size() > argIndex ? this.commandLineArgs.get(argIndex) : null;
-    }
-
     private AnalysisRunSetting createRunSetting() throws Exception {
-        ManagementTool toolInfo = this.extractManagementToolInfo();
+        ManagementTool toolInfo = this.extractOriginOfUserExport();
         String configFilePath   = this.extractConfigurationFilePath(toolInfo);
         String exportFilePath   = this.extractInputFilePath();
         String outputFilePath   = this.extractOutputFilePath();
         AnalysisRunSetting result = new AnalysisRunSetting(configFilePath, exportFilePath, outputFilePath, toolInfo);
-        if(result.isValid()) return result;
-        throw new Exception("Inconsistent arguments! Use -h/-help option for help.");
+        if(!result.isValid()) throwExceptionWithWarningMsg("Inconsistent arguments!");
+        return result;
     }
 
-    private ManagementTool extractManagementToolInfo() {
-        List<String> allArgs = this.getCorrectedCommandLineArgs();
-        int           index = allArgs.indexOf(Options.ALM.toString().toLowerCase());
-        if(index < 0) index = allArgs.indexOf(Options.XRAY.toString().toLowerCase());
-        return index < 0 ? null : stringToManagementTool(allArgs.get(index));
+    private ManagementTool extractOriginOfUserExport() throws Exception {
+        List<Option> shouldContainsOneElement = this.fromUserChosenOptions
+                .stream()
+                .filter(Option::isExportOriginOption)
+                .collect(Collectors.toList());
+
+        if(shouldContainsOneElement.isEmpty()){
+            throwExceptionWithWarningMsg("You must precise the origin of test data!");
+        } else if (shouldContainsOneElement.size() > 1){
+            throwExceptionWithWarningMsg("2 origins of test data is not allowed!");
+        }
+
+        return mapOptionToManagementTool(shouldContainsOneElement.get(0));
     }
 
-    private ManagementTool stringToManagementTool(String option) {
-        switch (option) {
-            case "alm":  return ManagementTool.HP_ALM;
-            case "xray": return ManagementTool.JIRA_XRAY;
-            default:     return null;
+    private ManagementTool mapOptionToManagementTool(Option option) {
+        switch (option.content) {
+            case ALM:  return ManagementTool.HP_ALM;
+            case XRAY: return ManagementTool.JIRA_XRAY;
+            default:   return null;
         }
     }
 
-    private String extractConfigurationFilePath(ManagementTool tool) {
-        List<String> allArgs = this.getCorrectedCommandLineArgs();
-        int           index = allArgs.indexOf(Options.CONFIG.toString().toLowerCase());
-        if(index < 0) index = allArgs.indexOf(Options.C.toString().toLowerCase());
-        return index < 0 ? getDefaultConfigFilePath(tool) : this.getArg(++index);
-    }
-
-    private String getDefaultConfigFilePath(ManagementTool tool) {
+    private String getDefaultConfigurationFilePath(ManagementTool tool) {
         if(null == tool) return null;
         String almDefaultConfig  = "./src/main/resources/hpAlmDefaultConfiguration.xml";
         String xrayDefaultConfig = "./src/main/resources/jiraXrayDefaultConfiguration.xml";
@@ -110,17 +135,119 @@ public class OptionHandler {
         return null;
     }
 
-    private String extractInputFilePath() {
-        List<String> allArgs = this.getCorrectedCommandLineArgs();
-        int           index = allArgs.indexOf(Options.INPUT.toString().toLowerCase());
-        if(index < 0) index = allArgs.indexOf(Options.I.toString().toLowerCase());
-        return index < 0 ? null : this.getArg(++index);
+    private void throwExceptionWithWarningMsg(String warningMsg) throws Exception {
+        throw new Exception(warningMsg + "\nUse [-h/-help] for help");
     }
 
-    private String extractOutputFilePath() {
-        List<String> allArgs = this.getCorrectedCommandLineArgs();
-        int           index = allArgs.indexOf(Options.OUTPUT.toString().toLowerCase());
-        if(index < 0) index = allArgs.indexOf(Options.O.toString().toLowerCase());
-        return index < 0 ? null : this.getArg(++index);
+
+    private int getIndexOfOption(Option option) {
+        int localIndexOfOption = this.fromUserChosenOptions.indexOf(option);
+        return (localIndexOfOption < 0) ? -1 : this.indexesOfChosenOptions.get(localIndexOfOption);
+    }
+
+    private String extractConfigurationFilePath(ManagementTool tool) throws Exception {
+        Option configOption = this.extractConfigFileOption();
+        if(configOption.isDefaultConfiguration()) {
+            return this.getDefaultConfigurationFilePath(tool);
+        }
+
+        List<String> configFiles = this.getInputsOfOption(configOption);
+        if(configFiles.isEmpty()) {
+            throwExceptionWithWarningMsg("Missing configuration file path!");
+        }else if(configFiles.size() > 1) {
+            throwExceptionWithWarningMsg("More than one configuration files are not allowed!");
+        }
+       return configFiles.get(0);
+    }
+
+    private Option extractConfigFileOption() throws Exception {
+        List<Option> availableConfigOptions = this.extractOptionsThatMatch(Option::isConfigFileOption);
+
+        if(availableConfigOptions.size() == 1){
+            return availableConfigOptions.get(0);
+        }else if(availableConfigOptions.size() > 1) {
+            throwExceptionWithWarningMsg("You may use the [-c/-config]-option only one time!");
+        }
+        return new Option(CommandLineOption.DEFAULTCONFIG);
+    }
+
+    private String extractInputFilePath() throws Exception {
+        Option inputOption = this.extractInputFileOption();
+
+        List<String> inputFiles = this.getInputsOfOption(inputOption);
+        if(inputFiles.isEmpty()) {
+            throwExceptionWithWarningMsg("Missing input(export) file path!");
+        }else if(inputFiles.size() > 1) {
+            throwExceptionWithWarningMsg("More than one input files are not allowed!");
+        }
+        return inputFiles.get(0);
+    }
+
+    private Option extractInputFileOption() throws Exception {
+        List<Option> availableInputOptions = this.extractOptionsThatMatch(Option::isInputFileOption);
+
+        if(availableInputOptions.size() == 0){
+            throwExceptionWithWarningMsg("Missing input(export) file path!");
+        }else if (availableInputOptions.size() > 1) {
+            throwExceptionWithWarningMsg("You may use the [-i/-input]-option only one time!");
+        }
+        return availableInputOptions.get(0);
+    }
+
+    private String extractOutputFilePath() throws Exception {
+        Option outputFileOption = this.extractOutputFileOption();
+
+        List<String> outputFilePaths = this.getInputsOfOption(outputFileOption);
+        if(outputFilePaths.isEmpty()) {
+            throwExceptionWithWarningMsg("Missing visualization file (target file) path!");
+        }else if(outputFilePaths.size() > 1) {
+            throwExceptionWithWarningMsg("More than one output files (target files) are not allowed!");
+        }
+        return outputFilePaths.get(0);
+    }
+
+    private Option extractOutputFileOption() throws Exception {
+        List<Option> availableOutputOptions = this.extractOptionsThatMatch(Option::isOutputFileOption);
+
+        if(availableOutputOptions.size() == 0){
+            throwExceptionWithWarningMsg("Missing visualization file (target file) path!");
+        }else if (availableOutputOptions.size() > 1) {
+            throwExceptionWithWarningMsg("You may use the [-o/-output]-option only one time!");
+        }
+        return availableOutputOptions.get(0);
+    }
+
+    private List<Option> extractOptionsThatMatch(Predicate<Option> toMatch) {
+        return this.fromUserChosenOptions
+                .stream()
+                .filter(toMatch)
+                .collect(Collectors.toList());
+    }
+
+    private List<String> getInputsOfOption(Option option) {
+        List<String> noInputsAvailable = new ArrayList<>();
+        if(option.isExportOriginOption()){
+            return noInputsAvailable;
+        }
+
+        int optionIndex = this.getIndexOfOption(option);
+        if(optionIndex < 0) {
+            return noInputsAvailable;
+        }
+
+        int indexOfCorrespondentInput = optionIndex + 1;
+        if(indexOfCorrespondentInput >= this.commandLineArgs.size()) {
+            return noInputsAvailable;
+        }
+
+        return this.getOptionInputsBetweenNextOptionAndIndex(indexOfCorrespondentInput);
+    }
+
+    private List<String> getOptionInputsBetweenNextOptionAndIndex(int index) {
+        List<String> inputs = new ArrayList<>();
+        while((index < this.commandLineArgs.size()) && (!this.commandLineArgs.get(index).startsLikeOption())) {
+            inputs.add(this.commandLineArgs.get(index ++).content);
+        }
+        return inputs;
     }
 }
