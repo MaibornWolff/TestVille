@@ -59,11 +59,11 @@ public class OptionHandler {
     }
 
     private static String produceHelpMessage() {
-        return "\nTestVille\n\t@version: 2.0.0\n\t@module:  analysis\n"+
+        return "\nTestVille\n\t@version: 1.0.0\n\t@module:  analysis\n"+
         "\t@task:    extract necessary data from a export file and processes it to produce a visualization file.\n"+
         "\t@options:\n" +
                 "\t\t-h/-help                                    print help msg.\n" +
-                "\t\t-alm/-xray                                  precide the origin of the export file.\n" +
+                "\t\t-alm/-xray                                  precise the origin of the export file.\n" +
                 "\t\t-i/-input  <export file path>               precise the export file.\n" +
                 "\t\t-c/-config <custom configuration file path> precise the config file to use. When empty a default config is used.\n" +
                 "\t\t-o/-output <visualization file target>      precise the target for visualization file.";

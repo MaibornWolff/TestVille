@@ -34,7 +34,6 @@ public class MapTranslator {
             String fieldName  = entry.getKey().trim();
             String fieldValue = entry.getValue().trim();
             int metricValue   = translateFieldValueToMetricValue(fieldName, fieldValue, translationMap);
-
             if(isValueSuccessFullTranslated(metricValue)) {
                 translatedHashMap.putIfAbsent(entry.getKey().trim(), metricValue);
             }

@@ -1,8 +1,8 @@
 package de.maibornwolff.ste.testVille.vizualisationFileWriting;
 
 import de.maibornwolff.ste.testVille.application.AnalysisRunSetting;
+import de.maibornwolff.ste.testVille.domainModell.ComposedItem;
 import de.maibornwolff.ste.testVille.inputFileParsing.TestVilleParser;
-import de.maibornwolff.ste.testVille.inputFileParsing.VisualizationTree;
 import de.maibornwolff.ste.testVille.inputFileParsing.common.ManagementTool;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -27,7 +27,7 @@ class VisualizationFileGeneratorTest {
 
         AnalysisRunSetting ars         = new AnalysisRunSetting(configFilePath, testFilePath, target, ManagementTool.HP_ALM);
         TestVilleParser    tvp         = new TestVilleParser(ars);
-        VisualizationTree  parseResult = tvp.parse();
+        ComposedItem parseResult = tvp.parse();
         VisualizationFileGenerator gen = new VisualizationFileGenerator(parseResult, ars.getVisualizationFilePath());
 
         // Act

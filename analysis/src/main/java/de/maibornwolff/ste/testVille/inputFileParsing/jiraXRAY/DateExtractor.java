@@ -16,7 +16,8 @@ class DateExtractor {
     private static final String mm   = "\\s*[a-zA-Z]{3}";
     private static final String yyyy = "\\s*\\d{4}";
 
-    private static LocalDate translateStringToLocalDate(String dateAsString) {
+    public static LocalDate translateStringToLocalDate(String dateAsString) {
+        if(dateAsString == null) return null;
         LocalDate result;
         return   (result = simplifyDateStringDDMMYYYYToLocateDate(dateAsString)) != null ? result
                 :(result = simplifyDateStringMMDDYYYYToLocateDate(dateAsString)) != null ? result

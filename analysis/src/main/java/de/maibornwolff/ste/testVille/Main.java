@@ -2,8 +2,8 @@ package de.maibornwolff.ste.testVille;
 
 import de.maibornwolff.ste.testVille.application.AnalysisRunSetting;
 import de.maibornwolff.ste.testVille.application.OptionHandler;
+import de.maibornwolff.ste.testVille.domainModell.ComposedItem;
 import de.maibornwolff.ste.testVille.inputFileParsing.TestVilleParser;
-import de.maibornwolff.ste.testVille.inputFileParsing.VisualizationTree;
 import de.maibornwolff.ste.testVille.vizualisationFileWriting.VisualizationFileGenerator;
 
 import java.util.List;
@@ -19,7 +19,7 @@ public class Main {
             AnalysisRunSetting         setting   = new OptionHandler(List.of(args)).getRunSetting();
             if(setting == null) return;
             TestVilleParser            parser    = new TestVilleParser(setting);
-            VisualizationTree parseResult        = parser.parse();
+            ComposedItem parseResult = parser.parse();
             VisualizationFileGenerator generator = new VisualizationFileGenerator(parseResult, setting.getVisualizationFilePath());
             generator.generateVisualizationFile();
         }catch (Exception e) {

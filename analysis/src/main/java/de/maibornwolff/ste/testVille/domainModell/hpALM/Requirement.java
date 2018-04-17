@@ -10,7 +10,7 @@ public class Requirement extends ComposedItem {
     }
 
     @Override
-    public ItemTyp getItemTyp() {
+    public ItemTyp getType() {
         return ItemTyp.REQUIREMENT;
     }
 }

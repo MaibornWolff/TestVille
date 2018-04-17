@@ -21,12 +21,20 @@ public class TestCase extends Item implements Writable {
 
     public void setPropertyMap(Map<String, String> map) {this.propertyMap = map;}
 
+    public void fillPropertyMap(Map<String, String> map) {
+        map.forEach((key, value) -> {if(isPropertyName(key))this.propertyMap.putIfAbsent(key, value);});
+    }
+
+    private static boolean isPropertyName(String name) {
+        return ! (name.equals("title") || name.equals("priority") || name.equals("key") || name.equals("type"));
+    }
+
     private Map <String, String> getPropertyMap() {
         return propertyMap;
     }
 
     @Override
-    public ItemTyp getItemTyp() {
+    public ItemTyp getType() {
         return ItemTyp.TESTCASE;
     }
 
@@ -41,16 +49,6 @@ public class TestCase extends Item implements Writable {
     public int hashCode() {
         return Objects.hash(super.hashCode(), propertyMap);
     }
-
-    /*@Override
-    public String toString() {
-        StringBuilder result = new StringBuilder();
-        result.append("\n{ name -> ").append(this.getName()).append("\n");
-        result.append("  key -> ").append(this.getKey()).append("\n");
-        result.append("  priority -> ").append(this.getPriority()).append("}\n");
-        this.propertyMap.forEach((String x, String y) -> result.append(x).append(" -> ").append(y).append("\n"));
-        return result.toString();
-    }*/
 
     @Override
     public List<Writable> getWritableChildren() {
@@ -74,7 +72,7 @@ public class TestCase extends Item implements Writable {
 
     @Override
     public String getWritableType() {
-        return this.getItemTyp().name();
+        return this.getType().name();
     }
 
     @Override
@@ -105,7 +103,7 @@ public class TestCase extends Item implements Writable {
 
     @Override
     public String getWritableUntranslatableFieldsAsString() {
-        return super.getUntranslatableFieldsAsString();
+        return super.getMaintenanceInfo();
     }
 
     private static String produceMetricsStringRepresentationHeader() {
@@ -116,6 +114,8 @@ public class TestCase extends Item implements Writable {
         return "}";
     }
 
-    private List<Writable> emptyList() {return List.of();}
+    private List<Writable> emptyList() {
+        return List.of();
+    }
 
 }

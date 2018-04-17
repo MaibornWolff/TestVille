@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import de.maibornwolff.ste.testVille.configurationFileHandling.TranslationMapBuilder;
 import de.maibornwolff.ste.testVille.configurationFileHandling.ExtractionProtocolBuilder;
 import de.maibornwolff.ste.testVille.configurationFileHandling.ConfigurationFileValidator;
+import de.maibornwolff.ste.testVille.domainModell.ComposedItem;
 import de.maibornwolff.ste.testVille.domainModell.Item;
 import de.maibornwolff.ste.testVille.domainModell.TestCase;
 import de.maibornwolff.ste.testVille.domainModell.hpALM.Requirement;
@@ -169,10 +170,10 @@ public class HpAlmParser implements Parser {
     private void saveExtractedRequirementAndTestCase(Requirement requirement, TestCase testCase) {
         Requirement alreadyContainedRequirement = findRequirementEquals(requirement);
         if(alreadyContainedRequirement != null) {
-            alreadyContainedRequirement.addAllAssociatedItems(testCase);
+            alreadyContainedRequirement.addAssociatedItems(testCase);
             return;
         }
-        requirement.addAllAssociatedItems(testCase);
+        requirement.addAssociatedItems(testCase);
         this.addRequirementIfAbsent(requirement);
     }
 
@@ -196,9 +197,18 @@ public class HpAlmParser implements Parser {
     }
 
     @Override
-    public Collection<Item> parse(String fileToParse, String configurationFilePath) throws Exception {
+    public ComposedItem parse(String fileToParse, String configurationFilePath) throws Exception {
         this.initExtractionProtocolAndPriorityRanking(configurationFilePath);
         this.exploreExportFileAndExtractItems(fileToParse);
-        return this.castToItems(this.requirements);
+        return this.buildParsedTree();
+    }
+
+    private ComposedItem buildParsedTree() {
+        ComposedItem parsedTree = new ComposedItem(0);
+        parsedTree.addAssociatedItems(this.requirements);
+        parsedTree.setKey(""+parsedTree.getLocalId());
+        parsedTree.setName("root");
+        parsedTree.setPriority("root");
+        return parsedTree;
     }
 }

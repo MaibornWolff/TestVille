@@ -2,11 +2,6 @@ package de.maibornwolff.ste.testVille.common;
 
 import de.maibornwolff.ste.testVille.application.CommandLineOption;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 public class Option extends ValueObject<CommandLineOption> {
 
     public Option(CommandLineOption content) {
