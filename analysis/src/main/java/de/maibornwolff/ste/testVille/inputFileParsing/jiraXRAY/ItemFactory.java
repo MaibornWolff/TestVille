@@ -134,8 +134,8 @@ public class ItemFactory {
     private static Maintenance buildMaintenanceInfo(Map<String, String> currentMap) {
         String reporter        = currentMap.get("reporter");
         String assignee        = currentMap.get("assignee");
-        LocalDate creationDate = DateExtractor.translateStringToLocalDate (currentMap.get("created"));
-        LocalDate lastUpdate   = DateExtractor.translateStringToLocalDate (currentMap.get("updated"));
+        LocalDate creationDate = new DateBuilder(currentMap.get("created")).buildLocalDate();
+        LocalDate lastUpdate   = new DateBuilder(currentMap.get("updated")).buildLocalDate();
         return new Maintenance(reporter, assignee, creationDate, lastUpdate);
     }
 }

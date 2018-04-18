@@ -50,7 +50,7 @@ class MapTranslatorTest {
         assertEquals(expectedMap, actualMap, "Translated Map is not valid!");
     }
 
-    @DisplayName("Should return a correct translated property map, even if the originally map contains a date")
+    @DisplayName("Should return a correct translated property map, even if the originally map contains a buildFrom")
     @TestFactory
     Collection<DynamicTest> translationTestWithDateField() {
 

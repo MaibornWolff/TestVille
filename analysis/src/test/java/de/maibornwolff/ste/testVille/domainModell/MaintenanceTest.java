@@ -21,7 +21,7 @@ class MaintenanceTest {
     }
 
 
-    @DisplayName("Should replace invalid date with unknown")
+    @DisplayName("Should replace invalid buildFrom with unknown")
     @Test
     void createMaintenanceWithInvalidDate() {
         // arrange

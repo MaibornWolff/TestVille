@@ -1,6 +1,5 @@
 package de.maibornwolff.ste.testVille.inputFileParsing.jiraXRAY;
 
-
 import java.util.*;
 
 /**
@@ -34,7 +33,8 @@ public class MapTranslator {
             String fieldName  = entry.getKey().trim();
             String fieldValue = entry.getValue().trim();
             int metricValue   = translateFieldValueToMetricValue(fieldName, fieldValue, translationMap);
-            if(isValueSuccessFullTranslated(metricValue)) {
+            if(metricValue >= 0 && fieldName.equals("created")) System.out.println(fieldValue);
+            if(isMetricNameValid(fieldName) && isValueSuccessFullTranslated(metricValue)) {
                 translatedHashMap.putIfAbsent(entry.getKey().trim(), metricValue);
             }
         });
@@ -59,11 +59,11 @@ public class MapTranslator {
 
     private static boolean isDateProperty(String propertyName, String fieldValue) {
         return (propertyName.equals("updated") || propertyName.equals("created")) &&
-                DateExtractor.isValidDate(fieldValue);
+                new  DateBuilder(fieldValue).containsValidDate();
     }
 
     private static int translateFieldDateValueToMetricValue(String fieldValue) {
-        return (int) DateExtractor.translateDateStringToMetric(fieldValue);
+        return (int) new DateBuilder(fieldValue).computeMetric();
     }
 
     private static int tryDirectConversionToMetricValue(String fieldValue) {
@@ -83,5 +83,13 @@ public class MapTranslator {
             result = internHashMap.get(fieldValue);
         }
         return (result == null) ? 0 : result;
+    }
+
+    private static boolean isMetricNameValid(String name) {
+        if(name == null) return false;
+        for(char c: name.toCharArray()) {
+            if(!Character.isLetterOrDigit(c)) return false;
+        }
+        return true;
     }
 }
