@@ -1,7 +1,5 @@
 package de.maibornwolff.ste.testVille.domainModell;
 
-import de.maibornwolff.ste.testVille.vizualisationFileWriting.Writable;
-
 import java.util.*;
 
 public abstract class Item implements Comparable<Item> {
@@ -108,7 +106,7 @@ public abstract class Item implements Comparable<Item> {
             return;
         }
 
-        Integer itemRank = priorityRanking.get(itemPriority);
+        Integer itemRank = priorityRanking.get(itemPriority.toLowerCase().trim());
         if (itemRank == null) {
             this.priority = "0:: " + itemPriority;
             return;

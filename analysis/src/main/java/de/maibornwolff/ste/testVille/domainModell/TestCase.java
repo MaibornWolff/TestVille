@@ -1,13 +1,14 @@
 package de.maibornwolff.ste.testVille.domainModell;
 
-import de.maibornwolff.ste.testVille.inputFileParsing.jiraXRAY.MapTranslator;
+import de.maibornwolff.ste.testVille.configurationFileHandling.TranslationMap;
+import de.maibornwolff.ste.testVille.inputFileParsing.jiraXRAY.MetricTranslator;
 import de.maibornwolff.ste.testVille.vizualisationFileWriting.Writable;
 
 import java.util.*;
 
 public class TestCase extends Item implements Writable {
 
-    public static Map<String, Map<String, Integer>> translationMap;
+    public static TranslationMap translationMap;
     public Map<String, String> propertyMap;
 
     public TestCase(int localKey) {
@@ -84,9 +85,9 @@ public class TestCase extends Item implements Writable {
         return buffer;
     }
 
-    private String produceMetricsStringRepresentationBody(Map<String, Map<String, Integer>> translationMap) {
-        Map<String, Integer> translatedMetrics = MapTranslator
-                .translateTestCasePropertyHashMap(this.getPropertyMap(), translationMap);
+    private String produceMetricsStringRepresentationBody(TranslationMap translationMap) {
+        Map<String, Integer> translatedMetrics = MetricTranslator
+                .translateMetrics(this.getPropertyMap(), translationMap);
         return produceMetricsStringRepresentation(translatedMetrics.entrySet());
     }
 

@@ -1,5 +1,6 @@
 package de.maibornwolff.ste.testVille.inputFileParsing.jiraXRAY;
 
+import de.maibornwolff.ste.testVille.configurationFileHandling.TranslationMap;
 import de.maibornwolff.ste.testVille.configurationFileHandling.TranslationMapBuilder;
 import de.maibornwolff.ste.testVille.inputFileParsing.common.ManagementTool;
 import de.maibornwolff.ste.testVille.inputFileParsing.common.Pair;
@@ -35,13 +36,13 @@ class TranslationMapBuilderTest {
     @Test
     void buildTranslationMapTest() {
         // arrange
-        Map<String, Map<String, Integer>> expectedMap = new HashMap<>();
-        Map<String, Map<String, Integer>>   actualMap = null;
+        TranslationMap expectedMap = new TranslationMap();
+        TranslationMap actualMap   = null;
 
         // act
-        expectedMap.putIfAbsent("status", buildFirstHashMapFrom(firstPairs));
-        expectedMap.putIfAbsent("testRunStatus", buildFirstHashMapFrom(firstPairs));
-        expectedMap.putIfAbsent("priority", buildFirstHashMapFrom(secondPairs));
+        expectedMap.addNewMetricTranslation("status", buildFirstHashMapFrom(firstPairs));
+        expectedMap.addNewMetricTranslation("testRunStatus", buildFirstHashMapFrom(firstPairs));
+        expectedMap.addNewMetricTranslation("priority", buildFirstHashMapFrom(secondPairs));
 
         try {
             actualMap = new TranslationMapBuilder("./src/test/resources/jiraXrayTestConfiguration.xml", ManagementTool.JIRA_XRAY).getTranslationMap();
@@ -51,7 +52,7 @@ class TranslationMapBuilderTest {
         }
 
         // assert
-        assertEquals(expectedMap, actualMap, "created TranslationMap is invalid!");
+        assertEquals(expectedMap.translationSource, actualMap.translationSource, "created TranslationMap is invalid!");
     }
 
     private Map<String, Integer> buildFirstHashMapFrom(List<Pair<String, Integer>> toTransform) {
