@@ -1,7 +1,5 @@
 package de.maibornwolff.ste.testVille.domainModell;
 
-import de.maibornwolff.ste.testVille.vizualisationFileWriting.Writable;
-
 import java.util.*;
 
 public abstract class Item implements Comparable<Item> {
@@ -10,30 +8,22 @@ public abstract class Item implements Comparable<Item> {
     private int                        localId;  // from this application generated key
     private String                     name;
     private String                     priority;
-    private final Map<String, String>  untranslatableFields; // Example: reporter, projectName
     private final List<String>         associatedItemKeys;
+    public Maintenance                 maintenance;
     public static Map<String, Integer> priorityRanking = new HashMap<>();
 
     public Item (int localId) {
         this.localId              = localId;
         this.associatedItemKeys   = new ArrayList<>();
-        this.untranslatableFields = new HashMap<>();
+        this.maintenance          = Maintenance.getDefaultMaintenance();
     }
 
     public int getLocalId() {
         return this.localId;
     }
 
-    Map<String, String> getUntranslatableFields() {
-        return this.untranslatableFields;
-    }
-
-    public void addNewUntranslatableField(String fieldName, String untranslatableValue) {
-        this.untranslatableFields.putIfAbsent(fieldName, untranslatableValue);
-    }
-
-    private void addAssociatedElementKey(String element) {
-        this.associatedItemKeys.add(element);
+    String getMaintenanceInfo() {
+        return this.maintenance.toString()+",";
     }
 
     public void addAssociatedItemKeys(String ... xs) {
@@ -41,6 +31,10 @@ public abstract class Item implements Comparable<Item> {
             .filter(s -> (s != null) && !s.trim().equals(""))
             .map(String::trim)
             .forEach(this::addAssociatedElementKey);
+    }
+
+    private void addAssociatedElementKey(String element) {
+        this.associatedItemKeys.add(element);
     }
 
     public List<String> getAssociatedItemKeys() {
@@ -79,37 +73,25 @@ public abstract class Item implements Comparable<Item> {
     public boolean equals(Object object) {
         if(! (object instanceof Item)) return false;
         Item item = (Item)object;
-        return this.key.equals(item.key) && this.name.equals(item.name) && this.priority.equals(item.priority);
+        return this.key.equals(item.key);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(key, name, priority, untranslatableFields, associatedItemKeys);
+        return Objects.hash(key, name, priority);
     }
 
-    public boolean isItemInvalid() {
+    public boolean isInvalid() {
         return (this.priority == null)  || (this.name == null) || (this.key == null);
     }
 
-    public ItemTyp getItemTyp() {
+    public ItemTyp getType() {
         return ItemTyp.ITEM;
     }
 
     @Override
     public int compareTo(Item item) {
         return this.getKey().compareTo(item.getKey());
-    }
-
-    public String getUntranslatableFieldsAsString() {
-        Set<Map.Entry<String, String>> entries = this.getUntranslatableFields().entrySet();
-        return produceStringRepresentationOfFields(entries);
-    }
-
-    private static String produceStringRepresentationOfFields(Set<Map.Entry<String, String>> fields) {
-        return fields.stream()
-                .sorted(Comparator.comparing(Map.Entry::getKey))
-                .map(x -> Writable.produceEntryString(x.getKey(), x.getValue(),false))
-                .reduce("", (x, y) ->  x.concat(y).concat(", "));
     }
 
     private void specifyItemPriorityRank(String itemPriority) {
@@ -124,7 +106,7 @@ public abstract class Item implements Comparable<Item> {
             return;
         }
 
-        Integer itemRank = priorityRanking.get(itemPriority);
+        Integer itemRank = priorityRanking.get(itemPriority.toLowerCase().trim());
         if (itemRank == null) {
             this.priority = "0:: " + itemPriority;
             return;

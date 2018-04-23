@@ -24,8 +24,7 @@ class WritableTest {
         tc1.setPriority("Major");
         tc1.addNewProperty("countExecutions", "34");
         tc1.addNewProperty("updated", "23");
-        tc1.addNewUntranslatableField("reporte\"r", "JNiada");
-        tc1.addNewUntranslatableField("assignee", "JNiada");
+
 
         tc2 = new TestCase(32);
         tc2.setName("should work");
@@ -40,11 +39,12 @@ class WritableTest {
     void stringRepresentationOfItemCheck() {
         //arrange
         String expected   = "{\"name\":\"funny(id:tcü1)\",\"id\":\"123\",\"type\":\"TESTCASE\",\"priority\":\"0::Major\"" +
-                ",\"assignee\":\"JNiada\",\"reporter\":\"JNiada\",\"attributes\":{\"countExecutions\":34,\"updated\":23},\"children\":[]}";
+                ",\"reporter\":\"UNKNOWN\",\"assignee\":\"UNKNOWN\", \"created\":\"UNKNOWN\", \"updated\":\"UNKNOWN\"," +
+                " \"attributes\":{\"countExecutions\":34,\"updated\":23},\"children\":[]}";
 
         // act
         String actual = tc1.produceWritableStringRepresentation().toString().replaceAll("\\s+", "");
-
+        expected = expected.replaceAll("\\s+", "");
         //assert
         assertEquals(expected, actual, "Invalid String-representation of TestCase");
     }
@@ -55,18 +55,23 @@ class WritableTest {
         //arrange
         ComposedItem epic = new Epic(123);
         String expected   = "{\"name\":\"TestContainer(id:e12)\",\"id\":\"123\",\"type\":\"EPIC\",\"priority\":\"0::Major\"" +
-                ",\"assignee\":\"JNiada\",\"reporter\":\"JNiada\",\"attributes\":{},\"children\":[" +
+                ",\"reporter\":\"UNKNOWN\",\"assignee\":\"UNKNOWN\", \"created\":\"UNKNOWN\", \"updated\":\"UNKNOWN\"," +
+                "\"attributes\":{},\"children\":[{\"name\":\"groupedItem(id:0::Major)\",\"id\":\"-123\",\"type\":\"COMPOSEDITEM\"," +
+                "\"priority\":\"0::Major\",\"reporter\":\"UNKNOWN\",\"assignee\":\"UNKNOWN\", \"created\":\"UNKNOWN\", " +
+                "\"updated\":\"UNKNOWN\",\"attributes\":{},\"children\":[" +
                 tc1.produceWritableStringRepresentation() + /* already tested in stringRepresentationOfItemCheck */
-                ","+ tc2.produceWritableStringRepresentation() + /* already tested in stringRepresentationOfItemCheck */
-                "]}";
+                "]}, {\"name\":\"groupedItem(id:0::Minor)\",\"id\":\"-32\",\"type\":\"COMPOSEDITEM\",\"priority\":\"0::Minor\"," +
+                "\"reporter\":\"UNKNOWN\",\"assignee\":\"UNKNOWN\", \"created\":\"UNKNOWN\", \"updated\":\"UNKNOWN\"," +
+                "\"attributes\":{},\"children\":[" +
+                tc2.produceWritableStringRepresentation() + /* already tested in stringRepresentationOfItemCheck */
+
+                "]}]}";
 
         // act
         epic.setName("TestContainer");
         epic.setKey("e12");
         epic.setPriority("Major");
-        epic.addNewUntranslatableField("reporte\"r", "JNiada");
-        epic.addNewUntranslatableField("assignee", "JNiada");
-        epic.addAllAssociatedItems(tc1, tc2);
+        epic.addAssociatedItems(tc1, tc2);
         String actual = epic.produceWritableStringRepresentation().toString().replaceAll("\\s+", "");
         expected = expected.replaceAll("\\s+", "");
 

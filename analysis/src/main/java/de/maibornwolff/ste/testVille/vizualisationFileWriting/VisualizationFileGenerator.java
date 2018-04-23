@@ -1,17 +1,17 @@
 package de.maibornwolff.ste.testVille.vizualisationFileWriting;
 
-import de.maibornwolff.ste.testVille.inputFileParsing.VisualizationTree;
+import de.maibornwolff.ste.testVille.domainModell.ComposedItem;
 
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class VisualizationFileGenerator {
 
-    private VisualizationTree parsingStepArtifact;
+    private ComposedItem parsingStepArtifact;
     private String visualizationFilePath;
 
 
-    public VisualizationFileGenerator(VisualizationTree tree, String visualizationFilePath) {
+    public VisualizationFileGenerator(ComposedItem tree, String visualizationFilePath) {
         this.parsingStepArtifact   = tree;
         this.visualizationFilePath = visualizationFilePath;
     }

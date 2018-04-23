@@ -28,30 +28,27 @@ import java.util.stream.Collectors;
  * (c) maibornwolff, 2018
  */
 public class TranslationMapBuilder {
-    private Map<String, Map<String, Integer>> translationMap;
+
+    private TranslationMap translationMap;
     private Map<String, Integer> priorityRanking;
 
     public TranslationMapBuilder(String configFilePath, ManagementTool managementTool) throws Exception {
         ConfigurationFileValidator.validateConfigurationFile(configFilePath, managementTool);
-        this.setTranslationMap(configFilePath);
-        this.setPriorityRanking(managementTool);
+        this.translationMap  = buildTranslationMap(configFilePath);
+        this.priorityRanking = this.buildPriorityRanking(managementTool);
     }
 
-    private void setTranslationMap(String configFilePath) throws IOException, SAXException, ParserConfigurationException {
-        this.translationMap = buildTranslationMap(configFilePath);
-    }
-
-    private void setPriorityRanking(ManagementTool managementTool) {
+    private Map<String, Integer> buildPriorityRanking(ManagementTool managementTool) {
         Map<String, Integer> priorityTranslationMap = null;
         if(managementTool == ManagementTool.JIRA_XRAY) {
-            priorityTranslationMap = this.translationMap.get("priority");
+            priorityTranslationMap = this.translationMap.getTranslationInfoOf("priority");
         } else if (managementTool == ManagementTool.HP_ALM) {
-            priorityTranslationMap = this.translationMap.get("testCasePriority");
+            priorityTranslationMap = this.translationMap.getTranslationInfoOf("testcasepriority");
         }
-        this.priorityRanking = PriorityRankingBuilder.buildPriorityRankingMap(priorityTranslationMap);
+        return PriorityRankingBuilder.buildPriorityRankingMap(priorityTranslationMap);
     }
 
-    public Map<String, Map<String, Integer>> getTranslationMap() {
+    public TranslationMap getTranslationMap() {
         return translationMap;
     }
 
@@ -59,10 +56,10 @@ public class TranslationMapBuilder {
         return priorityRanking;
     }
 
-    private static Map<String, Map<String, Integer>> buildTranslationMap(String configFilePath) throws ParserConfigurationException, IOException, SAXException {
+    private static TranslationMap buildTranslationMap(String configFilePath) throws ParserConfigurationException, IOException, SAXException {
         Node root = buildDocumentNodeFrom(configFilePath);
         List<Node> allAvailableNodes = extractAllFieldNodes(root);
-        return buildFieldsTranslationMap(allAvailableNodes);
+        return buildTranslationInfoFrom(allAvailableNodes);
     }
 
     public static Node buildDocumentNodeFrom(String xmlFilePath) throws ParserConfigurationException, IOException, SAXException {
@@ -76,10 +73,10 @@ public class TranslationMapBuilder {
         return extractElementNodesByName(node, "field");
     }
 
-    private static Map<String, Map<String, Integer>> buildFieldsTranslationMap(List<Node> fieldNodes) {
-        Map<String, Map<String, Integer>> fieldsTranslationMap = new HashMap<>();
-        fieldNodes.forEach(x -> fieldsTranslationMap.put(getFieldName(x), buildFieldTranslationMap(x)));
-        return fieldsTranslationMap;
+    private static TranslationMap buildTranslationInfoFrom(List<Node> fieldNodes) {
+        TranslationMap tm = new TranslationMap();
+        fieldNodes.forEach(x -> tm.addNewMetricTranslation(getFieldName(x), buildTranslationInfoFrom(x)));
+        return tm;
     }
 
     private static String getFieldName(Node fieldNode) {
@@ -90,7 +87,7 @@ public class TranslationMapBuilder {
                 .trim();
     }
 
-    private static Map<String, Integer> buildFieldTranslationMap(Node fieldNode) {
+    private static Map<String, Integer> buildTranslationInfoFrom(Node fieldNode) {
         List<Node> containedValueTranslationNodes = extractValueTranslationNodes(fieldNode);
         List<Pair<String, Integer>> translationPairs = buildValueTranslationPairs(containedValueTranslationNodes);
         return transformTranslationPairsToTranslationMap(translationPairs);

@@ -6,9 +6,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import de.maibornwolff.ste.testVille.configurationFileHandling.TranslationMapBuilder;
-import de.maibornwolff.ste.testVille.configurationFileHandling.ExtractionProtocolBuilder;
+import de.maibornwolff.ste.testVille.configurationFileHandling.ExcelExtractionProtocol;
 import de.maibornwolff.ste.testVille.configurationFileHandling.ConfigurationFileValidator;
+import de.maibornwolff.ste.testVille.domainModell.ComposedItem;
 import de.maibornwolff.ste.testVille.domainModell.Item;
+import de.maibornwolff.ste.testVille.domainModell.ItemTyp;
 import de.maibornwolff.ste.testVille.domainModell.TestCase;
 import de.maibornwolff.ste.testVille.domainModell.hpALM.Requirement;
 import de.maibornwolff.ste.testVille.inputFileParsing.Parser;
@@ -22,10 +24,11 @@ import org.apache.poi.ss.usermodel.Row;
 
 public class HpAlmParser implements Parser {
 
-    private Map<String, Integer> extractionProtocol;
+    private ExcelExtractionProtocol extractionProtocol;
     private Map<String, String>  onRowAvailableData;
     private Set<Requirement>     requirements;        // Bank of Requirement.
     private IDGenerator          localIDGenerator = new IDGenerator();
+    int testCaseNumber = 0;
 
 
     private int generateNextLocalId() {
@@ -39,7 +42,7 @@ public class HpAlmParser implements Parser {
 
     private void initExtractionProtocolAndPriorityRanking(String configFilePath) throws Exception {
         ConfigurationFileValidator.validateConfigurationFile(configFilePath, ManagementTool.HP_ALM);
-        this.extractionProtocol = new ExtractionProtocolBuilder(configFilePath).getExtractionProtocol();
+        this.extractionProtocol = ExcelExtractionProtocol.buildFrom(configFilePath);
         TranslationMapBuilder tmb = new TranslationMapBuilder(configFilePath, ManagementTool.HP_ALM);
         this.showItemsTheirPriorityRanking(tmb);
         this.showTestCaseTheirTranslationMap(tmb);
@@ -55,7 +58,7 @@ public class HpAlmParser implements Parser {
 
     private static String extractCellContent (Row currentRow, int cellNum) {
         Cell currentCell      = currentRow.getCell(cellNum);
-        String cellValueAsStr = setAndGetCellValueAsStr(currentCell);
+        String cellValueAsStr = getCellValueAsStr(currentCell);
         return cellValueAsStr.trim();
     }
 
@@ -104,7 +107,7 @@ public class HpAlmParser implements Parser {
         rowIteratorOnExport.next();
 
         while(rowIteratorOnExport.hasNext()) {
-            Row         currentRow                = rowIteratorOnExport.next();
+            Row         currentRow = rowIteratorOnExport.next();
             this.saveDataFromCurrentRow(currentRow);
             TestCase    onRowAvailableTest        = this.buildTestCaseFromAvailableData();
             Requirement onRowAvailableRequirement = this.buildRequirementFromAvailableData();
@@ -114,7 +117,7 @@ public class HpAlmParser implements Parser {
     }
 
     private void saveDataFromCurrentRow(Row currentRow) {
-        this.extractionProtocol
+        this.extractionProtocol.getProtocol()
                 .forEach((k, v) ->{
                     String cellValueAsString = extractCellContent(currentRow, v);
                     this.onRowAvailableData.putIfAbsent(k, cellValueAsString);
@@ -169,10 +172,10 @@ public class HpAlmParser implements Parser {
     private void saveExtractedRequirementAndTestCase(Requirement requirement, TestCase testCase) {
         Requirement alreadyContainedRequirement = findRequirementEquals(requirement);
         if(alreadyContainedRequirement != null) {
-            alreadyContainedRequirement.addAllAssociatedItems(testCase);
+            alreadyContainedRequirement.addAssociatedItems(testCase);
             return;
         }
-        requirement.addAllAssociatedItems(testCase);
+        requirement.addAssociatedItems(testCase);
         this.addRequirementIfAbsent(requirement);
     }
 
@@ -182,7 +185,7 @@ public class HpAlmParser implements Parser {
         return likeR.get(0);
     }
 
-    private static String setAndGetCellValueAsStr(Cell cell) {
+    private static String getCellValueAsStr(Cell cell) {
         String cellValue;
 
         try {
@@ -196,9 +199,18 @@ public class HpAlmParser implements Parser {
     }
 
     @Override
-    public Collection<Item> parse(String fileToParse, String configurationFilePath) throws Exception {
+    public ComposedItem parse(String fileToParse, String configurationFilePath) throws Exception {
         this.initExtractionProtocolAndPriorityRanking(configurationFilePath);
         this.exploreExportFileAndExtractItems(fileToParse);
-        return this.castToItems(this.requirements);
+        return this.buildParsedTree();
+    }
+
+    private ComposedItem buildParsedTree() {
+        ComposedItem parsedTree = new ComposedItem(0);
+        parsedTree.addAssociatedItems(this.requirements);
+        parsedTree.setKey(""+parsedTree.getLocalId());
+        parsedTree.setName("root");
+        parsedTree.setPriority("root");
+        return parsedTree;
     }
 }

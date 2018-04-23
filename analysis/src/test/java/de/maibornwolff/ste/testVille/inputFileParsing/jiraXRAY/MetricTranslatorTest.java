@@ -1,5 +1,6 @@
 package de.maibornwolff.ste.testVille.inputFileParsing.jiraXRAY;
 
+import de.maibornwolff.ste.testVille.configurationFileHandling.TranslationMap;
 import de.maibornwolff.ste.testVille.configurationFileHandling.TranslationMapBuilder;
 import de.maibornwolff.ste.testVille.inputFileParsing.common.ManagementTool;
 import org.junit.jupiter.api.*;
@@ -10,19 +11,19 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MapTranslatorTest {
+class MetricTranslatorTest {
 
     // global arrange
     private Map<String, String>  toBeTranslated;
     private Map<String, Integer> expectedMap;
     private Map<String, Integer> actualMap;
-    private Map<String, Map<String, Integer>> translationMap;
+    private TranslationMap translationMap;
 
     @BeforeEach
     void setUp() {
         toBeTranslated = new HashMap<>();
         expectedMap    = new HashMap<>();
-        translationMap = null;
+        translationMap = buildTranslationMapFromConfigFile();
     }
 
     @DisplayName("Should return a correct translated property map")
@@ -36,15 +37,12 @@ class MapTranslatorTest {
         toBeTranslated.put("should be ignored", "Major");
         toBeTranslated.put("steps",             "13");
 
-
-        translationMap = buildTranslationMapFromConfigFile();
-
         expectedMap.put("status",        7);
         expectedMap.put("testRunStatus", 5);
         expectedMap.put("priority",      5);
         expectedMap.put("steps",         13);
 
-        actualMap = MapTranslator.translateTestCasePropertyHashMap(toBeTranslated, translationMap);
+        actualMap = MetricTranslator.translateMetrics(toBeTranslated, translationMap);
 
         // assert
         assertEquals(expectedMap, actualMap, "Translated Map is not valid!");
@@ -62,24 +60,23 @@ class MapTranslatorTest {
         toBeTranslated.put("created",           "hahahaha -> wed, 01 sep 2013 jhdjhsjhjdhjs");
         toBeTranslated.put("testRunStatus",     "ABORTED");
 
-        translationMap = buildTranslationMapFromConfigFile();
-        actualMap = MapTranslator.translateTestCasePropertyHashMap(toBeTranslated, translationMap);
+        actualMap = MetricTranslator.translateMetrics(toBeTranslated, translationMap);
 
         // asserts
         dt1 = DynamicTest.dynamicTest("translated map should contains 2 entries",
                 () -> assertEquals(2, actualMap.size())
         );
 
-        dt2 = DynamicTest.dynamicTest("the content of the field created should be correct translated",
+        dt2 = DynamicTest.dynamicTest("the metric created should be correct translated",
                 () -> assertEquals(true, actualMap.get("created") > 0)
         );
 
         return List.of(dt1, dt2);
     }
 
-    private Map<String, Map<String,Integer>> buildTranslationMapFromConfigFile() {
+    private TranslationMap buildTranslationMapFromConfigFile() {
 
-        Map<String, Map<String, Integer>> translationMap = null;
+        TranslationMap translationMap = null;
         String usedConfigFileForTest = "./src/test/resources/jiraXrayDefaultConfiguration.xml";
         try {
             translationMap = new TranslationMapBuilder(usedConfigFileForTest, ManagementTool.JIRA_XRAY).getTranslationMap();
