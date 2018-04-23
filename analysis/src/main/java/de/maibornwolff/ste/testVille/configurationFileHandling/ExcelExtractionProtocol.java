@@ -11,22 +11,26 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
-public class ExtractionProtocolBuilder {
+public class ExcelExtractionProtocol {
 
-    private Map<String, Integer> extractionProtocol;
+    private Map<String, Integer> protocol;
 
-    public ExtractionProtocolBuilder(String configFilePath) throws ParserConfigurationException, SAXException, IOException {
-        this.setExtractionProtocol(configFilePath);
+    public Map<String, Integer> getProtocol() {
+        return protocol;
     }
 
-    private void setExtractionProtocol(String configFilePath) throws IOException, SAXException, ParserConfigurationException {
+    public static ExcelExtractionProtocol buildFrom(String configFilePath) throws ParserConfigurationException, SAXException, IOException {
+        return new ExcelExtractionProtocol(extractProtocolFrom(configFilePath));
+    }
+
+    private ExcelExtractionProtocol(Map<String, Integer> protocol) {
+        this.protocol = protocol;
+    }
+
+    private static Map<String, Integer> extractProtocolFrom(String configFilePath) throws IOException, SAXException, ParserConfigurationException {
         Node node = TranslationMapBuilder.buildDocumentNodeFrom(configFilePath);
         List<Node> extractableNodes = extractAllFromExcelExportExtractableFields(node);
-        this.extractionProtocol = buildExtractionProtocol(extractableNodes);
-    }
-
-    public Map<String, Integer> getExtractionProtocol() {
-        return extractionProtocol;
+        return buildProtocolFrom(extractableNodes);
     }
 
     private static Predicate<Node> buildPredicateForExtractableFields() {
@@ -34,23 +38,23 @@ public class ExtractionProtocolBuilder {
                 && (x.getAttributes().getNamedItem("column") != null);
     }
 
-    private List<Node> extractAllFromExcelExportExtractableFields(Node node) {
+    private static List<Node> extractAllFromExcelExportExtractableFields(Node node) {
         return TranslationMapBuilder.extractQualifiedElementNodes(node, buildPredicateForExtractableFields());
     }
 
-    private Map<String, Integer> buildExtractionProtocol(List<Node> extractableFieldsNodes) {
+    private static Map<String, Integer> buildProtocolFrom(List<Node> extractableFieldsNodes) {
         return extractableFieldsNodes
                 .stream()
                 .reduce(new HashMap<> (),
-                        ExtractionProtocolBuilder::extractNeededInfosFromNodeAndCompleteCurrentMap,
-                        ExtractionProtocolBuilder::mergeMaps
+                        ExcelExtractionProtocol::extractNeededInfosFromNodeAndCompleteCurrentMap,
+                        ExcelExtractionProtocol::mergeMaps
                 );
     }
 
     private static HashMap<String, Integer> extractNeededInfosFromNodeAndCompleteCurrentMap(HashMap<String, Integer> toComplete, Node node) {
         String fieldName = extractFieldName(node);
-        int fieldCanBeExtractedAt = extractFieldColumn(node);
-        toComplete.putIfAbsent(fieldName, fieldCanBeExtractedAt);
+        int column = extractFieldColumn(node);
+        toComplete.putIfAbsent(fieldName, column);
         return toComplete;
     }
 

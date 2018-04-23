@@ -40,13 +40,6 @@ public class TestCase extends Item implements Writable {
     }
 
     @Override
-    public boolean equals(Object object) {
-        if(!(object instanceof TestCase)) return false;
-        TestCase testCase = (TestCase) object;
-        return super.equals(object) && (this.propertyMap.equals(testCase.propertyMap));
-    }
-
-    @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), propertyMap);
     }

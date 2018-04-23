@@ -73,7 +73,7 @@ public abstract class Item implements Comparable<Item> {
     public boolean equals(Object object) {
         if(! (object instanceof Item)) return false;
         Item item = (Item)object;
-        return this.key.equals(item.key) && this.name.equals(item.name) && this.priority.equals(item.priority);
+        return this.key.equals(item.key);
     }
 
     @Override

@@ -10,15 +10,11 @@ import java.util.stream.Stream;
 
 public class ComposedItem extends Item implements Writable{
 
-    private Set<Item> associatedItems;
+    public Set<Item> associatedItems;
 
     public ComposedItem(int localKey) {
         super(localKey);
         this.associatedItems = new TreeSet<>();
-    }
-
-    public void setAssociatedItems(Set<Item> associatedItems) {
-        this.associatedItems = associatedItems;
     }
 
     public void addAssociatedItems(Collection<? extends Item> newAssociatedElements) {
@@ -28,13 +24,16 @@ public class ComposedItem extends Item implements Writable{
     }
 
     public void addAssociatedItems(Item... newAssociatedElements) {
-        Arrays.stream(newAssociatedElements).forEach(this::addAssociatedItemIfAbsent);
+        for (Item item: newAssociatedElements) {
+            this.addAssociatedItemIfAbsent(item);
+        }
     }
 
     private void addAssociatedItemIfAbsent(Item newAssociatedElement) {
         ComposedItem group = this.getItemGroupWithPriority(newAssociatedElement.getPriority());
         if(group == null) {
-            this.associatedItems.add(buildGroupOfItem(newAssociatedElement));
+            group = buildGroupOfItem(newAssociatedElement);
+            this.associatedItems.add(group);
             return;
         }
         group.associatedItems.add(newAssociatedElement);
