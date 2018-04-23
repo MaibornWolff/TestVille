@@ -85,8 +85,8 @@ describe("app.testVille.ui.search.searchController", ()=>{
 
 
 
-                controller.keyPressed(64, "Heckklappe lässt sich manuell öffnen || id: 22");
-                controller.keyPressed(64, "Heckklappe lässt sich manuell öffnen || id: 22");
+                controller.keyPressed(13, "Heckklappe lässt sich manuell öffnen || id: 22");
+                controller.keyPressed(13, "Heckklappe lässt sich manuell öffnen || id: 22");
 
 
 
@@ -100,6 +100,9 @@ describe("app.testVille.ui.search.searchController", ()=>{
                 controller.$rootScope.$on("onsearch", onSearchSpy);
                 var offSearchSpy = sinon.spy();
                 controller.$rootScope.$on("offsearch", offSearchSpy);
+                controller.input = "something";
+                controller.myStyle = {};
+                controller.eventNotThrownYet = false;
 
 
 
@@ -112,7 +115,7 @@ describe("app.testVille.ui.search.searchController", ()=>{
                 expect(controller.resultsList).to.have.length(1);
                 expect(controller.myStyle).to.deep.equal({width: `${225}px`});
                 expect(controller.input).to.equals("");
-                expect(offSearchSpy.called).to.be.true;
+                expect(offSearchSpy.called, "offsearch-event").to.be.true;
                 expect(onSearchSpy.called).to.be.false;
 
 
@@ -134,7 +137,7 @@ describe("app.testVille.ui.search.searchController", ()=>{
 
 
 
-                controller.keyPressed(77 , "Heckklappe lässt sich manuell öffnen || id: 22");
+                controller.keyPressed(13 , "Heckklappe lässt sich manuell öffnen || id: 22");
 
 
 
@@ -174,7 +177,7 @@ describe("app.testVille.ui.search.searchController", ()=>{
 
         describe("tests with a filter", ()=>{
 
-            it("",()=>{
+            it("should filter the list abd not throw an event, when using a reporter-filter",()=>{
 
                 var onSearchSpy = sinon.spy();
                 controller.$rootScope.$on("onsearch", onSearchSpy);
@@ -184,7 +187,7 @@ describe("app.testVille.ui.search.searchController", ()=>{
 
 
 
-                controller.keyPressed(64 , "reporter:sibi");
+                controller.keyPressed(64 , "reporter: sibi");
 
 
 
@@ -195,6 +198,8 @@ describe("app.testVille.ui.search.searchController", ()=>{
                 expect(offSearchSpy.calledOnce).to.be.false;
 
             })
+
+            it("should ")
         })
     })
 

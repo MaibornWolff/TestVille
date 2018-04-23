@@ -86,7 +86,7 @@ class SearchController{
             inputs.push(input);
             this.filterTheList(attributes, inputs);
         }
-        console.log(this.resultsList);
+
         this.raiseUpperLimit(keyCode);
         this.selectAndUnselect(keyCode, input);
 
@@ -116,19 +116,22 @@ class SearchController{
 
     filterTheList(attributes, inputs){
 
+
+
         this.resultsList = this.codeMapService.searchList.filter(function (el){
 
             for(var i=0; i<attributes.length; i++){
 
-                console.log(el[attributes[i]]);
-                console.log(inputs[i]);
+                inputs[i]=inputs[i].trim();
                 if(el[attributes[i]].toLowerCase().indexOf(inputs[i].toLowerCase()) === -1){
 
-                    return false + console.log("nope");
+                    return false;
                 }
             }
             return true;
         });
+
+
 
     }
 
@@ -145,37 +148,37 @@ class SearchController{
 
     selectAndUnselect(keyCode, input) {
 
-        if (this.InputMatchesExactlyOneElementInTheList(input)) {
+
 
             const spaceKey = 32;
-            if (keyCode === spaceKey) {
+            const enterKey = 13;
 
-                this.input = "";
-                this.$rootScope.$broadcast("offsearch");
-                this.myStyle = {width: `${225}px`};
-                this.eventNotThrownYet = true;
+            if(this.resultsList.length === 1) {
+
+                if (this.eventNotThrownYet) {
+
+                    if (keyCode === enterKey) {
+
+                        this.$rootScope.$broadcast("onsearch", {searched: this.resultsList[0].name});
+
+                        this.eventNotThrownYet = false;
+                    }
 
 
-            } else if (this.eventNotThrownYet) {
+                } else if (keyCode === spaceKey) {
 
-                this.$rootScope.$broadcast("onsearch", {searched: this.resultsList[0]});
+                    this.input = "";
+                    this.$rootScope.$broadcast("offsearch");
+                    this.myStyle = {width: `${225}px`};
+                    this.eventNotThrownYet = true;
 
-                this.eventNotThrownYet = false;
+
+                }
 
             }
 
-        }
     }
 
-    InputMatchesExactlyOneElementInTheList(input){
-
-        console.log("eventuell");
-
-        return this.resultsList.length===1 && input.toLowerCase()===this.resultsList[0].name.toLowerCase();
-
-
-
-    }
 }
 
 

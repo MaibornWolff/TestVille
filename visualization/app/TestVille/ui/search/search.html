@@ -22,8 +22,9 @@
 
 
     <datalist id="requirementsandtests">
-        <option ng-repeat="value in ctrl.resultsList | limitTo : ctrl.upperLimit" >{{::value}}</option>
+        <option ng-repeat="value in ctrl.resultsList | limitTo : ctrl.upperLimit" >{{::value.name}}</option>
     </datalist>
+
 
 
 
